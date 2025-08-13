@@ -1,153 +1,162 @@
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void
-    dataLayer: any[]
-  }
-}
+import {
+  AnalyticsEvent,
+  ContactAction,
+  NavigationLocation,
+  SocialPlatform
+} from '../types/analytics'
 
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
+// ========= ANALYTICS CLASS =========
+class Analytics {
+  private measurementId: string
+  private isInitialized = false
+  private isDev = import.meta.env.DEV
 
-export const initGoogleAnalytics = () => {
-  if (!GA_MEASUREMENT_ID) {
-    console.warn('⚠️ VITE_GA_MEASUREMENT_ID não encontrado no .env')
-    return
-  }
-
-  window.dataLayer = window.dataLayer || []
-
-  window.gtag = function () {
-    window.dataLayer.push(arguments)
+  constructor() {
+    this.measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID
   }
 
-  window.gtag('js', new Date())
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    send_page_view: true,
-    debug_mode: import.meta.env.DEV
-  })
+  // ========= INICIALIZAÇÃO =========
+  init(): Promise<boolean> {
+    return new Promise((resolve) => {
+      if (!this.measurementId) {
+        console.warn('⚠️ Google Analytics ID não encontrado')
+        resolve(false)
+        return
+      }
 
-  const script = document.createElement('script')
-  script.async = true
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
-  script.onload = () => {}
-  script.onerror = () => {
-    console.error('❌ Erro ao carregar Google Analytics')
-  }
-  document.head.appendChild(script)
-}
+      if (this.isInitialized) {
+        resolve(true)
+        return
+      }
 
-// Eventos específicos para rastreamento
-export const trackProjectClick = (projectId: string, projectName?: string) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'project_click', {
-      event_category: 'projects',
-      event_label: projectId,
-      project_name: projectName,
-      value: 1
+      this.setupGoogleAnalytics()
+      this.loadGoogleAnalyticsScript(resolve)
     })
+  }
 
-    if (import.meta.env.DEV) {
+  private setupGoogleAnalytics(): void {
+    // Inicializar dataLayer
+    window.dataLayer = window.dataLayer || []
+    window.gtag = (...args) => window.dataLayer.push(args)
+
+    // Configurar GA
+    window.gtag('js', new Date())
+    window.gtag('config', this.measurementId, {
+      send_page_view: true,
+      debug_mode: this.isDev
+    })
+  }
+
+  private loadGoogleAnalyticsScript(resolve: (value: boolean) => void): void {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}`
+
+    script.onload = () => {
+      this.isInitialized = true
+      this.log('✅ Google Analytics inicializado')
+      resolve(true)
     }
-  }
-}
 
-export const trackNavigationClick = (
-  page: string,
-  location: 'header' | 'footer' | 'mobile'
-) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'navigation_click', {
-      event_category: 'navigation',
-      event_label: `${page}_${location}`,
-      page: page,
-      location: location,
-      value: 1
-    })
-
-    if (import.meta.env.DEV) {
-      console.log('📊 Navigation Click:', { page, location })
+    script.onerror = () => {
+      console.error('❌ Erro ao carregar Google Analytics')
+      resolve(false)
     }
+
+    document.head.appendChild(script)
   }
-}
 
-export const trackContactAction = (
-  action: 'form_submit' | 'email_click' | 'contact_page_view'
-) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'contact_interaction', {
-      event_category: 'contact',
-      event_label: action,
-      value: 1
-    })
+  // ========= TRACKING GENÉRICO =========
+  track(event: AnalyticsEvent): void {
+    if (!this.canTrack()) return
 
-    if (import.meta.env.DEV) {
-      console.log('📊 Contact Action:', { action })
-    }
-  }
-}
+    const { action, category, label, value, customParams } = event
 
-export const trackSocialClick = (
-  platform: 'instagram' | 'youtube',
-  location: 'header' | 'footer'
-) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'social_click', {
-      event_category: 'social_media',
-      event_label: `${platform}_${location}`,
-      platform: platform,
-      location: location,
-      value: 1
-    })
-
-    if (import.meta.env.DEV) {
-      console.log('📊 Social Click:', { platform, location })
-    }
-  }
-}
-
-export const trackDownload = (fileName: string, fileType: string) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'file_download', {
-      event_category: 'downloads',
-      event_label: fileName,
-      file_type: fileType,
-      value: 1
-    })
-  }
-}
-
-export const trackSearch = (searchTerm: string, resultsCount: number) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'search', {
-      search_term: searchTerm,
-      results_count: resultsCount
-    })
-  }
-}
-
-// Função genérica para eventos customizados
-export const trackEvent = (
-  action: string,
-  category: string,
-  label?: string,
-  value?: number,
-  customParams?: Record<string, any>
-) => {
-  if (typeof window.gtag !== 'undefined') {
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
-      value: value,
+      value: value || 1,
       ...customParams
     })
 
-    if (import.meta.env.DEV) {
-      console.log('📊 Custom Event:', {
-        action,
-        category,
-        label,
-        value,
-        customParams
-      })
+    this.log('📊 Event tracked:', event)
+  }
+
+  trackPageView(path: string, title?: string): void {
+    if (!this.canTrack()) return
+
+    window.gtag('config', this.measurementId, {
+      page_path: path,
+      page_title: title || document.title
+    })
+
+    this.log('📄 Page view:', { path, title })
+  }
+
+  // ========= TRACKING ESPECÍFICO =========
+  trackProject(projectId: string, projectName?: string): void {
+    this.track({
+      action: 'project_click',
+      category: 'projects',
+      label: projectId,
+      customParams: { project_name: projectName }
+    })
+  }
+
+  trackNavigation(page: string, location: NavigationLocation): void {
+    this.track({
+      action: 'navigation_click',
+      category: 'navigation',
+      label: `${page}_${location}`,
+      customParams: { page, location }
+    })
+  }
+
+  trackContact(action: ContactAction): void {
+    this.track({
+      action: 'contact_interaction',
+      category: 'contact',
+      label: action
+    })
+  }
+
+  trackSocial(platform: SocialPlatform, location: NavigationLocation): void {
+    this.track({
+      action: 'social_click',
+      category: 'social_media',
+      label: `${platform}_${location}`,
+      customParams: { platform, location }
+    })
+  }
+
+  trackDownload(fileName: string, fileType: string): void {
+    this.track({
+      action: 'file_download',
+      category: 'downloads',
+      label: fileName,
+      customParams: { file_type: fileType }
+    })
+  }
+
+  trackSearch(searchTerm: string, resultsCount: number): void {
+    this.track({
+      action: 'search',
+      category: 'search',
+      customParams: { search_term: searchTerm, results_count: resultsCount }
+    })
+  }
+
+  // ========= MÉTODOS AUXILIARES =========
+  private canTrack(): boolean {
+    return this.isInitialized && typeof window.gtag !== 'undefined'
+  }
+
+  private log(message: string, data?: any): void {
+    if (this.isDev) {
+      console.log(message, data || '')
     }
   }
 }
+
+// ========= SINGLETON INSTANCE =========
+export const analytics = new Analytics()

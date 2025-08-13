@@ -7,10 +7,7 @@ import { ThemeToggle } from '../ui/ThemeToggle'
 import { LanguageSwitch } from '../ui/LanguageSwitch'
 import { HeaderConfig } from './types'
 import { useI18n } from '@/shared/contexts/I18nContext'
-import {
-  trackNavigationClick,
-  trackSocialClick
-} from '@/features/trafego/utils/analytics'
+import { trackNavigationClick, trackSocialClick } from '@/features/trafego'
 
 export const LayoutHeader: React.FC<HeaderConfig> = ({
   logoSrc,

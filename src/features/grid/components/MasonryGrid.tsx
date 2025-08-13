@@ -1,16 +1,51 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { ImageCard } from './ui/ImageCard'
 import { GridLoadingSkeleton } from './ui/LoadingSkeleton'
 import { MasonryGridProps, ImageItem } from '../types'
 
+// Hook para gerenciar breakpoints
+const useResponsiveColumns = (columnCount: MasonryGridProps['columnCount']) => {
+  const [columns, setColumns] = useState(() => {
+    const width = typeof window !== 'undefined' ? window.innerWidth : 1024
+    if (width < 640) return columnCount?.sm || 1
+    if (width < 1024) return columnCount?.md || 2
+    if (width < 1280) return columnCount?.lg || 3
+    return columnCount?.xl || 4
+  })
+
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth
+      let newCols = columnCount?.lg || 3
+
+      if (width < 640) newCols = columnCount?.sm || 1
+      else if (width < 1024) newCols = columnCount?.md || 2
+      else if (width < 1280) newCols = columnCount?.lg || 3
+      else newCols = columnCount?.xl || 4
+
+      setColumns((prev) => (prev !== newCols ? newCols : prev))
+    }
+
+    const debouncedUpdate = debounce(updateColumns, 150)
+    window.addEventListener('resize', debouncedUpdate)
+    return () => window.removeEventListener('resize', debouncedUpdate)
+  }, [columnCount])
+
+  return columns
+}
+
+// Utilitário de debounce inline para evitar dependência externa
+const debounce = (func: Function, wait: number) => {
+  let timeout: NodeJS.Timeout
+  return (...args: any[]) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(null, args), wait)
+  }
+}
+
 export const MasonryGrid: React.FC<MasonryGridProps> = ({
-  images,
-  columnCount = {
-    sm: 1,
-    md: 2,
-    lg: 4,
-    xl: 4
-  },
+  images = [],
+  columnCount = { sm: 1, md: 2, lg: 3, xl: 4 },
   gap = 4,
   className = '',
   onImageClick,
@@ -20,114 +55,49 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
   error = null,
   isSquareGrid = false
 }) => {
-  const [validImages, setValidImages] = useState<ImageItem[]>([])
-  const [loadedCount, setLoadedCount] = useState(0)
-  const [columns, setColumns] = useState<ImageItem[][]>([])
-  
-  // Inicializa currentColumns com um valor padrão válido
-  const [currentColumns, setCurrentColumns] = useState(() => {
-    // Inicializa com um valor padrão baseado no columnCount
-    const width = typeof window !== 'undefined' ? window.innerWidth : 1024
-    if (width < 640) return columnCount.sm
-    if (width < 1024) return columnCount.md
-    if (width < 1280) return columnCount.lg
-    return columnCount.xl
-  })
-  
+  const [validImages, setValidImages] = useState<ImageItem[]>(images)
   const containerRef = useRef<HTMLDivElement>(null)
+  const currentColumns = useResponsiveColumns(columnCount)
 
+  // Atualiza imagens válidas quando props.images mudam
   useEffect(() => {
     setValidImages(images)
-    setLoadedCount(0)
   }, [images])
 
-  // Determina o número de colunas baseado no tamanho da tela
-  useLayoutEffect(() => {
-    const updateColumns = () => {
-      if (!containerRef.current) return
+  // Distribui imagens em colunas de forma otimizada
+  const distributedColumns = useMemo(() => {
+    if (validImages.length === 0 || currentColumns === 0) return []
 
-      const width = window.innerWidth
-      let cols = columnCount.lg
-
-      if (width < 640) cols = columnCount.sm
-      else if (width < 1024) cols = columnCount.md
-      else if (width < 1280) cols = columnCount.lg
-      else cols = columnCount.xl
-
-      // Só atualiza se realmente mudou para evitar re-renders desnecessários
-      setCurrentColumns(prevCols => prevCols !== cols ? cols : prevCols)
-    }
-
-    updateColumns()
-    window.addEventListener('resize', updateColumns)
-    return () => window.removeEventListener('resize', updateColumns)
-  }, [columnCount])
-
-  // Distribui as imagens pelas colunas de forma sequencial (como Pinterest)
-  useEffect(() => {
-    if (validImages.length === 0 || currentColumns === 0) {
-      setColumns([])
-      return
-    }
-
-    // Cria arrays vazios para cada coluna
-    const newColumns: ImageItem[][] = Array.from(
+    const columns: ImageItem[][] = Array.from(
       { length: currentColumns },
       () => []
     )
 
-    // Distribui as imagens sequencialmente
-    // 1ª imagem -> coluna 0, 2ª -> coluna 1, 3ª -> coluna 2, 4ª -> coluna 0...
     validImages.forEach((image, index) => {
-      const columnIndex = index % currentColumns
-      newColumns[columnIndex].push(image)
+      columns[index % currentColumns].push(image)
     })
 
-    setColumns(newColumns)
+    return columns
   }, [validImages, currentColumns])
 
-  const handleImageLoad = (image: ImageItem) => {
-    setLoadedCount((prev) => prev + 1)
-    onImageLoad?.(image)
-  }
+  // Handlers otimizados
+  const handleImageLoad = (image: ImageItem) => onImageLoad?.(image)
 
-  const handleError = (image: ImageItem) => {
+  const handleImageError = (image: ImageItem) => {
     setValidImages((prev) => prev.filter((img) => img.id !== image.id))
     onImageError?.(image)
   }
 
-  const getGapClass = () => {
-    return `gap-${gap}`
-  }
+  // Classes CSS calculadas
+  const gapClasses = useMemo(
+    () => ({
+      container: `-m-${gap}`,
+      item: `p-${gap}`
+    }),
+    [gap]
+  )
 
-  const getPaddingClass = () => {
-    // Mapeia valores de gap para classes de padding específicas
-    const paddingMap: { [key: number]: string } = {
-      1: 'p-0.5',
-      2: 'p-1',
-      3: 'p-1.5',
-      4: 'p-2',
-      5: 'p-2.5',
-      6: 'p-3',
-      8: 'p-4'
-    }
-    return paddingMap[gap] || 'p-2'
-  }
-
-  const getNegativeMarginClass = () => {
-    // Mapeia valores de gap para classes de margem negativa específicas
-    const marginMap: { [key: number]: string } = {
-      1: '-m-0.5',
-      2: '-m-1',
-      3: '-m-1.5',
-      4: '-m-2',
-      5: '-m-2.5',
-      6: '-m-3',
-      8: '-m-4'
-    }
-    return marginMap[gap] || '-m-2'
-  }
-
+  // Estados de loading e erro
   if (loading) {
     return (
       <div className={`w-full ${className}`}>
@@ -145,9 +115,7 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
           <div className="text-red-500 dark:text-red-400 text-lg mb-2">
             ⚠️ Erro ao carregar imagens
           </div>
-          <p className="text-primary-black/60 dark:text-primary-white/60">
-            {error}
-          </p>
+          <p className="text-gray-600 dark:text-gray-400">{error}</p>
         </div>
       </div>
     )
@@ -159,7 +127,7 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
         className={`w-full flex items-center justify-center p-8 ${className}`}
       >
         <div className="text-center">
-          <div className="text-primary-black/70 dark:text-primary-white/70 text-lg mb-2">
+          <div className="text-gray-700 dark:text-gray-300 text-lg">
             📷 Nenhuma imagem disponível
           </div>
         </div>
@@ -169,17 +137,16 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
 
   return (
     <div ref={containerRef} className={`w-full ${className}`}>
-      {/* Masonry Grid estilo Pinterest com padding uniforme */}
-      <div className={`flex ${getNegativeMarginClass()}`}>
-        {columns.map((columnImages, columnIndex) => (
+      <div className={`flex ${gapClasses.container}`}>
+        {distributedColumns.map((columnImages, columnIndex) => (
           <div key={columnIndex} className="flex-1 flex flex-col">
             {columnImages.map((image) => (
-              <div key={image.id} className={`w-full ${getPaddingClass()}`}>
+              <div key={image.id} className={`w-full ${gapClasses.item}`}>
                 <ImageCard
                   image={image}
                   onClick={onImageClick}
                   onLoad={handleImageLoad}
-                  onError={handleError}
+                  onError={handleImageError}
                   isSquare={isSquareGrid}
                 />
               </div>

@@ -1,54 +1,39 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { RouteRenderer } from './components/RouteRenderer'
 import { AppRouterProps, RouteConfig, RouteGroup } from './types'
+import { RouteRenderer } from './components/RouteRenderer'
+
+const processRoutes = (configs: (RouteConfig | RouteGroup)[]) => {
+  return configs.flatMap((config) => {
+    if ('routes' in config) {
+      return config.routes.map((route) => ({
+        ...route,
+        path: (config.prefix || '') + route.path,
+        layout: route.layout || config.layout,
+        requiresAuth: route.requiresAuth ?? config.requiresAuth,
+        roles: route.roles || config.roles
+      }))
+    }
+    return config
+  })
+}
 
 export const AppRouter: React.FC<AppRouterProps> = ({
   routes,
-  fallbackRoute = '/'
+  fallback = '/'
 }) => {
-  const renderRoutes = (
-    routeConfigs: (RouteConfig | RouteGroup)[]
-  ): React.ReactNode[] => {
-    return routeConfigs.flatMap((config) => {
-      // Se é um grupo de rotas
-      if ('routes' in config) {
-        const group = config as RouteGroup
-        return group.routes.map((route) => {
-          const fullPath = group.prefix
-            ? `${group.prefix}${route.path}`
-            : route.path
-          const layout = route.layout || group.layout
+  const processedRoutes = processRoutes(routes)
 
-          return (
-            <Route
-              key={fullPath}
-              path={fullPath}
-              element={
-                <RouteRenderer route={{ ...route, path: fullPath, layout }} />
-              }
-            />
-          )
-        })
-      }
-
-      // Se é uma rota individual
-      const route = config as RouteConfig
-      return (
+  return (
+    <Routes>
+      {processedRoutes.map((route) => (
         <Route
           key={route.path}
           path={route.path}
           element={<RouteRenderer route={route} />}
         />
-      )
-    })
-  }
-
-  return (
-    <Routes>
-      {renderRoutes(routes)}
-      {/* Rota de fallback */}
-      <Route path="*" element={<Navigate to={fallbackRoute} replace />} />
+      ))}
+      <Route path="*" element={<Navigate to={fallback} replace />} />
     </Routes>
   )
 }

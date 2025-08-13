@@ -1,7 +1,7 @@
-import { trackContactAction } from '@/features/trafego/utils/analytics'
+import React, { useEffect, useState } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
-import React, { useEffect, useState } from 'react'
+import { trackContactAction } from '@/features/trafego'
 
 export const ContactPage: React.FC = () => {
   const { t } = useI18n()

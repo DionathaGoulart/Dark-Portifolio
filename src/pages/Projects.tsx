@@ -8,7 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
-import { trackProjectClick } from '@/features/trafego/utils/analytics'
+import { trackProjectClick } from '@/features/trafego'
 
 // Função para otimizar URLs do Cloudinary (mantida igual da versão anterior)
 const optimizeCloudinaryUrl = (

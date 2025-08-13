@@ -1,35 +1,27 @@
-// src/core/components/RouteRenderer.tsx
-import React from 'react'
-import { AuthGuard } from '../guards/AuthGuard'
-import { RouteConfig } from '../types'
-import { useGoogleAnalytics } from '@/features/trafego/hooks/useGoogleAnalytics'
+import React, { useEffect } from 'react'
 
-interface RouteRendererProps {
+import { useGoogleAnalytics } from '@/features/trafego/hooks/useGoogleAnalytics'
+import { RouteConfig } from '../types'
+import { AuthGuard } from '../guards/AuthGuard'
+
+interface Props {
   route: RouteConfig
 }
 
-export const RouteRenderer: React.FC<RouteRendererProps> = ({ route }) => {
-  const { element: Element, layout: Layout, meta } = route
+export const RouteRenderer: React.FC<Props> = ({ route }) => {
+  const { element: Element, layout: Layout, title, requiresAuth, roles } = route
 
-  // Rastrear mudanças de rota
   useGoogleAnalytics()
 
-  // Atualizar título da página
-  React.useEffect(() => {
-    if (meta?.title) {
-      document.title = meta.title
-    }
-  }, [meta?.title])
+  useEffect(() => {
+    if (title) document.title = title
+  }, [title])
 
   const content = (
-    <AuthGuard requiresAuth={meta?.requiresAuth} roles={meta?.roles}>
+    <AuthGuard requiresAuth={requiresAuth} roles={roles}>
       <Element />
     </AuthGuard>
   )
 
-  if (Layout) {
-    return <Layout>{content}</Layout>
-  }
-
-  return content
+  return Layout ? <Layout>{content}</Layout> : content
 }

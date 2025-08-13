@@ -1,22 +1,24 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { analytics } from '../utils/analytics'
 
-export const useGoogleAnalytics = () => {
+// ========= REACT HOOK =========
+export const useAnalytics = () => {
   const location = useLocation()
 
+  // Inicializar analytics na primeira execução
   useEffect(() => {
-    const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
+    analytics.init()
+  }, [])
 
-    if (typeof window.gtag !== 'undefined' && GA_MEASUREMENT_ID) {
-      // Rastrear mudança de página
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        page_path: location.pathname + location.search,
-        page_title: document.title
-      })
-
-      // Log em desenvolvimento
-      if (import.meta.env.DEV) {
-      }
-    }
+  // Rastrear mudanças de rota
+  useEffect(() => {
+    const path = location.pathname + location.search
+    analytics.trackPageView(path)
   }, [location])
+
+  return analytics
 }
+
+// Hook original para compatibilidade
+export const useGoogleAnalytics = useAnalytics

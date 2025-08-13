@@ -7,6 +7,7 @@ export const useGridState = (initialImages: ImageItem[] = []) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Operações básicas de CRUD para imagens
   const addImage = useCallback((image: ImageItem) => {
     setImages((prev) => [...prev, image])
   }, [])
@@ -26,6 +27,7 @@ export const useGridState = (initialImages: ImageItem[] = []) => {
     setSelectedImage(null)
   }, [])
 
+  // Handlers para eventos do grid
   const handleImageClick = useCallback((image: ImageItem) => {
     setSelectedImage(image)
   }, [])
@@ -39,18 +41,25 @@ export const useGridState = (initialImages: ImageItem[] = []) => {
   )
 
   return {
+    // Estado
     images,
     selectedImage,
     loading,
     error,
+
+    // Setters
     setImages,
     setSelectedImage,
     setLoading,
     setError,
+
+    // Ações
     addImage,
     removeImage,
     updateImage,
     clearImages,
+
+    // Handlers
     handleImageClick,
     handleImageError
   }
