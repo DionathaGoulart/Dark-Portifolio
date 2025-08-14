@@ -6,7 +6,7 @@ import { ThemeProvider } from '@shared'
 const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <AppRouter routes={appRoutes} fallbackRoute="/" />
+      <AppRouter routes={appRoutes} fallback="/" />
     </ThemeProvider>
   )
 }
