@@ -1,5 +1,4 @@
 import { Translation } from '@/types'
-
 export const ptTranslations: Translation = {
   nav: {
     home: 'Inicio',
@@ -13,7 +12,8 @@ export const ptTranslations: Translation = {
     about: 'Sobre - Dark',
     projects: 'Projetos - Dark',
     contact: 'Contato - Dark',
-    prints: 'Prints & Arte - Dark'
+    prints: 'Prints & Arte - Dark',
+    facesOfHorror: 'Faces Of Horror - Dark'
   },
   pages: {
     home: {
@@ -30,7 +30,32 @@ export const ptTranslations: Translation = {
     projects: {
       title: 'Nossos Projetos',
       description:
-        'Explore alguns dos nossos trabalhos mais recentes. Cada imagem representa um projeto único e inspirador.'
+        'Explore alguns dos nossos trabalhos mais recentes. Cada imagem representa um projeto único e inspirador.',
+      proj1: {
+        title: 'Faces do Horror',
+        alt: 'Projeto 1: Coleção de Design de Horror'
+      },
+      proj2: {
+        title: 'Contato',
+        alt: 'Projeto 2: Arquitetura Minimalista'
+      },
+      proj3: {
+        title: 'Impressões',
+        alt: 'Projeto 3: Fotografia Urbana'
+      },
+      proj4: {
+        title: 'Paisagismo Natural',
+        alt: 'Projeto 4: Paisagismo Natural'
+      },
+      proj5: {
+        title: 'Interiores Aconchegantes',
+        alt: 'Projeto 5: Interiores Aconchegantes'
+      }
+    },
+    facesOfHorror: {
+      title: 'Faces do Horror',
+      description:
+        'Designs perturbadores de rostos para uso em produtos impressos!'
     },
     contact: {
       title: 'Contato',

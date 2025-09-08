@@ -4,12 +4,13 @@ import {
   AboutPage,
   ProjectsPage,
   PrintsPage,
-  ContactPage
+  ContactPage,
+  FacesOfHorror
 } from '@pages'
 import { RouteConfig, RouteGroup } from '@/core'
-import ImageGridShowcase from '@/pages/ShowCase'
+import ShowcasePage from '@/pages/ShowCase'
 import ProjectOne from '@/pages/ProjectOne'
-import ProjectTwo from '@/pages/ProjectTwo'
+import { CamisetasRaglan } from '@/pages/Projects/CamisetasRaglan'
 
 export const appRoutes: (RouteConfig | RouteGroup)[] = [
   {
@@ -37,15 +38,19 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
       },
       {
         path: '/project1',
-        element: ImageGridShowcase
+        element: ShowcasePage
       },
       {
         path: '/projectone',
         element: ProjectOne
       },
       {
-        path: '/projecttwo',
-        element: ProjectTwo
+        path: '/facesofhorror',
+        element: FacesOfHorror
+      },
+      {
+        path: '/tshirt-raglan',
+        element: CamisetasRaglan
       }
     ]
   }

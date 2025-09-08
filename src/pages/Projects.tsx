@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import {
-  batchPreloadImages,
-  ImageCard,
-  ImageItem,
-  MasonryGrid
-} from '@features/grid'
 import { useNavigate } from 'react-router-dom'
+import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
+import { getImage } from '@/core/utils/getImage'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackProjectClick } from '@/features/trafego'
+
+import cover1Raw from '@assets/1 Faces of horror/10.png'
+const cover1 = getImage(`${cover1Raw}?as=webp&width=400`)
 
 // Função para otimizar URLs do Cloudinary (mantida igual da versão anterior)
 const optimizeCloudinaryUrl = (
@@ -89,53 +88,43 @@ const generateOptimizedUrls = (originalUrl: string) => {
 const createProjectData = (t: any): ImageItem[] => [
   {
     id: 'proj1',
-    url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/1.png',
-    alt:
-      t.language === 'pt'
-        ? 'Projeto 1: Design Moderno'
-        : 'Project 1: Modern Design',
-    linkTo: '/about',
-    urls: undefined
+    url: '',
+    alt: t.pages.projects.proj1.alt,
+    linkTo: '/facesofhorror',
+    urls: undefined,
+    title: t.pages.projects.proj1.title
   },
   {
     id: 'proj2',
-    url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/2.png',
-    alt:
-      t.language === 'pt'
-        ? 'Projeto 2: Arquitetura Minimalista'
-        : 'Project 2: Minimalist Architecture',
+    url: cover1,
+    alt: t.pages.projects.proj2.alt,
     linkTo: '/contact',
-    urls: undefined
+    urls: undefined,
+    title: t.pages.projects.proj2.title
   },
   {
     id: 'proj3',
     url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/3.png',
-    alt:
-      t.language === 'pt'
-        ? 'Projeto 3: Fotografia Urbana'
-        : 'Project 3: Urban Photography',
+    alt: t.pages.projects.proj3.alt,
     linkTo: '/prints',
-    urls: undefined
+    urls: undefined,
+    title: t.pages.projects.proj3.title
   },
   {
     id: 'proj4',
     url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/4.png',
-    alt:
-      t.language === 'pt'
-        ? 'Projeto 4: Paisagismo Natural'
-        : 'Project 4: Natural Landscaping',
+    alt: t.pages.projects.proj4.alt,
     linkTo: '/projects/paisagismo-natural',
-    urls: undefined
+    urls: undefined,
+    title: t.pages.projects.proj4.title
   },
   {
     id: 'proj5',
     url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/5.png',
-    alt:
-      t.language === 'pt'
-        ? 'Projeto 5: Interiores Aconchegantes'
-        : 'Project 5: Cozy Interiors',
+    alt: t.pages.projects.proj5.alt,
     linkTo: '/projects/interiores-aconchegantes',
-    urls: undefined
+    urls: undefined,
+    title: t.pages.projects.proj5.title
   }
 ]
 
@@ -191,7 +180,7 @@ export const ProjectsPage: React.FC = () => {
       setLoading(true)
       setError(null)
       try {
-        const projectData = createProjectData({ language })
+        const projectData = createProjectData(t)
         const validImages = await preloadImageItems(projectData)
 
         setImages(validImages)

@@ -119,6 +119,7 @@ export interface Translation {
     projects: string
     contact: string
     prints: string
+    facesOfHorror: string
   }
   pages: {
     home: {
@@ -133,6 +134,38 @@ export interface Translation {
     projects: {
       title: string
       description: string
+      proj1?: {
+        title: string
+        alt: string
+      }
+      proj2?: {
+        title: string
+        alt: string
+      }
+      proj3?: {
+        title: string
+        alt: string
+      }
+      proj4?: {
+        title: string
+        alt: string
+      }
+      proj5?: {
+        title: string
+        alt: string
+      }
+      proj6?: {
+        title: string
+        alt: string
+      }
+      proj7?: {
+        title: string
+        alt: string
+      }
+      proj8?: {
+        title: string
+        alt: string
+      }
     }
     contact: {
       title: string
@@ -159,6 +192,10 @@ export interface Translation {
     prints: {
       title: string
       subtitle: string
+    }
+    facesOfHorror: {
+      title: string
+      description?: string
     }
   }
   footer: {

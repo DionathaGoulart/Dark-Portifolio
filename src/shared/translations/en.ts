@@ -1,5 +1,4 @@
 import { Translation } from '@/types'
-
 export const enTranslations: Translation = {
   nav: {
     home: 'Home',
@@ -13,7 +12,8 @@ export const enTranslations: Translation = {
     about: 'About - Dark',
     projects: 'Projects - Dark',
     contact: 'Contact - Dark',
-    prints: 'Prints & Artwork - Dark'
+    prints: 'Prints & Artwork - Dark',
+    facesOfHorror: 'Faces of Horror - Dark'
   },
   pages: {
     home: {
@@ -30,7 +30,31 @@ export const enTranslations: Translation = {
     projects: {
       title: 'Our Projects',
       description:
-        'Explore some of our most recent work. Each image represents a unique and inspiring project.'
+        'Explore some of our most recent work. Each image represents a unique and inspiring project.',
+      proj1: {
+        title: 'Faces Of Horror',
+        alt: 'Project 1: Horror Design Collection'
+      },
+      proj2: {
+        title: 'Contact',
+        alt: 'Project 2: Minimalist Architecture'
+      },
+      proj3: {
+        title: 'Prints',
+        alt: 'Project 3: Urban Photography'
+      },
+      proj4: {
+        title: 'Natural Landscaping',
+        alt: 'Project 4: Natural Landscaping'
+      },
+      proj5: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
+      }
+    },
+    facesOfHorror: {
+      title: 'Faces Of Horror',
+      description: 'Disturbing face designs for use on printed products!'
     },
     contact: {
       title: 'Contact',

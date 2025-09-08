@@ -71,6 +71,7 @@
   "include": [
     "src",
     "src/styles",
-    "src/types"
+    "src/types",
+    "src/pages/Projects/.tsx"
   ]
 }

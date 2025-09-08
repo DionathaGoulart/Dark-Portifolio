@@ -43,42 +43,39 @@ const ProjectOne: React.FC = () => {
           />
         </div>
 
-        {/* Imagem inteira 1 */}
+        {/* Imagem inteira 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(4, 1)}
-            columns={2}
-            aspectRatio="2/1"
-            objectFit="cover"
-            rounded="none"
-            gap="1"
-            className="grid-cols-1"
-          />
-        </div>
-
-        {/* Imagem inteira 2 */}
-        <div className="mb-12">
-          <ImageGrid
-            images={createImageSet(5, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="16/9"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
-        {/* Imagem inteira 3 */}
+        {/* Imagem inteira 2 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={createImageSet(5, 1)}
+            columns={1}
+            aspectRatio="16/9"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
+        {/* Imagem inteira 3 - 100% width com padding */}
         <div className="mb-12 px-20">
           <ImageGrid
             images={createImageSet(6, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="3/2"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
@@ -95,29 +92,27 @@ const ProjectOne: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 1 */}
+        {/* Imagem solo 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(9, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="4/3"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
-        {/* Imagem solo 2 */}
+        {/* Imagem solo 2 - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(10, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="16/9"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
@@ -134,29 +129,27 @@ const ProjectOne: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 3 */}
+        {/* Imagem solo 3 - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(13, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="2/1"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
-        {/* Imagem solo 4 */}
+        {/* Imagem solo 4 - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(14, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="4/3"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
 
@@ -173,16 +166,15 @@ const ProjectOne: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo final */}
+        {/* Imagem solo final - 100% width */}
         <div className="mb-12">
           <ImageGrid
             images={createImageSet(17, 1)}
-            columns={2}
+            columns={1}
             aspectRatio="16/9"
             objectFit="cover"
             rounded="none"
             gap="1"
-            className="grid-cols-1"
           />
         </div>
       </section>

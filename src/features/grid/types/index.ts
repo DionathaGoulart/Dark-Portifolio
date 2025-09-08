@@ -1,9 +1,11 @@
+import { ReactNode } from 'react'
+
 export interface ImageItem {
   urls: any
   id: string
   url: string
   alt?: string
-  title?: string
+  title?: string | ReactNode
   description?: string
   width?: number
   height?: number
