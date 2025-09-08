@@ -7,6 +7,9 @@ import {
   ContactPage
 } from '@pages'
 import { RouteConfig, RouteGroup } from '@/core'
+import ImageGridShowcase from '@/pages/ShowCase'
+import ProjectOne from '@/pages/ProjectOne'
+import ProjectTwo from '@/pages/ProjectTwo'
 
 export const appRoutes: (RouteConfig | RouteGroup)[] = [
   {
@@ -31,6 +34,18 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
       {
         path: '/prints',
         element: PrintsPage
+      },
+      {
+        path: '/project1',
+        element: ImageGridShowcase
+      },
+      {
+        path: '/projectone',
+        element: ProjectOne
+      },
+      {
+        path: '/projecttwo',
+        element: ProjectTwo
       }
     ]
   }
