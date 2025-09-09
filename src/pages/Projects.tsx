@@ -6,7 +6,7 @@ import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackProjectClick } from '@/features/trafego'
 
-import cover1Raw from '@assets/1 Faces of horror/10.png'
+import cover1Raw from '@assets/1/10.webp'
 const cover1 = getImage(`${cover1Raw}?as=webp&width=400`)
 
 // Função para otimizar URLs do Cloudinary (mantida igual da versão anterior)
@@ -88,7 +88,7 @@ const generateOptimizedUrls = (originalUrl: string) => {
 const createProjectData = (t: any): ImageItem[] => [
   {
     id: 'proj1',
-    url: '',
+    url: 'cover1',
     alt: t.pages.projects.proj1.alt,
     linkTo: '/facesofhorror',
     urls: undefined,
@@ -98,7 +98,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj2',
     url: cover1,
     alt: t.pages.projects.proj2.alt,
-    linkTo: '/contact',
+    linkTo: '/tshirt-raglan',
     urls: undefined,
     title: t.pages.projects.proj2.title
   },
@@ -106,7 +106,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj3',
     url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/3.png',
     alt: t.pages.projects.proj3.alt,
-    linkTo: '/prints',
+    linkTo: '/joaninho',
     urls: undefined,
     title: t.pages.projects.proj3.title
   },
@@ -114,7 +114,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj4',
     url: 'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/4.png',
     alt: t.pages.projects.proj4.alt,
-    linkTo: '/projects/paisagismo-natural',
+    linkTo: '/creepy',
     urls: undefined,
     title: t.pages.projects.proj4.title
   },

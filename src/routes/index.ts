@@ -55,7 +55,7 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
         element: CamisetasRaglan
       },
       {
-        path: '/Joaninho',
+        path: '/joaninho',
         element: Joaninho
       },
       {
