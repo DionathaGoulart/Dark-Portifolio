@@ -8,7 +8,8 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   onLoad,
   onError,
   className = '',
-  isSquare = false
+  isSquare = false,
+  showHoverEffect = false
 }) => {
   const [isVisible, setIsVisible] = useState(true)
 
@@ -39,23 +40,21 @@ export const ImageCard: React.FC<ImageCardProps> = ({
           onLoad={handleLoad}
           onError={handleError}
           className={`w-full h-full ${isSquare ? 'object-cover' : ''}
-            group-hover:brightness-75 transition-all duration-200`}
+            ${showHoverEffect ? 'group-hover:brightness-75' : ''}
+            transition-all duration-200`}
         />
 
-        {/* Overlay hover sutil */}
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+        {/* Overlay hover sutil - só aparece se showHoverEffect for true */}
+        {showHoverEffect && (
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+        )}
 
-        {/* Título overlay - Lógica 100% Tailwind */}
-        {image.title && (
+        {/* Título overlay - só aparece se showHoverEffect for true */}
+        {image.title && showHoverEffect && (
           <div
             className={`
               absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent
               p-4 transform transition-all duration-300 ease-out
-
-              /* 1. Mobile (padrão): Título sempre visível.
-                2. Desktop (a partir de md): Título oculto por padrão e visível no hover.
-              */
-
               translate-y-0 opacity-100
               md:translate-y-full md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100
             `}

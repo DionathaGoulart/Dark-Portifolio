@@ -53,7 +53,8 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
   onImageError,
   loading = false,
   error = null,
-  isSquareGrid = false
+  isSquareGrid = false,
+  showHoverEffect = false
 }) => {
   const [validImages, setValidImages] = useState<ImageItem[]>(images)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -148,6 +149,7 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
                   onLoad={handleImageLoad}
                   onError={handleImageError}
                   isSquare={isSquareGrid}
+                  showHoverEffect={showHoverEffect} // Passa a propriedade
                 />
               </div>
             ))}

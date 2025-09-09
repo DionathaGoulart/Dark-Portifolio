@@ -34,12 +34,14 @@ export interface ImageCardProps {
   onError?: (image: ImageItem) => void
   className?: string
   isSquare?: boolean
+  showHoverEffect?: boolean
 }
 
 export interface MasonryGridProps extends GridConfig {
   loading?: boolean
   error?: string | null
   isSquareGrid?: boolean
+  showHoverEffect?: boolean
 }
 
 export interface ImageLoaderProps {

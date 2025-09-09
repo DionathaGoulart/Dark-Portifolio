@@ -240,6 +240,7 @@ export const ProjectsPage: React.FC = () => {
           }}
           gap={3}
           isSquareGrid
+          showHoverEffect
         />
       </section>
 
