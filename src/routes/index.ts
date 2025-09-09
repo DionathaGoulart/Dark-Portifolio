@@ -11,6 +11,8 @@ import { RouteConfig, RouteGroup } from '@/core'
 import ShowcasePage from '@/pages/ShowCase'
 import ProjectOne from '@/pages/ProjectOne'
 import { CamisetasRaglan } from '@/pages/Projects/CamisetasRaglan'
+import { Joaninho } from '@/pages/Projects/Joaninho'
+import { Creepy } from '@/pages/Projects/Creepy'
 
 export const appRoutes: (RouteConfig | RouteGroup)[] = [
   {
@@ -51,6 +53,14 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
       {
         path: '/tshirt-raglan',
         element: CamisetasRaglan
+      },
+      {
+        path: '/Joaninho',
+        element: Joaninho
+      },
+      {
+        path: '/creepy',
+        element: Creepy
       }
     ]
   }

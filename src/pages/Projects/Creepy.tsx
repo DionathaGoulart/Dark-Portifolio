@@ -5,19 +5,23 @@ import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 // Importações das imagens
-import image1Raw from '@assets/3/1.png'
-import image2Raw from '@assets/3/2.png'
-import image3Raw from '@assets/3/3.png'
-import image4Raw from '@assets/3/4.png'
-import image5Raw from '@assets/3/5.png'
-import image6Raw from '@assets/3/6.png'
-import image7Raw from '@assets/3/7.png'
-import image8Raw from '@assets/3/8.png'
-import image9Raw from '@assets/3/9.png'
-import image10Raw from '@assets/3/10.png'
-import image11Raw from '@assets/3/11.png'
-import image12Raw from '@assets/3/12.png'
-import image13Raw from '@assets/3/13.png'
+import image1Raw from '@assets/4/1.png'
+import image2Raw from '@assets/4/2.png'
+import image3Raw from '@assets/4/3.png'
+import image4Raw from '@assets/4/4.png'
+import image5Raw from '@assets/4/5.png'
+import image6Raw from '@assets/4/6.png'
+import image7Raw from '@assets/4/7.png'
+import image8Raw from '@assets/4/8.png'
+import image9Raw from '@assets/4/9.png'
+import image10Raw from '@assets/4/10.png'
+import image11Raw from '@assets/4/11.png'
+import image12Raw from '@assets/4/12.png'
+import image13Raw from '@assets/4/13.png'
+import image14Raw from '@assets/4/14.png'
+import image15Raw from '@assets/4/15.png'
+import image16Raw from '@assets/4/16.png'
+import image17Raw from '@assets/4/17.png'
 
 // Processamento das imagens
 const image1 = getImage(`${image1Raw}?as=webp&width=1200`)
@@ -33,6 +37,10 @@ const image10 = getImage(`${image10Raw}?as=webp&width=1200`)
 const image11 = getImage(`${image11Raw}?as=webp&width=1200`)
 const image12 = getImage(`${image12Raw}?as=webp&width=1200`)
 const image13 = getImage(`${image13Raw}?as=webp&width=1200`)
+const image14 = getImage(`${image14Raw}?as=webp&width=1200`)
+const image15 = getImage(`${image15Raw}?as=webp&width=1200`)
+const image16 = getImage(`${image16Raw}?as=webp&width=1200`)
+const image17 = getImage(`${image17Raw}?as=webp&width=1200`)
 
 // Interface para os dados de imagem
 interface ImageData {
@@ -40,7 +48,7 @@ interface ImageData {
   alt?: string
 }
 
-export const Joaninho: React.FC = () => {
+export const Creepy: React.FC = () => {
   const { t } = useI18n()
   useDocumentTitle('facesOfHorror')
 
@@ -60,16 +68,14 @@ export const Joaninho: React.FC = () => {
         </div>
 
         {/* Grid com 3 imagens */}
-        <div className="mb-12">
+        <div className="mb-12 px-16">
           <ImageGrid
             images={[
-              { src: image1, alt: 'Project Two - Imagem 1' },
-              { src: image2, alt: 'Project Two - Imagem 2' },
-              { src: image3, alt: 'Project Two - Imagem 3' },
-              { src: image4, alt: 'Project Two - Imagem 2' },
-              { src: image5, alt: 'Project Two - Imagem 3' }
+              { src: image8, alt: 'Project Two - Imagem 1' },
+              { src: image9, alt: 'Project Two - Imagem 2' },
+              { src: image10, alt: 'Project Two - Imagem 3' }
             ]}
-            columns={5}
+            columns={3}
             aspectRatio="3/4"
             objectFit="cover"
             rounded="none"
@@ -78,9 +84,9 @@ export const Joaninho: React.FC = () => {
         </div>
 
         {/* Imagem inteira 1 - 100% width */}
-        <div className="mb-12 px-16">
+        <div className="mb-12">
           <ImageGrid
-            images={[{ src: image7, alt: 'Project Two - Imagem 4' }]}
+            images={[{ src: image1, alt: 'Project Two - Imagem 4' }]}
             columns={1}
             aspectRatio="3/4"
             objectFit="cover"
@@ -90,26 +96,11 @@ export const Joaninho: React.FC = () => {
         </div>
 
         {/* Imagem inteira 2 - 100% width */}
-        <div className="mb-12 px-16">
-          <ImageGrid
-            images={[{ src: image6, alt: 'Project Two - Imagem 5' }]}
-            columns={1}
-            aspectRatio="3/4"
-            objectFit="cover"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
-        {/* Grid com 3 imagens */}
         <div className="mb-12">
           <ImageGrid
-            images={[
-              { src: image10, alt: 'Project Two - Imagem 1' },
-              { src: image11, alt: 'Project Two - Imagem 2' }
-            ]}
-            columns={2}
-            aspectRatio="9/16"
+            images={[{ src: image4, alt: 'Project Two - Imagem 5' }]}
+            columns={1}
+            aspectRatio="16/9"
             objectFit="cover"
             rounded="none"
             gap="1"
@@ -119,7 +110,7 @@ export const Joaninho: React.FC = () => {
         {/* Imagem solo 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image8, alt: 'Project Two - Imagem 9' }]}
+            images={[{ src: image2, alt: 'Project Two - Imagem 9' }]}
             columns={1}
             aspectRatio="3/4"
             objectFit="cover"
@@ -128,12 +119,47 @@ export const Joaninho: React.FC = () => {
           />
         </div>
 
-        {/* Grid com 3 imagens */}
+        {/* Imagem solo 1 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[{ src: image5, alt: 'Project Two - Imagem 9' }]}
+            columns={1}
+            aspectRatio="16/9"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
+        {/* Imagem solo 1 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[{ src: image3, alt: 'Project Two - Imagem 9' }]}
+            columns={1}
+            aspectRatio="16/9"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
+        {/* Imagem solo 2 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[{ src: image6, alt: 'Project Two - Imagem 10' }]}
+            columns={1}
+            aspectRatio="1/1"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
         <div className="mb-12">
           <ImageGrid
             images={[
-              { src: image9, alt: 'Project Two - Imagem 1' },
-              { src: image13, alt: 'Project Two - Imagem 2' }
+              { src: image11, alt: 'Project Two - Imagem 1' },
+              { src: image12, alt: 'Project Two - Imagem 2' }
             ]}
             columns={2}
             aspectRatio="4/3"
@@ -146,9 +172,9 @@ export const Joaninho: React.FC = () => {
         {/* Imagem solo 2 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image12, alt: 'Project Two - Imagem 10' }]}
+            images={[{ src: image7, alt: 'Project Two - Imagem 10' }]}
             columns={1}
-            aspectRatio="3/4"
+            aspectRatio="9/16"
             objectFit="cover"
             rounded="none"
             gap="1"

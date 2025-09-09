@@ -10,7 +10,7 @@ type AspectRatio = '1/1' | '16/9' | '4/3' | '3/2' | '2/1' | '3/4' | '9/16'
 type ObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
 type Rounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 type Gap = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8' | '10' | '12'
-type Columns = 1 | 2 | 3
+type Columns = 1 | 2 | 3 | 4 | 5
 type TwoColumnLayout = 'equal' | 'left-dominant' | 'right-dominant'
 
 interface ImageGridProps {
@@ -91,7 +91,16 @@ const ImageGrid: React.FC<ImageGridProps> = ({
     if (columns === 2) {
       return twoColumnLayoutClasses[twoColumnLayout]
     }
-    return 'grid-cols-3'
+    if (columns === 3) {
+      return 'grid-cols-3'
+    }
+    if (columns === 4) {
+      return 'grid-cols-4'
+    }
+    if (columns === 5) {
+      return 'grid-cols-5'
+    }
+    return 'grid-cols-3' // fallback
   }
 
   const gridClasses = `
