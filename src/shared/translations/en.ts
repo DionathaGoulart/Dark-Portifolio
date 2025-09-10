@@ -50,6 +50,18 @@ export const enTranslations: Translation = {
       proj5: {
         title: 'Cozy Interiors',
         alt: 'Project 5: Cozy Interiors'
+      },
+      proj6: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
+      },
+      proj7: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
+      },
+      proj8: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
       }
     },
     facesOfHorror: {

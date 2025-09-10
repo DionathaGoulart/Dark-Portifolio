@@ -50,6 +50,18 @@ export const ptTranslations: Translation = {
       proj5: {
         title: 'Interiores Aconchegantes',
         alt: 'Projeto 5: Interiores Aconchegantes'
+      },
+      proj6: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
+      },
+      proj7: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
+      },
+      proj8: {
+        title: 'Cozy Interiors',
+        alt: 'Project 5: Cozy Interiors'
       }
     },
     facesOfHorror: {
