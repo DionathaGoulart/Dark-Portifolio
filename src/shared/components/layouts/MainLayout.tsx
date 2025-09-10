@@ -2,6 +2,7 @@ import React from 'react'
 import { LayoutHeader } from './Header'
 import { LayoutFooter } from './Footer'
 import { MainLayoutProps } from './types'
+import { ScrollToTopButton } from '../ui/ScroolOnTop'
 
 export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
@@ -27,6 +28,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
       {/* Footer */}
       {footer.show && <LayoutFooter />}
+
+      {/* Botão Scroll to Top - 👈 Adicione esta linha */}
+      <ScrollToTopButton showAfter={300} smooth={true} />
     </div>
   )
 }
