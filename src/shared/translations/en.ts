@@ -13,7 +13,14 @@ export const enTranslations: Translation = {
     projects: 'Projects - Dark',
     contact: 'Contact - Dark',
     prints: 'Prints & Artwork - Dark',
-    facesOfHorror: 'Faces of Horror - Dark'
+    facesOfHorror: 'Faces of Horror - Dark',
+    Raglan: 'Raglan en - Dark',
+    Joaninha: 'ladybug - Dark',
+    Creepy: 'creepy - Dark',
+    SemNome: 'unknow - Dark',
+    Killers: 'killer - Dark',
+    Fantasy: 'fantasy - Dark',
+    Aracphobia: 'arac - Dark'
   },
   pages: {
     home: {
@@ -28,45 +35,74 @@ export const enTranslations: Translation = {
         'She offers exclusive, custom digital illustrations aimed at the alternative fashion market, creating striking designs for products such as t-shirts, collectible stickers, tote bags, and accessories.'
     },
     projects: {
-      title: 'Our Projects',
+      title: 'Projects',
       description:
         'Explore some of our most recent work. Each image represents a unique and inspiring project.',
       proj1: {
         title: 'Faces Of Horror',
-        alt: 'Project 1: Horror Design Collection'
+        alt: 'Project 1: Faces of Horror'
       },
       proj2: {
-        title: 'Raglan',
-        alt: 'Project 2: Minimalist Architecture'
+        title: 'Macabre Faces T-shirt',
+        alt: 'Project 2: Macabre Faces T-shirt'
       },
       proj3: {
-        title: 'Joaninha',
-        alt: 'Project 3: Urban Photography'
+        title: 'Killer Ladybugs',
+        alt: 'Project 3: Killer Ladybugs'
       },
       proj4: {
-        title: 'Puzzle',
-        alt: 'Project 4: Natural Landscaping'
+        title: 'Creepy Faces',
+        alt: 'Project 4: Creepy Faces'
       },
       proj5: {
-        title: 'Cozy Interiors',
-        alt: 'Project 5: Cozy Interiors'
+        title: 'Horror Art',
+        alt: 'Project 5: Horror Art'
       },
       proj6: {
-        title: 'Cozy Interiors',
-        alt: 'Project 5: Cozy Interiors'
+        title: 'Halloween T-shirts',
+        alt: 'Project 5: Halloween T-shirts'
       },
       proj7: {
-        title: 'Cozy Interiors',
-        alt: 'Project 5: Cozy Interiors'
+        title: 'Fantasy Creatures',
+        alt: 'Project 5: Fantasy Creatures'
       },
       proj8: {
-        title: 'Cozy Interiors',
-        alt: 'Project 5: Cozy Interiors'
+        title: 'Arachnophobia',
+        alt: 'Project 5: Arachnophobia'
       }
     },
     facesOfHorror: {
-      title: 'Faces Of Horror',
+      title: 'Faces of Horror',
       description: 'Disturbing face designs for use on printed products!'
+    },
+    Raglan: {
+      title: 'Macabre Faces T-shirt',
+      description: 'Design of macabre faces printed on raglan t-shirts.'
+    },
+    Joaninha: {
+      title: 'Killer Ladybugs',
+      description:
+        'Ladybugs devouring the face of a girl resting serenely in a field of flowers, revealing her cadaverous visage.'
+    },
+    Creepy: {
+      title: 'Creepy Faces',
+      description: 'Disturbing face designs for use on printed products!'
+    },
+    SemNome: {
+      title: 'Horror Art',
+      description: 'Illustrations that explore stress, despair, and paranoia'
+    },
+    Killers: {
+      title: 'Halloween T-shirts',
+      description: 'Halloween designs for t-shirt prints.'
+    },
+    Fantasy: {
+      title: 'Fantasy Creatures',
+      description: 'Disturbing face designs for use on printed products!'
+    },
+    Aracphobia: {
+      title: '',
+      description: ''
     },
     contact: {
       title: 'Contact',

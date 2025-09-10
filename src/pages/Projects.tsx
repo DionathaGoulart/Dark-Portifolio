@@ -257,14 +257,6 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
       <section className="py-8 px-6 sm:px-8 lg:px-12">
-        <div className="animate-fade-in">
-          <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-            {t.pages.projects.title}
-          </h1>
-          <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed mb-12">
-            {t.pages.projects.description}
-          </p>
-        </div>
         <MasonryGrid
           images={images}
           loading={loading}

@@ -120,6 +120,13 @@ export interface Translation {
     contact: string
     prints: string
     facesOfHorror: string
+    Raglan: string
+    Joaninha: string
+    Creepy: string
+    SemNome: string
+    Killers: string
+    Fantasy: string
+    Aracphobia: string
   }
   pages: {
     home: {
@@ -194,6 +201,34 @@ export interface Translation {
       subtitle: string
     }
     facesOfHorror: {
+      title: string
+      description?: string
+    }
+    Raglan: {
+      title: string
+      description?: string
+    }
+    Joaninha: {
+      title: string
+      description?: string
+    }
+    Creepy: {
+      title: string
+      description?: string
+    }
+    SemNome: {
+      title: string
+      description?: string
+    }
+    Killers: {
+      title: string
+      description?: string
+    }
+    Fantasy: {
+      title: string
+      description?: string
+    }
+    Aracphobia: {
       title: string
       description?: string
     }

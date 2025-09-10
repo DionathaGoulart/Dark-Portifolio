@@ -32,7 +32,7 @@ interface ImageData {
 
 export const Arac: React.FC = () => {
   const { t } = useI18n()
-  useDocumentTitle('facesOfHorror')
+  useDocumentTitle('Aracphobia')
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -41,10 +41,10 @@ export const Arac: React.FC = () => {
         {/* Título centralizado com tradução */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-            {t.pages?.facesOfHorror?.title || 'Faces Of Horror'}
+            {t.pages?.Aracphobia?.title || 'Faces Of Horror'}
           </h1>
           <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-            {t.pages?.facesOfHorror?.description ||
+            {t.pages?.Aracphobia?.description ||
               'Disturbing face designs for use on printed products!'}
           </p>
         </div>

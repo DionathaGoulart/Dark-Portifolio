@@ -42,7 +42,7 @@ interface ImageData {
 
 export const Joaninho: React.FC = () => {
   const { t } = useI18n()
-  useDocumentTitle('facesOfHorror')
+  useDocumentTitle('Joaninha')
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -51,10 +51,10 @@ export const Joaninho: React.FC = () => {
         {/* Título centralizado com tradução */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-            {t.pages?.facesOfHorror?.title || 'Faces Of Horror'}
+            {t.pages?.Joaninha?.title || 'Faces Of Horror'}
           </h1>
           <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-            {t.pages?.facesOfHorror?.description ||
+            {t.pages?.Joaninha?.description ||
               'Disturbing face designs for use on printed products!'}
           </p>
         </div>
@@ -78,7 +78,7 @@ export const Joaninho: React.FC = () => {
         </div>
 
         {/* Imagem inteira 1 - 100% width */}
-        <div className="mb-12 px-16">
+        <div className="mb-12 sm:px-16">
           <ImageGrid
             images={[{ src: image7, alt: 'Project Two - Imagem 4' }]}
             columns={1}
@@ -90,7 +90,7 @@ export const Joaninho: React.FC = () => {
         </div>
 
         {/* Imagem inteira 2 - 100% width */}
-        <div className="mb-12 px-16">
+        <div className="mb-12 sm:px-16">
           <ImageGrid
             images={[{ src: image6, alt: 'Project Two - Imagem 5' }]}
             columns={1}

@@ -5,20 +5,23 @@ import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 // Importações das imagens
-import image1Raw from '@assets/1/11.webp'
-import image2Raw from '@assets/1/12.webp'
-import image3Raw from '@assets/1/13.webp'
-import image4Raw from '@assets/1/1.webp'
-import image5Raw from '@assets/1/2.webp'
-import image6Raw from '@assets/1/3.webp'
-import image7Raw from '@assets/1/4.webp'
-import image8Raw from '@assets/1/5.webp'
-import image9Raw from '@assets/1/6.webp'
-import image10Raw from '@assets/1/7.webp'
-import image11Raw from '@assets/1/8.webp'
-import image12Raw from '@assets/1/9.webp'
-import image13Raw from '@assets/1/10.webp'
-import image14Raw from '@assets/1/14.webp'
+import image1Raw from '@assets/4/1.webp'
+import image2Raw from '@assets/4/2.webp'
+import image3Raw from '@assets/4/3.webp'
+import image4Raw from '@assets/4/4.webp'
+import image5Raw from '@assets/4/5.webp'
+import image6Raw from '@assets/4/6.webp'
+import image7Raw from '@assets/4/7.webp'
+import image8Raw from '@assets/4/8.webp'
+import image9Raw from '@assets/4/9.webp'
+import image10Raw from '@assets/4/10.webp'
+import image11Raw from '@assets/4/11.webp'
+import image12Raw from '@assets/4/12.webp'
+import image13Raw from '@assets/4/13.webp'
+import image14Raw from '@assets/4/14.webp'
+import image15Raw from '@assets/4/15.webp'
+import image16Raw from '@assets/4/16.webp'
+import image17Raw from '@assets/4/17.webp'
 
 // Processamento das imagens
 const image1 = getImage(`${image1Raw}?as=webp&width=1200`)
@@ -35,6 +38,9 @@ const image11 = getImage(`${image11Raw}?as=webp&width=1200`)
 const image12 = getImage(`${image12Raw}?as=webp&width=1200`)
 const image13 = getImage(`${image13Raw}?as=webp&width=1200`)
 const image14 = getImage(`${image14Raw}?as=webp&width=1200`)
+const image15 = getImage(`${image15Raw}?as=webp&width=1200`)
+const image16 = getImage(`${image16Raw}?as=webp&width=1200`)
+const image17 = getImage(`${image17Raw}?as=webp&width=1200`)
 
 // Interface para os dados de imagem
 interface ImageData {
@@ -42,9 +48,9 @@ interface ImageData {
   alt?: string
 }
 
-export const FacesOfHorror: React.FC = () => {
+export const Creepy: React.FC = () => {
   const { t } = useI18n()
-  useDocumentTitle('facesOfHorror')
+  useDocumentTitle('Creepy')
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -62,7 +68,7 @@ export const FacesOfHorror: React.FC = () => {
         </div>
 
         {/* Grid com 3 imagens */}
-        <div className="mb-12 px-16">
+        <div className="mb-12 sm:px-16">
           <ImageGrid
             images={[
               { src: image1, alt: 'Project Two - Imagem 1' },
