@@ -13,6 +13,8 @@ import { Joaninho } from '@/pages/Projects/Joaninho'
 import { Creepy } from '@/pages/Projects/Creepy'
 import { SemNome } from '@/pages/Projects/SemNome'
 import { Killer } from '@/pages/Projects/Killers'
+import { Fantasy } from '@/pages/Projects/Fantasy'
+import { Arac } from '@/pages/Projects/Arac'
 
 export const appRoutes: (RouteConfig | RouteGroup)[] = [
   {
@@ -61,6 +63,14 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
       {
         path: '/killers',
         element: Killer
+      },
+      {
+        path: '/fantasy',
+        element: Fantasy
+      },
+      {
+        path: '/arachnophobia',
+        element: Arac
       }
     ]
   }

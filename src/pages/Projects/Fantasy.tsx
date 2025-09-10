@@ -5,20 +5,19 @@ import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 // Importações das imagens
-import image1Raw from '@assets/1/11.webp'
-import image2Raw from '@assets/1/12.webp'
-import image3Raw from '@assets/1/13.webp'
-import image4Raw from '@assets/1/1.webp'
-import image5Raw from '@assets/1/2.webp'
-import image6Raw from '@assets/1/3.webp'
-import image7Raw from '@assets/1/4.webp'
-import image8Raw from '@assets/1/5.webp'
-import image9Raw from '@assets/1/6.webp'
-import image10Raw from '@assets/1/7.webp'
-import image11Raw from '@assets/1/8.webp'
-import image12Raw from '@assets/1/9.webp'
-import image13Raw from '@assets/1/10.webp'
-import image14Raw from '@assets/1/14.webp'
+import image1Raw from '@assets/7/1.webp'
+import image2Raw from '@assets/7/2.webp'
+import image3Raw from '@assets/7/3.webp'
+import image4Raw from '@assets/7/4.webp'
+import image5Raw from '@assets/7/5.webp'
+import image6Raw from '@assets/7/6.webp'
+import image7Raw from '@assets/7/7.webp'
+import image8Raw from '@assets/7/8.webp'
+import image9Raw from '@assets/7/9.webp'
+import image10Raw from '@assets/7/10.webp'
+import image11Raw from '@assets/7/11.webp'
+import image12Raw from '@assets/7/12.webp'
+import image13Raw from '@assets/7/13.webp'
 
 // Processamento das imagens
 const image1 = getImage(`${image1Raw}?as=webp&width=1200`)
@@ -34,7 +33,6 @@ const image10 = getImage(`${image10Raw}?as=webp&width=1200`)
 const image11 = getImage(`${image11Raw}?as=webp&width=1200`)
 const image12 = getImage(`${image12Raw}?as=webp&width=1200`)
 const image13 = getImage(`${image13Raw}?as=webp&width=1200`)
-const image14 = getImage(`${image14Raw}?as=webp&width=1200`)
 
 // Interface para os dados de imagem
 interface ImageData {
@@ -42,7 +40,7 @@ interface ImageData {
   alt?: string
 }
 
-export const FacesOfHorror: React.FC = () => {
+export const Fantasy: React.FC = () => {
   const { t } = useI18n()
   useDocumentTitle('facesOfHorror')
 
@@ -61,13 +59,25 @@ export const FacesOfHorror: React.FC = () => {
           </p>
         </div>
 
+        {/* Imagem inteira 1 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[{ src: image11, alt: 'Project Two - Imagem 4' }]}
+            columns={1}
+            aspectRatio="9/16"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
         {/* Grid com 3 imagens */}
         <div className="mb-12 px-16">
           <ImageGrid
             images={[
-              { src: image1, alt: 'Project Two - Imagem 1' },
-              { src: image3, alt: 'Project Two - Imagem 2' },
-              { src: image2, alt: 'Project Two - Imagem 3' }
+              { src: image4, alt: 'Project Two - Imagem 1' },
+              { src: image5, alt: 'Project Two - Imagem 2' },
+              { src: image6, alt: 'Project Two - Imagem 3' }
             ]}
             columns={3}
             aspectRatio="3/4"
@@ -77,40 +87,12 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem inteira 1 - 100% width */}
-        <div className="mb-12">
-          <ImageGrid
-            images={[{ src: image5, alt: 'Project Two - Imagem 4' }]}
-            columns={1}
-            aspectRatio="1/1"
-            objectFit="cover"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
         {/* Imagem inteira 2 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image1, alt: 'Project Two - Imagem 5' }]}
+            images={[{ src: image10, alt: 'Project Two - Imagem 5' }]}
             columns={1}
-            aspectRatio="4/3"
-            objectFit="contain"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
-        {/* 2 imagens lado a lado */}
-        <div className="mb-12">
-          <ImageGrid
-            images={[
-              { src: image6, alt: 'Project Two - Imagem 7' },
-              { src: image7, alt: 'Project Two - Imagem 8' }
-            ]}
-            columns={2}
-            twoColumnLayout="equal"
-            aspectRatio="16/9"
+            aspectRatio="1/1"
             objectFit="cover"
             rounded="none"
             gap="1"
@@ -120,47 +102,8 @@ export const FacesOfHorror: React.FC = () => {
         {/* Imagem solo 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image14, alt: 'Project Two - Imagem 9' }]}
+            images={[{ src: image13, alt: 'Project Two - Imagem 9' }]}
             columns={1}
-            aspectRatio="4/3"
-            objectFit="contain"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
-        {/* Imagem solo 2 - 100% width */}
-        <div className="mb-12">
-          <ImageGrid
-            images={[{ src: image8, alt: 'Project Two - Imagem 10' }]}
-            columns={1}
-            aspectRatio="16/9"
-            objectFit="cover"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
-        {/* Imagem solo 2 - 100% width */}
-        <div className="mb-12">
-          <ImageGrid
-            images={[{ src: image3, alt: 'Project Two - Imagem 10' }]}
-            columns={1}
-            aspectRatio="3/4"
-            objectFit="cover"
-            rounded="none"
-            gap="1"
-          />
-        </div>
-
-        {/* Grid de 2 - direita maior */}
-        <div className="mb-12">
-          <ImageGrid
-            images={[
-              { src: image9, alt: 'Project Two - Imagem 11' },
-              { src: image10, alt: 'Project Two - Imagem 12' }
-            ]}
-            columns={2}
             aspectRatio="3/2"
             objectFit="cover"
             rounded="none"
@@ -168,10 +111,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 3 - 100% width */}
+        {/* Imagem solo 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image2, alt: 'Project Two - Imagem 13' }]}
+            images={[{ src: image8, alt: 'Project Two - Imagem 9' }]}
             columns={1}
             aspectRatio="3/4"
             objectFit="cover"
@@ -180,27 +123,40 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Grid de 2 - esquerda maior */}
+        {/* Grid com 3 imagens */}
         <div className="mb-12">
           <ImageGrid
             images={[
-              { src: image11, alt: 'Project Two - Imagem 15' },
-              { src: image12, alt: 'Project Two - Imagem 16' }
+              { src: image1, alt: 'Project Two - Imagem 1' },
+              { src: image2, alt: 'Project Two - Imagem 2' },
+              { src: image3, alt: 'Project Two - Imagem 3' }
             ]}
-            columns={2}
-            aspectRatio="16/9"
+            columns={3}
+            aspectRatio="3/4"
             objectFit="cover"
             rounded="none"
             gap="1"
           />
         </div>
 
-        {/* Imagem solo final - 100% width */}
+        {/* Imagem solo 1 - 100% width */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image13, alt: 'Project Two - Imagem 17' }]}
+            images={[{ src: image9, alt: 'Project Two - Imagem 9' }]}
             columns={1}
-            aspectRatio="16/9"
+            aspectRatio="1/1"
+            objectFit="cover"
+            rounded="none"
+            gap="1"
+          />
+        </div>
+
+        {/* Imagem solo 2 - 100% width */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[{ src: image12, alt: 'Project Two - Imagem 10' }]}
+            columns={1}
+            aspectRatio="3/2"
             objectFit="cover"
             rounded="none"
             gap="1"

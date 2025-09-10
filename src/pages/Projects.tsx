@@ -153,7 +153,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj7',
     url: cover7,
     alt: t.pages.projects.proj7.alt,
-    linkTo: '/',
+    linkTo: '/fantasy',
     urls: undefined,
     title: t.pages.projects.proj7.title
   },
@@ -161,7 +161,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj8',
     url: cover8,
     alt: t.pages.projects.proj8.alt,
-    linkTo: '/',
+    linkTo: '/arachnophobia',
     urls: undefined,
     title: t.pages.projects.proj8.title
   }
