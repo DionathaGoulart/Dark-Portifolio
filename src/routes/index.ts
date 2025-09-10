@@ -8,9 +8,7 @@ import {
   FacesOfHorror
 } from '@pages'
 import { RouteConfig, RouteGroup } from '@/core'
-import ShowcasePage from '@/pages/ShowCase'
-import ProjectOne from '@/pages/ProjectOne'
-import { CamisetasRaglan } from '@/pages/Projects/CamisetasRaglan'
+import { Raglan } from '@/pages/Projects/Raglan'
 import { Joaninho } from '@/pages/Projects/Joaninho'
 import { Creepy } from '@/pages/Projects/Creepy'
 
@@ -39,20 +37,12 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
         element: PrintsPage
       },
       {
-        path: '/project1',
-        element: ShowcasePage
-      },
-      {
-        path: '/projectone',
-        element: ProjectOne
-      },
-      {
         path: '/facesofhorror',
         element: FacesOfHorror
       },
       {
         path: '/tshirt-raglan',
-        element: CamisetasRaglan
+        element: Raglan
       },
       {
         path: '/joaninho',

@@ -36,15 +36,15 @@ export const ptTranslations: Translation = {
         alt: 'Projeto 1: Coleção de Design de Horror'
       },
       proj2: {
-        title: 'Contato',
+        title: 'Raglan',
         alt: 'Projeto 2: Arquitetura Minimalista'
       },
       proj3: {
-        title: 'Impressões',
+        title: 'Joaninha',
         alt: 'Projeto 3: Fotografia Urbana'
       },
       proj4: {
-        title: 'Paisagismo Natural',
+        title: 'Puzle',
         alt: 'Projeto 4: Paisagismo Natural'
       },
       proj5: {

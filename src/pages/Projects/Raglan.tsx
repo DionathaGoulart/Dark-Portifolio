@@ -42,7 +42,7 @@ interface ImageData {
   alt?: string
 }
 
-export const CamisetasRaglan: React.FC = () => {
+export const Raglan: React.FC = () => {
   const { t } = useI18n()
   useDocumentTitle('facesOfHorror')
 

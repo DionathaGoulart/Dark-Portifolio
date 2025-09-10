@@ -36,15 +36,15 @@ export const enTranslations: Translation = {
         alt: 'Project 1: Horror Design Collection'
       },
       proj2: {
-        title: 'Contact',
+        title: 'Raglan',
         alt: 'Project 2: Minimalist Architecture'
       },
       proj3: {
-        title: 'Prints',
+        title: 'Joaninha',
         alt: 'Project 3: Urban Photography'
       },
       proj4: {
-        title: 'Natural Landscaping',
+        title: 'Puzzle',
         alt: 'Project 4: Natural Landscaping'
       },
       proj5: {
