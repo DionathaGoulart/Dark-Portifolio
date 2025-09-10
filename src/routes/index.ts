@@ -4,10 +4,10 @@ import {
   AboutPage,
   ProjectsPage,
   PrintsPage,
-  ContactPage,
-  FacesOfHorror
+  ContactPage
 } from '@pages'
 import { RouteConfig, RouteGroup } from '@/core'
+
 import { Raglan } from '@/pages/Projects/Raglan'
 import { Joaninho } from '@/pages/Projects/Joaninho'
 import { Creepy } from '@/pages/Projects/Creepy'
@@ -15,6 +15,7 @@ import { SemNome } from '@/pages/Projects/SemNome'
 import { Killer } from '@/pages/Projects/Killers'
 import { Fantasy } from '@/pages/Projects/Fantasy'
 import { Arac } from '@/pages/Projects/Arac'
+import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
 
 export const appRoutes: (RouteConfig | RouteGroup)[] = [
   {
