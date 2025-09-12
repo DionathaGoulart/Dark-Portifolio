@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Interfaces e tipos
 interface ImageData {
@@ -22,6 +22,91 @@ interface ImageGridProps {
   rounded?: Rounded
   gap?: Gap
   className?: string
+  enableFullscreen?: boolean
+}
+
+// Componente Modal para Fullscreen
+const FullscreenModal: React.FC<{
+  image: ImageData
+  isOpen: boolean
+  onClose: () => void
+}> = ({ image, isOpen, onClose }) => {
+  // Previne scroll do body quando modal está aberto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    // Cleanup
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
+  // Fecha modal com ESC
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
+
+  if (!isOpen || !image) return null
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="relative w-full h-full flex items-center justify-center">
+        {/* Botão de fechar */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onClose()
+          }}
+          className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 flex items-center justify-center group"
+          aria-label="Fechar imagem"
+        >
+          <svg
+            className="w-6 h-6 group-hover:scale-110 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        {/* Container da imagem com limites corretos */}
+        <div className="w-full h-full p-16 flex items-center justify-center">
+          <img
+            src={image.src}
+            alt={image.alt || 'Imagem em tela cheia'}
+            className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            draggable={false}
+          />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 // Mapeamentos para classes Tailwind
@@ -82,8 +167,11 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   objectFit = 'cover',
   rounded = 'none',
   gap = '1',
-  className = ''
+  className = '',
+  enableFullscreen = true
 }) => {
+  const [fullscreenImage, setFullscreenImage] = useState<ImageData | null>(null)
+
   const getGridClasses = (): string => {
     if (columns === 1) {
       return 'grid-cols-1'
@@ -116,24 +204,47 @@ const ImageGrid: React.FC<ImageGridProps> = ({
     ${aspectRatioClasses[aspectRatio]}
     ${objectFitClasses[objectFit]}
     ${roundedClasses[rounded]}
+    ${enableFullscreen ? 'cursor-pointer' : ''}
   `.trim()
 
+  const handleImageClick = (image: ImageData) => {
+    if (enableFullscreen) {
+      setFullscreenImage(image)
+    }
+  }
+
+  const closeFullscreen = () => {
+    setFullscreenImage(null)
+  }
+
   return (
-    <div className={gridClasses}>
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`overflow-hidden ${roundedClasses[rounded]}`}
-        >
-          <img
-            src={image.src}
-            alt={image.alt || `Imagem ${index + 1}`}
-            className={imageClasses}
-            loading="lazy"
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className={gridClasses}>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`overflow-hidden ${roundedClasses[rounded]}`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt || `Imagem ${index + 1}`}
+              className={imageClasses}
+              loading="lazy"
+              onClick={() => handleImageClick(image)}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Modal Fullscreen */}
+      {enableFullscreen && (
+        <FullscreenModal
+          image={fullscreenImage!}
+          isOpen={!!fullscreenImage}
+          onClose={closeFullscreen}
+        />
+      )}
+    </>
   )
 }
 

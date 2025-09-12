@@ -1,40 +1,23 @@
 import React from 'react'
-import { getImage } from '@/core/utils/getImage'
 import ImageGrid from '@/shared/components/ui/ImageGrid'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 // Importações das imagens
-import image1Raw from '@assets/2/11.webp'
-import image2Raw from '@assets/2/12.webp'
-import image3Raw from '@assets/2/13.webp'
-import image4Raw from '@assets/2/1.webp'
-import image5Raw from '@assets/2/2.webp'
-import image6Raw from '@assets/2/3.webp'
-import image7Raw from '@assets/2/4.webp'
-import image8Raw from '@assets/2/5.webp'
-import image9Raw from '@assets/2/6.webp'
-import image10Raw from '@assets/2/7.webp'
-import image11Raw from '@assets/2/8.webp'
-import image12Raw from '@assets/2/9.webp'
-import image13Raw from '@assets/2/10.webp'
-import image14Raw from '@assets/2/14.webp'
-
-// Processamento das imagens
-const image1 = getImage(`${image1Raw}?as=webp&width=1200`)
-const image2 = getImage(`${image2Raw}?as=webp&width=1200`)
-const image3 = getImage(`${image3Raw}?as=webp&width=1200`)
-const image4 = getImage(`${image4Raw}?as=webp&width=1200`)
-const image5 = getImage(`${image5Raw}?as=webp&width=1200`)
-const image6 = getImage(`${image6Raw}?as=webp&width=1200`)
-const image7 = getImage(`${image7Raw}?as=webp&width=1200`)
-const image8 = getImage(`${image8Raw}?as=webp&width=1200`)
-const image9 = getImage(`${image9Raw}?as=webp&width=1200`)
-const image10 = getImage(`${image10Raw}?as=webp&width=1200`)
-const image11 = getImage(`${image11Raw}?as=webp&width=1200`)
-const image12 = getImage(`${image12Raw}?as=webp&width=1200`)
-const image13 = getImage(`${image13Raw}?as=webp&width=1200`)
-const image14 = getImage(`${image14Raw}?as=webp&width=1200`)
+import image1 from '@assets/2/11.webp'
+import image2 from '@assets/2/12.webp'
+import image3 from '@assets/2/13.webp'
+import image4 from '@assets/2/1.webp'
+import image5 from '@assets/2/2.webp'
+import image6 from '@assets/2/3.webp'
+import image7 from '@assets/2/4.webp'
+import image8 from '@assets/2/5.webp'
+import image9 from '@assets/2/6.webp'
+import image10 from '@assets/2/7.webp'
+import image11 from '@assets/2/8.webp'
+import image12 from '@assets/2/9.webp'
+import image13 from '@assets/2/10.webp'
+import image14 from '@assets/2/14.webp'
 
 // Interface para os dados de imagem
 interface ImageData {

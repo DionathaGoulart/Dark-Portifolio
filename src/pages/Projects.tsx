@@ -1,28 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
-import { getImage } from '@/core/utils/getImage'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackProjectClick } from '@/features/trafego'
 
-import cover1Raw from '@assets/1/10.webp'
-import cover2Raw from '@assets/2/8.webp'
-import cover3Raw from '@assets/3/7.webp'
-import cover4Raw from '@assets/4/1.webp'
-import cover5Raw from '@assets/5/1.webp'
-import cover6Raw from '@assets/6/3.webp'
-import cover7Raw from '@assets/7/11.webp'
-import cover8Raw from '@assets/8/3.webp'
-
-const cover1 = getImage(`${cover1Raw}?as=webp&width=400`)
-const cover2 = getImage(`${cover2Raw}?as=webp&width=400`)
-const cover3 = getImage(`${cover3Raw}?as=webp&width=400`)
-const cover4 = getImage(`${cover4Raw}?as=webp&width=400`)
-const cover5 = getImage(`${cover5Raw}?as=webp&width=400`)
-const cover6 = getImage(`${cover6Raw}?as=webp&width=400`)
-const cover7 = getImage(`${cover7Raw}?as=webp&width=400`)
-const cover8 = getImage(`${cover8Raw}?as=webp&width=400`)
+import cover1 from '@assets/1/10.webp'
+import cover2 from '@assets/2/8.webp'
+import cover3 from '@assets/3/7.webp'
+import cover4 from '@assets/4/1.webp'
+import cover5 from '@assets/5/1.webp'
+import cover6 from '@assets/6/3.webp'
+import cover7 from '@assets/7/11.webp'
+import cover8 from '@assets/8/3.webp'
 
 // Função para otimizar URLs do Cloudinary (mantida igual da versão anterior)
 const optimizeCloudinaryUrl = (
@@ -121,7 +111,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj3',
     url: cover3,
     alt: t.pages.projects.proj3.alt,
-    linkTo: '/joaninho',
+    linkTo: '/ladybugs',
     urls: undefined,
     title: t.pages.projects.proj3.title
   },
@@ -137,7 +127,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj5',
     url: cover5,
     alt: t.pages.projects.proj5.alt,
-    linkTo: '/semnome',
+    linkTo: '/horror-art',
     urls: undefined,
     title: t.pages.projects.proj5.title
   },
@@ -145,7 +135,7 @@ const createProjectData = (t: any): ImageItem[] => [
     id: 'proj6',
     url: cover6,
     alt: t.pages.projects.proj6.alt,
-    linkTo: '/killers',
+    linkTo: '/halloween',
     urls: undefined,
     title: t.pages.projects.proj6.title
   },

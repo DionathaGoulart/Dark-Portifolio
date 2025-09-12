@@ -24,7 +24,7 @@ export const enTranslations: Translation = {
   },
   pages: {
     home: {
-      title: 'Welcome Home',
+      title: 'Home',
       subtitle: 'This is the homepage of your minimalist project.'
     },
     about: {
@@ -76,7 +76,7 @@ export const enTranslations: Translation = {
       description: 'Disturbing face designs for use on printed products!'
     },
     Raglan: {
-      title: 'Macabre Faces T-shirt',
+      title: 'Macabre Faces',
       description: 'Design of macabre faces printed on raglan t-shirts.'
     },
     Joaninha: {
@@ -93,7 +93,7 @@ export const enTranslations: Translation = {
       description: 'Illustrations that explore stress, despair, and paranoia'
     },
     Killers: {
-      title: 'Halloween T-shirts',
+      title: 'Halloween',
       description: 'Halloween designs for t-shirt prints.'
     },
     Fantasy: {
@@ -101,8 +101,8 @@ export const enTranslations: Translation = {
       description: 'Disturbing face designs for use on printed products!'
     },
     Aracphobia: {
-      title: '',
-      description: ''
+      title: 'Arachnophobia',
+      description: 'no'
     },
     contact: {
       title: 'Contact',

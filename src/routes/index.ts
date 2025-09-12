@@ -50,7 +50,7 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
         element: Raglan
       },
       {
-        path: '/joaninho',
+        path: '/ladybugs',
         element: Joaninho
       },
       {
@@ -58,11 +58,11 @@ export const appRoutes: (RouteConfig | RouteGroup)[] = [
         element: Creepy
       },
       {
-        path: '/semnome',
+        path: '/horror-art',
         element: SemNome
       },
       {
-        path: '/killers',
+        path: '/halloween',
         element: Killer
       },
       {

@@ -24,7 +24,7 @@ export const ptTranslations: Translation = {
   },
   pages: {
     home: {
-      title: 'Bem-vindo à Home',
+      title: 'Inicio',
       subtitle: 'Esta é a página inicial do seu projeto minimalista.'
     },
     about: {
@@ -77,7 +77,7 @@ export const ptTranslations: Translation = {
         'Desenhos perturbadores de rostos para serem usados em produtos estampados!'
     },
     Raglan: {
-      title: 'Camiseta Faces Macabras',
+      title: 'Faces Macabras',
       description: 'Design de rostos macabros estampados em camisetas raglan.'
     },
     Joaninha: {

@@ -1,4 +1,4 @@
-import logoOptimized from '@assets/logo.png?w=64&h=64&format=webp&quality=90'
+import logoOptimized from '@assets/logo.webp?w=64&h=64&format=webp&quality=90'
 
 export const Logo: React.FC<{
   src?: string
