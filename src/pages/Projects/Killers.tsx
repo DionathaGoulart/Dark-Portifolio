@@ -120,6 +120,22 @@ export const Killer: React.FC = () => {
           />
         </div>
 
+        {/* 2 imagens lado a lado */}
+        <div className="mb-12">
+          <ImageGrid
+            images={[
+              { src: image15, alt: 'Project Two - Imagem 7' },
+              { src: image17, alt: 'Project Two - Imagem 8' }
+            ]}
+            columns={2}
+            aspectRatio="1/1"
+            objectFit="contain"
+            rounded="none"
+            gap="1"
+            twoColumnLayout="right-dominant"
+          />
+        </div>
+
         {/* Imagem inteira 2 - 100% width */}
         <div className="mb-12">
           <ImageGrid
