@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ImageGrid from '@/shared/components/ui/ImageGrid'
 import { useI18n } from '@/shared/contexts/I18nContext'
-import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 // Importações das imagens
 import image1 from '@assets/1/11.webp'
@@ -19,28 +18,40 @@ import image12 from '@assets/1/9.webp'
 import image13 from '@assets/1/10.webp'
 import image14 from '@assets/1/14.webp'
 
-// Interface para os dados de imagem
-interface ImageData {
-  src: string
-  alt?: string
-}
-
 export const FacesOfHorror: React.FC = () => {
-  const { t } = useI18n()
-  useDocumentTitle('facesOfHorror')
+  const { language } = useI18n()
+
+  // Define os textos diretamente no componente
+  const pageTexts = {
+    pt: {
+      title: 'Faces do Horror',
+      description:
+        'Desenhos perturbadores de rostos para serem usados em produtos estampados!'
+    },
+    en: {
+      title: 'Faces Of Horror',
+      description: 'Disturbing face designs for use on printed products!'
+    }
+  }
+
+  const texts = pageTexts[language as keyof typeof pageTexts] || pageTexts.en
+
+  // Define o título do documento manualmente
+  useEffect(() => {
+    document.title = `${texts.title} - Dark`
+  }, [texts.title])
 
   return (
     <div className="min-h-screen bg-transparent">
       {/* Container principal */}
       <section className="py-8 px-6 sm:px-8 lg:px-12">
-        {/* Título centralizado com tradução */}
+        {/* Título centralizado */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-            {t.pages?.facesOfHorror?.title || 'Faces Of Horror'}
+            {texts.title}
           </h1>
           <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-            {t.pages?.facesOfHorror?.description ||
-              'Disturbing face designs for use on printed products!'}
+            {texts.description}
           </p>
         </div>
 
@@ -48,9 +59,9 @@ export const FacesOfHorror: React.FC = () => {
         <div className="mb-12 sm:px-16">
           <ImageGrid
             images={[
-              { src: image1, alt: 'Project Two - Imagem 1' },
-              { src: image3, alt: 'Project Two - Imagem 2' },
-              { src: image2, alt: 'Project Two - Imagem 3' }
+              { src: image1, alt: 'Faces of Horror - Design 1' },
+              { src: image3, alt: 'Faces of Horror - Design 2' },
+              { src: image2, alt: 'Faces of Horror - Design 3' }
             ]}
             columns={3}
             aspectRatio="3/4"
@@ -60,10 +71,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem inteira 1 - 100% width */}
+        {/* Imagem inteira 1 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image5, alt: 'Project Two - Imagem 4' }]}
+            images={[{ src: image5, alt: 'Faces of Horror - Full Design 1' }]}
             columns={1}
             aspectRatio="1/1"
             objectFit="cover"
@@ -72,10 +83,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem inteira 2 - 100% width */}
+        {/* Imagem inteira 2 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image1, alt: 'Project Two - Imagem 5' }]}
+            images={[{ src: image1, alt: 'Faces of Horror - Full Design 2' }]}
             columns={1}
             aspectRatio="4/3"
             objectFit="contain"
@@ -88,8 +99,8 @@ export const FacesOfHorror: React.FC = () => {
         <div className="mb-12">
           <ImageGrid
             images={[
-              { src: image6, alt: 'Project Two - Imagem 7' },
-              { src: image7, alt: 'Project Two - Imagem 8' }
+              { src: image6, alt: 'Faces of Horror - Design Pair 1' },
+              { src: image7, alt: 'Faces of Horror - Design Pair 2' }
             ]}
             columns={2}
             twoColumnLayout="equal"
@@ -100,10 +111,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 1 - 100% width */}
+        {/* Imagem solo 1 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image14, alt: 'Project Two - Imagem 9' }]}
+            images={[{ src: image14, alt: 'Faces of Horror - Solo Design 1' }]}
             columns={1}
             aspectRatio="4/3"
             objectFit="contain"
@@ -112,10 +123,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 2 - 100% width */}
+        {/* Imagem solo 2 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image8, alt: 'Project Two - Imagem 10' }]}
+            images={[{ src: image8, alt: 'Faces of Horror - Solo Design 2' }]}
             columns={1}
             aspectRatio="16/9"
             objectFit="cover"
@@ -124,10 +135,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 2 - 100% width */}
+        {/* Imagem solo 3 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image3, alt: 'Project Two - Imagem 10' }]}
+            images={[{ src: image3, alt: 'Faces of Horror - Solo Design 3' }]}
             columns={1}
             aspectRatio="3/4"
             objectFit="cover"
@@ -136,12 +147,12 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Grid de 2 - direita maior */}
+        {/* Grid de 2 */}
         <div className="mb-12">
           <ImageGrid
             images={[
-              { src: image9, alt: 'Project Two - Imagem 11' },
-              { src: image10, alt: 'Project Two - Imagem 12' }
+              { src: image9, alt: 'Faces of Horror - Grid Design 1' },
+              { src: image10, alt: 'Faces of Horror - Grid Design 2' }
             ]}
             columns={2}
             aspectRatio="3/2"
@@ -151,10 +162,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo 3 - 100% width */}
+        {/* Imagem solo 4 */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image2, alt: 'Project Two - Imagem 13' }]}
+            images={[{ src: image2, alt: 'Faces of Horror - Solo Design 4' }]}
             columns={1}
             aspectRatio="3/4"
             objectFit="cover"
@@ -163,12 +174,12 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Grid de 2 - esquerda maior */}
+        {/* Grid de 2 - segundo conjunto */}
         <div className="mb-12">
           <ImageGrid
             images={[
-              { src: image11, alt: 'Project Two - Imagem 15' },
-              { src: image12, alt: 'Project Two - Imagem 16' }
+              { src: image11, alt: 'Faces of Horror - Grid Design 3' },
+              { src: image12, alt: 'Faces of Horror - Grid Design 4' }
             ]}
             columns={2}
             aspectRatio="16/9"
@@ -178,10 +189,10 @@ export const FacesOfHorror: React.FC = () => {
           />
         </div>
 
-        {/* Imagem solo final - 100% width */}
+        {/* Imagem solo final */}
         <div className="mb-12">
           <ImageGrid
-            images={[{ src: image13, alt: 'Project Two - Imagem 17' }]}
+            images={[{ src: image13, alt: 'Faces of Horror - Final Design' }]}
             columns={1}
             aspectRatio="16/9"
             objectFit="cover"

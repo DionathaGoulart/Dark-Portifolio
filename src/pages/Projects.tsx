@@ -14,7 +14,7 @@ import cover6 from '@assets/6/3.webp'
 import cover7 from '@assets/7/11.webp'
 import cover8 from '@assets/8/3.webp'
 
-// Função para otimizar URLs do Cloudinary (mantida igual da versão anterior)
+// Função para otimizar URLs do Cloudinary
 const optimizeCloudinaryUrl = (
   url: string,
   options: {
@@ -89,73 +89,77 @@ const generateOptimizedUrls = (originalUrl: string) => {
   }
 }
 
-// Função para criar dados dos projetos com traduções
-const createProjectData = (t: any): ImageItem[] => [
+// Dados dos projetos (agora sem dependência das traduções específicas)
+const projectsData = [
   {
-    id: 'proj1',
+    id: 'faces-of-horror',
+    title: 'Faces of Horror',
+    titlePt: 'Faces do Horror',
     url: cover1,
-    alt: t.pages.projects.proj1.alt,
-    linkTo: '/facesofhorror',
-    urls: undefined,
-    title: t.pages.projects.proj1.title
+    linkTo: '/facesofhorror'
   },
   {
-    id: 'proj2',
+    id: 'macabre-faces',
+    title: 'Macabre Faces T-shirt',
+    titlePt: 'Camiseta Faces Macabras',
     url: cover2,
-    alt: t.pages.projects.proj2.alt,
-    linkTo: '/tshirt-raglan',
-    urls: undefined,
-    title: t.pages.projects.proj2.title
+    linkTo: '/tshirt-raglan'
   },
   {
-    id: 'proj3',
+    id: 'killer-ladybugs',
+    title: 'Killer Ladybugs',
+    titlePt: 'Joaninhas Assassinas',
     url: cover3,
-    alt: t.pages.projects.proj3.alt,
-    linkTo: '/ladybugs',
-    urls: undefined,
-    title: t.pages.projects.proj3.title
+    linkTo: '/ladybugs'
   },
   {
-    id: 'proj4',
+    id: 'creepy-faces',
+    title: 'Creepy Faces',
+    titlePt: 'Rostos Assustadores',
     url: cover4,
-    alt: t.pages.projects.proj4.alt,
-    linkTo: '/creepy',
-    urls: undefined,
-    title: t.pages.projects.proj4.title
+    linkTo: '/creepy'
   },
   {
-    id: 'proj5',
+    id: 'horror-art',
+    title: 'Horror Art',
+    titlePt: 'Arte de Horror',
     url: cover5,
-    alt: t.pages.projects.proj5.alt,
-    linkTo: '/horror-art',
-    urls: undefined,
-    title: t.pages.projects.proj5.title
+    linkTo: '/horror-art'
   },
   {
-    id: 'proj6',
+    id: 'halloween-tshirts',
+    title: 'Halloween T-shirts',
+    titlePt: 'Camisetas de Halloween',
     url: cover6,
-    alt: t.pages.projects.proj6.alt,
-    linkTo: '/halloween',
-    urls: undefined,
-    title: t.pages.projects.proj6.title
+    linkTo: '/halloween'
   },
   {
-    id: 'proj7',
+    id: 'fantasy-creatures',
+    title: 'Fantasy Creatures',
+    titlePt: 'Criaturas Fantásticas',
     url: cover7,
-    alt: t.pages.projects.proj7.alt,
-    linkTo: '/fantasy',
-    urls: undefined,
-    title: t.pages.projects.proj7.title
+    linkTo: '/fantasy'
   },
   {
-    id: 'proj8',
+    id: 'arachnophobia',
+    title: 'Arachnophobia',
+    titlePt: 'Aracnofobia',
     url: cover8,
-    alt: t.pages.projects.proj8.alt,
-    linkTo: '/arachnophobia',
-    urls: undefined,
-    title: t.pages.projects.proj8.title
+    linkTo: '/arachnophobia'
   }
 ]
+
+// Função para criar dados dos projetos com base no idioma
+const createProjectData = (language: string): ImageItem[] => {
+  return projectsData.map((project) => ({
+    id: project.id,
+    url: project.url,
+    alt: language === 'pt' ? project.titlePt : project.title,
+    title: language === 'pt' ? project.titlePt : project.title,
+    linkTo: project.linkTo,
+    urls: undefined
+  }))
+}
 
 const preloadImageItems = async (
   originalImageItems: ImageItem[]
@@ -201,7 +205,6 @@ export const ProjectsPage: React.FC = () => {
   const [images, setImages] = useState<ImageItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -209,7 +212,7 @@ export const ProjectsPage: React.FC = () => {
       setLoading(true)
       setError(null)
       try {
-        const projectData = createProjectData(t)
+        const projectData = createProjectData(language)
         const validImages = await preloadImageItems(projectData)
 
         setImages(validImages)
@@ -246,7 +249,17 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
-      <section className="py-8 px-6 sm:px-8 lg:px-12">
+      {/* Header da página */}
+      <div className="text-center py-12 px-6">
+        <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-4">
+          {t.pages.projects.title}
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          {t.pages.projects.description}
+        </p>
+      </div>
+
+      <section className="pb-8 px-6 sm:px-8 lg:px-12">
         <MasonryGrid
           images={images}
           loading={loading}
