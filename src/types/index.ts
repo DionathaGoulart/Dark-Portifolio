@@ -86,7 +86,7 @@ export interface ProjectDetailProps {
   projectId?: string
 }
 
-// Route configuration types (from index.ts, if @core is defined)
+// Route configuration types
 export interface RouteMeta {
   title: string
   [key: string]: any
@@ -103,6 +103,7 @@ export interface RouteGroup {
   routes: RouteConfig[]
 }
 
+// Language and Translation types (simplified)
 export type Language = 'pt' | 'en'
 
 export interface Translation {
@@ -113,25 +114,9 @@ export interface Translation {
     contact: string
     prints: string
   }
-  pageTitles: {
-    home: string
-    about: string
-    projects: string
-    contact: string
-    prints: string
-    facesOfHorror: string
-    Raglan: string
-    Joaninha: string
-    Creepy: string
-    SemNome: string
-    Killers: string
-    Fantasy: string
-    Aracphobia: string
-  }
   pages: {
     home: {
       title: string
-      subtitle: string
     }
     about: {
       title: string
@@ -141,38 +126,6 @@ export interface Translation {
     projects: {
       title: string
       description: string
-      proj1?: {
-        title: string
-        alt: string
-      }
-      proj2?: {
-        title: string
-        alt: string
-      }
-      proj3?: {
-        title: string
-        alt: string
-      }
-      proj4?: {
-        title: string
-        alt: string
-      }
-      proj5?: {
-        title: string
-        alt: string
-      }
-      proj6?: {
-        title: string
-        alt: string
-      }
-      proj7?: {
-        title: string
-        alt: string
-      }
-      proj8?: {
-        title: string
-        alt: string
-      }
     }
     contact: {
       title: string
@@ -191,46 +144,10 @@ export interface Translation {
         sendAnother: string
         errorMessage: string
       }
-      info: {
-        title: string
-        description: string
-      }
     }
     prints: {
       title: string
       subtitle: string
-    }
-    facesOfHorror: {
-      title: string
-      description?: string
-    }
-    Raglan: {
-      title: string
-      description?: string
-    }
-    Joaninha: {
-      title: string
-      description?: string
-    }
-    Creepy: {
-      title: string
-      description?: string
-    }
-    SemNome: {
-      title: string
-      description?: string
-    }
-    Killers: {
-      title: string
-      description?: string
-    }
-    Fantasy: {
-      title: string
-      description?: string
-    }
-    Aracphobia: {
-      title: string
-      description?: string
     }
   }
   footer: {
