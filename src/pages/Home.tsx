@@ -189,6 +189,7 @@ export const HomePage: React.FC = () => {
         />
       </section>
 
+      {/* Modal de imagem ampliada */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-primary-black/90 flex items-center justify-center z-50 p-4 cursor-pointer"
@@ -196,10 +197,19 @@ export const HomePage: React.FC = () => {
         >
           <img
             src={selectedImage.urls?.large || selectedImage.url}
-            alt=""
+            alt={selectedImage.alt || ''}
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
+
+          {/* Fechar com ESC */}
+          <button
+            className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition-colors"
+            onClick={() => setSelectedImage(null)}
+            aria-label="Fechar"
+          >
+            ✕
+          </button>
         </div>
       )}
     </div>

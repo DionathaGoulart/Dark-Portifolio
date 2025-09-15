@@ -6,11 +6,11 @@ import {
   ContactPage
 } from '@pages'
 import { RouteConfig } from '@core/router'
-import { Raglan } from '@/pages/Projects/Raglan'
+import { Macabre } from '@/pages/Projects/Macabre'
 import { Joaninho } from '@/pages/Projects/Joaninho'
 import { Creepy } from '@/pages/Projects/Creepy'
-import { SemNome } from '@/pages/Projects/SemNome'
-import { Killer } from '@/pages/Projects/Killers'
+import { Horror } from '@/pages/Projects/Horror'
+import { Halloween } from '@/pages/Projects/Halloween'
 import { Fantasy } from '@/pages/Projects/Fantasy'
 import { Arac } from '@/pages/Projects/Arac'
 import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
@@ -42,7 +42,7 @@ export const appRoutes: RouteConfig[] = [
   },
   {
     path: '/tshirt-raglan',
-    element: Raglan
+    element: Macabre
   },
   {
     path: '/ladybugs',
@@ -54,11 +54,11 @@ export const appRoutes: RouteConfig[] = [
   },
   {
     path: '/horror-art',
-    element: SemNome
+    element: Horror
   },
   {
     path: '/halloween',
-    element: Killer
+    element: Halloween
   },
   {
     path: '/fantasy',

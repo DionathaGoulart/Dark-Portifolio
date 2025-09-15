@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import { batchPreloadImages, ImageItem } from '@features/grid'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import {
@@ -188,7 +187,7 @@ const horrorAdaptiveRules = {
   ultraTall: { aspectRatio: 'tall', objectFit: 'contain' } // Muito altas ficam com contain para mostrar tudo
 }
 
-export const FacesOfHorror: React.FC = () => {
+export const Halloween: React.FC = () => {
   const { language } = useI18n()
 
   const [images, setImages] = useState<{
@@ -202,12 +201,12 @@ export const FacesOfHorror: React.FC = () => {
   // Define os textos diretamente no componente
   const pageTexts = {
     pt: {
-      title: 'Faces do Horror',
+      title: 'Halloween',
       description:
         'Desenhos perturbadores de rostos para serem usados em produtos estampados! Agora com adaptação automática de tamanho baseada nas proporções originais das imagens.'
     },
     en: {
-      title: 'Faces Of Horror',
+      title: 'Halloween',
       description:
         'Disturbing face designs for use on printed products! Now with automatic size adaptation based on original image proportions.'
     }
@@ -335,12 +334,12 @@ export const FacesOfHorror: React.FC = () => {
             />
           </div>
 
-          {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
+          {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
           <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(3, 4)}
+            <AdaptiveTwoColumnGrid
+              images={images.grid.slice(3, 5)}
               adaptiveMode="manual"
-              fallbackAspectRatio="square"
+              fallbackAspectRatio="wide"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}
@@ -351,7 +350,7 @@ export const FacesOfHorror: React.FC = () => {
           {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
           <div className="mb-12">
             <AdaptiveSoloGrid
-              images={images.solo.slice(4, 5)}
+              images={images.solo.slice(5, 6)}
               adaptiveMode="manual"
               fallbackAspectRatio="square"
               fallbackObjectFit="contain"
@@ -365,23 +364,9 @@ export const FacesOfHorror: React.FC = () => {
           {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
           <div className="mb-12">
             <AdaptiveTwoColumnGrid
-              images={images.grid.slice(5, 7)}
+              images={images.grid.slice(6, 8)}
               adaptiveMode="manual"
               fallbackAspectRatio="wide"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(7, 8)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="square"
-              fallbackObjectFit="contain"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}
@@ -394,20 +379,8 @@ export const FacesOfHorror: React.FC = () => {
             <AdaptiveSoloGrid
               images={images.solo.slice(8, 9)}
               adaptiveMode="manual"
-              fallbackAspectRatio="wide"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(9, 10)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="card"
+              fallbackAspectRatio="square"
+              fallbackObjectFit="contain"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}
@@ -418,7 +391,7 @@ export const FacesOfHorror: React.FC = () => {
           {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
           <div className="mb-12">
             <AdaptiveTwoColumnGrid
-              images={images.grid.slice(10, 12)}
+              images={images.grid.slice(9, 11)}
               adaptiveMode="manual"
               fallbackAspectRatio="wide"
               adaptiveRules={horrorAdaptiveRules}
@@ -431,35 +404,9 @@ export const FacesOfHorror: React.FC = () => {
           {/* Imagem solo final - alta qualidade */}
           <div className="mb-12">
             <AdaptiveSoloGrid
-              images={images.solo.slice(12, 13)}
+              images={images.solo.slice(11, 12)}
               adaptiveMode="manual"
               fallbackAspectRatio="card"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12">
-            <AdaptiveTwoColumnGrid
-              images={images.grid.slice(13, 15)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="wide"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Imagem solo final - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(15, 16)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="wide"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}

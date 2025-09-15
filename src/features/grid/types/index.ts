@@ -35,6 +35,10 @@ export interface ImageCardProps {
   className?: string
   isSquare?: boolean
   showHoverEffect?: boolean
+  // Novas props adicionadas
+  enableHoverScale?: boolean
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
+  showTitle?: boolean
 }
 
 export interface MasonryGridProps extends GridConfig {
@@ -42,6 +46,8 @@ export interface MasonryGridProps extends GridConfig {
   error?: string | null
   isSquareGrid?: boolean
   showHoverEffect?: boolean
+  // Nova prop adicionada
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
 }
 
 export interface ImageLoaderProps {
