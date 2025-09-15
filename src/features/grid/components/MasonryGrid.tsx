@@ -43,7 +43,12 @@ const debounce = (func: Function, wait: number) => {
   }
 }
 
-export const MasonryGrid: React.FC<MasonryGridProps> = ({
+// Interface atualizada para incluir objectFit
+interface MasonryGridPropsExtended extends MasonryGridProps {
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
+}
+
+export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   images = [],
   columnCount = { sm: 1, md: 2, lg: 3, xl: 4 },
   gap = 4,
@@ -54,7 +59,8 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
   loading = false,
   error = null,
   isSquareGrid = false,
-  showHoverEffect = false
+  showHoverEffect = false,
+  objectFit = 'cover' // Nova prop
 }) => {
   const [validImages, setValidImages] = useState<ImageItem[]>(images)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -149,7 +155,8 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
                   onLoad={handleImageLoad}
                   onError={handleImageError}
                   isSquare={isSquareGrid}
-                  showHoverEffect={showHoverEffect} // Passa a propriedade
+                  showHoverEffect={showHoverEffect}
+                  objectFit={objectFit} // Passa a nova prop
                 />
               </div>
             ))}
