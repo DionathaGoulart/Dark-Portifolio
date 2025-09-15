@@ -18,67 +18,54 @@ import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
 export const appRoutes: RouteConfig[] = [
   {
     path: '/',
-    element: HomePage,
-    title: 'Seu Nome - Portfolio'
+    element: HomePage
   },
   {
     path: '/about',
-    element: AboutPage,
-    title: 'Sobre - Seu Nome'
+    element: AboutPage
   },
   {
     path: '/projects',
-    element: ProjectsPage,
-    title: 'Projetos - Seu Nome'
+    element: ProjectsPage
   },
   {
     path: '/contact',
-    element: ContactPage,
-    title: 'Contato - Seu Nome'
+    element: ContactPage
   },
   {
     path: '/prints',
-    element: PrintsPage,
-    title: 'Prints - Seu Nome'
+    element: PrintsPage
   },
   {
     path: '/facesofhorror',
-    element: FacesOfHorror,
-    title: 'Faces of Horror - Seu Nome'
+    element: FacesOfHorror
   },
   {
     path: '/tshirt-raglan',
-    element: Raglan,
-    title: 'T-Shirt Raglan - Seu Nome'
+    element: Raglan
   },
   {
     path: '/ladybugs',
-    element: Joaninho,
-    title: 'Ladybugs - Seu Nome'
+    element: Joaninho
   },
   {
     path: '/creepy',
-    element: Creepy,
-    title: 'Creepy - Seu Nome'
+    element: Creepy
   },
   {
     path: '/horror-art',
-    element: SemNome,
-    title: 'Horror Art - Seu Nome'
+    element: SemNome
   },
   {
     path: '/halloween',
-    element: Killer,
-    title: 'Halloween - Seu Nome'
+    element: Killer
   },
   {
     path: '/fantasy',
-    element: Fantasy,
-    title: 'Fantasy - Seu Nome'
+    element: Fantasy
   },
   {
     path: '/arachnophobia',
-    element: Arac,
-    title: 'Arachnophobia - Seu Nome'
+    element: Arac
   }
 ]
