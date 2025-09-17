@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
-import { trackProjectClick } from '@/features/trafego'
 
 // URLs do Cloudinary para as capas dos projetos
 const cloudinaryCovers = {
@@ -241,8 +240,6 @@ export const ProjectsPage: React.FC = () => {
   }, [t, language])
 
   const handleProjectClick = (image: ImageItem) => {
-    trackProjectClick(image.id, image.alt)
-
     if (image.linkTo) {
       navigate(image.linkTo)
     } else {

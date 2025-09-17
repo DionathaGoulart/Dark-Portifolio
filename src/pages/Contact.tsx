@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
-import { trackContactAction } from '@/features/trafego'
 
 export const ContactPage: React.FC = () => {
   const { t } = useI18n()
@@ -16,10 +15,6 @@ export const ContactPage: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
-
-  useEffect(() => {
-    trackContactAction('contact_page_view')
-  }, [])
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -77,7 +72,6 @@ export const ContactPage: React.FC = () => {
       if (response.ok) {
         setSubmitStatus('success')
         setFormData({ name: '', email: '', message: '' })
-        trackContactAction('form_submit')
       } else {
         const errorData = await response.text()
         console.error('Erro da API:', response.status, errorData)
@@ -94,9 +88,7 @@ export const ContactPage: React.FC = () => {
   }
 
   // Função para rastrear clique no email
-  const handleEmailClick = () => {
-    trackContactAction('email_click')
-  }
+  const handleEmailClick = () => {}
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -28,6 +28,12 @@ export const enTranslations: Translation = {
       title: 'Contact',
       subtitle:
         'For commissions, inquiries, or collaborations, feel free to reach out!',
+      info: {
+        // ← ADICIONADO
+        title: 'Contact Information',
+        description:
+          "Get in touch with us for any inquiries, collaborations, or custom projects. We'd love to hear from you!"
+      },
       form: {
         name: 'Name',
         email: 'Email',

@@ -15,9 +15,9 @@ export const ptTranslations: Translation = {
     about: {
       title: 'Sobre',
       description:
-        'Dark é uma ilustradora brasileira autodidata, especializada em horror com fortes influências do mangá. Seu trabalho é conhecido pelo domínio da técnica em preto e branco, criando imagens impactantes, densas e visualmente inquietantes.',
+        'Dark é uma ilustradora brasileira autodidata, especializada em horror com fortes influências do mangá. Seu trabalho é conhecido pela maestria da técnica preto-e-branco, criando imagens impactantes, densas e visualmente perturbadoras.',
       content:
-        'Oferece ilustrações digitais exclusivas e personalizadas voltadas para o mercado de moda alternativa, desenvolvendo estampas marcantes para produtos como camisetas, adesivos colecionáveis, tote bags e acessórios.'
+        'Ela oferece ilustrações digitais exclusivas e personalizadas voltadas para o mercado de moda alternativa, criando designs marcantes para produtos como camisetas, adesivos colecionáveis, ecobags e acessórios.'
     },
     projects: {
       title: 'Projetos',
@@ -26,7 +26,14 @@ export const ptTranslations: Translation = {
     },
     contact: {
       title: 'Contato',
-      subtitle: 'Para comissões, consultas ou colaborações, entre em contato!',
+      subtitle:
+        'Para encomendas, dúvidas ou colaborações, sinta-se à vontade para entrar em contato!',
+      info: {
+        // ← ADICIONADO
+        title: 'Informações de Contato',
+        description:
+          'Entre em contato conosco para qualquer dúvida, colaboração ou projetos personalizados. Adoraríamos ouvir de você!'
+      },
       form: {
         name: 'Nome',
         email: 'Email',
@@ -37,14 +44,15 @@ export const ptTranslations: Translation = {
         emailPlaceholder: 'seu@email.com',
         messagePlaceholder: 'Sua mensagem...',
         successTitle: 'Mensagem enviada com sucesso!',
-        successMessage: 'Obrigado pelo contato. Responderemos em breve.',
+        successMessage:
+          'Obrigado por entrar em contato. Responderemos em breve.',
         sendAnother: 'Enviar outra mensagem',
         errorMessage: 'Erro ao enviar mensagem. Tente novamente.'
       }
     },
     prints: {
-      title: 'Prints & Artwork',
-      subtitle: 'Coleção de arte e impressões exclusivas.'
+      title: 'Prints & Arte',
+      subtitle: 'Coleção de arte exclusiva e prints.'
     }
   },
   footer: {
