@@ -58,19 +58,14 @@ const optimizeCloudinaryUrl = (
 
 // URLs das 13 imagens
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/1.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/2.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/3.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/4.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/5.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/6.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/7.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/8.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/9.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/10.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/11.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/12.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/13.png'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_8.webp'
 ]
 
 // Função para gerar URLs otimizadas para diferentes contextos
@@ -282,7 +277,6 @@ export const Arac: React.FC = () => {
     return (
       <div className="min-h-screen bg-transparent">
         <section className="py-8 px-6 sm:px-8 lg:px-12">
-          {/* Título centralizado */}
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
               {texts.title}
@@ -292,112 +286,15 @@ export const Arac: React.FC = () => {
             </p>
           </div>
 
-          {/* Grid adaptativo - as imagens se ajustam automaticamente */}
-          <div className="space-y-8">
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(0, 1)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(1, 2)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(2, 3)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(3, 4)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(4, 5)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(5, 6)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(6, 7)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-
-            {/* Imagem solo final - alta qualidade */}
-            <div className="mb-12">
-              <AdaptiveSoloGrid
-                images={images.solo.slice(7, 8)}
-                adaptiveMode="manual"
-                fallbackAspectRatio="wide"
-                adaptiveRules={horrorAdaptiveRules}
-                onImageClick={handleImageClick}
-                onImageError={handleImageError}
-                gap={1}
-              />
-            </div>
-          </div>
+          <AdaptiveImageGrid
+            images={[]}
+            loading={loading}
+            error={error}
+            mode="grid"
+            gridColumns={3}
+            adaptiveMode="auto"
+            adaptiveRules={horrorAdaptiveRules}
+          />
         </section>
       </div>
     )
@@ -419,71 +316,12 @@ export const Arac: React.FC = () => {
 
         {/* Grid adaptativo - as imagens se ajustam automaticamente */}
         <div className="space-y-8">
-          {/* Grid de 3 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12 sm:px-16">
-            <AdaptiveThreeColumnGrid
-              images={images.grid.slice(0, 3)}
-              adaptiveMode="auto"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
+          {/* Imagem solo final - alta qualidade */}
           <div className="mb-12">
             <AdaptiveSoloGrid
-              images={images.solo.slice(3, 4)}
-              adaptiveMode="auto"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12">
-            <AdaptiveTwoColumnGrid
-              images={images.grid.slice(4, 6)}
-              adaptiveMode="auto"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(6, 7)}
-              adaptiveMode="auto"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Grid de 3 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12">
-            <AdaptiveThreeColumnGrid
-              images={images.grid.slice(7, 10)}
-              adaptiveMode="auto"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Grid de 2 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12">
-            <AdaptiveTwoColumnGrid
-              images={images.grid.slice(10, 12)}
-              adaptiveMode="auto"
+              images={images.solo.slice(0, 1)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}
@@ -494,8 +332,87 @@ export const Arac: React.FC = () => {
           {/* Imagem solo final - alta qualidade */}
           <div className="mb-12">
             <AdaptiveSoloGrid
-              images={images.solo.slice(12, 13)}
-              adaptiveMode="auto"
+              images={images.solo.slice(1, 2)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(2, 3)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(3, 4)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(4, 5)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(5, 6)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(6, 7)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
+              adaptiveRules={horrorAdaptiveRules}
+              onImageClick={handleImageClick}
+              onImageError={handleImageError}
+              gap={1}
+            />
+          </div>
+
+          {/* Imagem solo final - alta qualidade */}
+          <div className="mb-12">
+            <AdaptiveSoloGrid
+              images={images.solo.slice(7, 8)}
+              adaptiveMode="manual"
+              fallbackAspectRatio="wide"
               adaptiveRules={horrorAdaptiveRules}
               onImageClick={handleImageClick}
               onImageError={handleImageError}
