@@ -1,4 +1,3 @@
-// LayoutHeader.tsx atualizado com rastreamento
 import React from 'react'
 import { Instagram, Youtube } from 'lucide-react'
 import { Logo } from '../ui/Logo'
@@ -7,7 +6,6 @@ import { ThemeToggle } from '../ui/ThemeToggle'
 import { LanguageSwitch } from '../ui/LanguageSwitch'
 import { HeaderConfig } from './types'
 import { useI18n } from '@/shared/contexts/I18nContext'
-import { trackNavigationClick, trackSocialClick } from '@/features/trafego'
 
 export const LayoutHeader: React.FC<HeaderConfig> = ({
   logoSrc,
@@ -22,39 +20,25 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
   const navItems = [
     {
       label: t.nav.home,
-      href: '/',
-      onClick: () => trackNavigationClick('home', 'header')
+      href: '/'
     },
     {
       label: t.nav.about,
-      href: '/about',
-      onClick: () => trackNavigationClick('about', 'header')
+      href: '/about'
     },
     {
       label: t.nav.projects,
-      href: '/projects',
-      onClick: () => trackNavigationClick('projects', 'header')
+      href: '/projects'
     },
     {
       label: t.nav.contact,
-      href: '/contact',
-      onClick: () => trackNavigationClick('contact', 'header')
+      href: '/contact'
     },
     {
       label: t.nav.prints,
-      href: '/prints',
-      onClick: () => trackNavigationClick('prints', 'header')
+      href: '/prints'
     }
   ]
-
-  // Funções para rastrear cliques nas redes sociais
-  const handleInstagramClick = () => {
-    trackSocialClick('instagram', 'header')
-  }
-
-  const handleYoutubeClick = () => {
-    trackSocialClick('youtube', 'header')
-  }
 
   if (!showNavigation && !logoSrc) return null
 
@@ -80,12 +64,7 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
                 <ThemeToggle />
                 <Navigation
                   items={navItems.map((item) => ({
-                    ...item,
-                    onClick: () =>
-                      trackNavigationClick(
-                        item.href.substring(1) || 'home',
-                        'mobile'
-                      )
+                    ...item
                   }))}
                 />
               </div>
@@ -105,7 +84,6 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleInstagramClick} // RASTREAR CLIQUE INSTAGRAM
             className="text-gray-600 hover:text-pink-500 dark:text-gray-400 dark:hover:text-pink-400 transition-colors duration-200 flex items-center h-6"
             aria-label="Instagram"
           >
@@ -115,7 +93,6 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
             href={youtubeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleYoutubeClick} // RASTREAR CLIQUE YOUTUBE
             className="text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors duration-200 flex items-center h-6"
             aria-label="YouTube"
           >

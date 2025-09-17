@@ -1,4 +1,4 @@
-import { GridLoadingSkeleton, ImageCard } from '@/features/grid'
+import { ImageCard } from '@/features/grid'
 import { ImageItem } from '@/features/grid/types'
 import React, { useState, useEffect } from 'react'
 
@@ -291,14 +291,6 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     )
   }
 
-  if (loading) {
-    return (
-      <div className={`w-full ${className}`}>
-        <GridLoadingSkeleton count={mode === 'solo' ? 1 : gridColumns * 2} />
-      </div>
-    )
-  }
-
   if (error) {
     return (
       <div
@@ -314,7 +306,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     )
   }
 
-  if (validImages.length === 0) {
+  if (validImages.length === 0 && !loading) {
     return (
       <div
         className={`w-full flex items-center justify-center p-8 ${className}`}

@@ -130,6 +130,11 @@ export interface Translation {
     contact: {
       title: string
       subtitle: string
+      info: {
+        // ← ADICIONADO
+        title: string
+        description: string
+      }
       form: {
         name: string
         email: string

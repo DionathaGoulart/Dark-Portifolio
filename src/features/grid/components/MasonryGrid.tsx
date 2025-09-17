@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { ImageCard } from './ui/ImageCard'
-import { GridLoadingSkeleton } from './ui/LoadingSkeleton'
 import { MasonryGridProps, ImageItem } from '../types'
 
 // Hook para gerenciar breakpoints
@@ -60,7 +59,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   error = null,
   isSquareGrid = false,
   showHoverEffect = false,
-  objectFit = 'cover' // Nova prop
+  objectFit = 'cover'
 }) => {
   const [validImages, setValidImages] = useState<ImageItem[]>(images)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -104,15 +103,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
     [gap]
   )
 
-  // Estados de loading e erro
-  if (loading) {
-    return (
-      <div className={`w-full ${className}`}>
-        <GridLoadingSkeleton count={12} />
-      </div>
-    )
-  }
-
+  // Estados de erro
   if (error) {
     return (
       <div
@@ -128,7 +119,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
     )
   }
 
-  if (validImages.length === 0) {
+  if (validImages.length === 0 && !loading) {
     return (
       <div
         className={`w-full flex items-center justify-center p-8 ${className}`}
@@ -156,7 +147,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
                   onError={handleImageError}
                   isSquare={isSquareGrid}
                   showHoverEffect={showHoverEffect}
-                  objectFit={objectFit} // Passa a nova prop
+                  objectFit={objectFit}
                 />
               </div>
             ))}

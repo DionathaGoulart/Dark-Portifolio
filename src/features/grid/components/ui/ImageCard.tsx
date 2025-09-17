@@ -61,7 +61,7 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
       <div
         className={`
           relative overflow-hidden ${shadowClasses}
-          bg-white dark:bg-gray-900 w-full h-full
+          bg-transparent dark:bg-transparent w-full h-full
         `}
       >
         <ImageLoader

@@ -1,5 +1,13 @@
-import React, { useState } from 'react'
-import { ImageLoaderProps } from '../../types'
+import React, { useState, useEffect, useRef } from 'react'
+
+interface ImageLoaderProps {
+  src: string
+  alt?: string
+  className?: string
+  onLoad?: () => void
+  onError?: () => void
+  fallback?: React.ReactNode
+}
 
 export const ImageLoader: React.FC<ImageLoaderProps> = ({
   src,
@@ -11,36 +19,64 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const loadStartTime = useRef<number>(Date.now())
+
+  useEffect(() => {
+    // Reset when src changes
+    loadStartTime.current = Date.now()
+    setIsLoading(true)
+    setHasError(false)
+    setImageLoaded(false)
+  }, [src])
 
   const handleLoad = () => {
-    setIsLoading(false)
+    setImageLoaded(true)
     setHasError(false)
-    onLoad?.()
+
+    const elapsedTime = Date.now() - loadStartTime.current
+    const minLoadTime = 1000 // 1 segundo
+
+    if (elapsedTime >= minLoadTime) {
+      setIsLoading(false)
+      onLoad?.()
+    } else {
+      // Aguarda o tempo restante
+      setTimeout(() => {
+        setIsLoading(false)
+        onLoad?.()
+      }, minLoadTime - elapsedTime)
+    }
   }
 
   const handleError = () => {
-    setIsLoading(false)
-    setHasError(true)
-    onError?.()
+    const elapsedTime = Date.now() - loadStartTime.current
+    const minLoadTime = 1000
+
+    if (elapsedTime >= minLoadTime) {
+      setIsLoading(false)
+      setHasError(true)
+      onError?.()
+    } else {
+      setTimeout(() => {
+        setIsLoading(false)
+        setHasError(true)
+        onError?.()
+      }, minLoadTime - elapsedTime)
+    }
   }
 
   if (hasError) {
     return (
       fallback || (
-        <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center">
-          <div className="text-center text-gray-500">
-            <svg
-              className="w-8 h-8 mx-auto mb-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <p className="text-sm">Erro ao carregar</p>
+        <div className="w-full h-48 bg-primary-white dark:bg-primary-black border border-primary-black/10 dark:border-primary-white/10 flex items-center justify-center transition-all duration-300">
+          <div className="text-center text-primary-black/50 dark:text-primary-white/50">
+            <div className="w-12 h-12 mx-auto mb-3 bg-primary-black/10 dark:bg-primary-white/10 flex items-center justify-center">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+              </svg>
+            </div>
+            <p className="text-sm font-medium">Imagem não encontrada</p>
           </div>
         </div>
       )
@@ -48,11 +84,55 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   }
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full overflow-hidden">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          @keyframes shimmer {
+            0% { transform: translateX(-100%) skewX(-12deg); }
+            100% { transform: translateX(200%) skewX(-12deg); }
+          }
+          @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+          }
+        `
+        }}
+      />
+
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse">
+        <div className="absolute inset-0 bg-primary-white dark:bg-primary-black">
+          {/* Shimmer effect */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-black/5 dark:via-primary-white/5 to-transparent transform -skew-x-12"
+            style={{
+              animation: 'shimmer 2s infinite',
+              transform: 'translateX(-100%) skewX(-12deg)'
+            }}
+          />
+
+          {/* Elegant loading dots */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+            <div className="flex space-x-1">
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{
+                  animation: 'bounce 1.4s infinite 0ms'
+                }}
+              />
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{
+                  animation: 'bounce 1.4s infinite 200ms'
+                }}
+              />
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{
+                  animation: 'bounce 1.4s infinite 400ms'
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -60,8 +140,8 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
       <img
         src={src}
         alt={alt}
-        className={`w-full h-full transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
+        className={`w-full h-full object-cover transition-all duration-700 ease-out ${
+          isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
         } ${className}`}
         onLoad={handleLoad}
         onError={handleError}
