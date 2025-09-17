@@ -58,19 +58,23 @@ const optimizeCloudinaryUrl = (
 
 // URLs das 13 imagens
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/1.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/2.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/3.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/4.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/5.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/6.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/7.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/8.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/9.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/10.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/11.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/12.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/13.png'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_12.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_13.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_14.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_15.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_16.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p5_17.webp'
 ]
 
 // Função para gerar URLs otimizadas para diferentes contextos
