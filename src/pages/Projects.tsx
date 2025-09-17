@@ -5,14 +5,25 @@ import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackProjectClick } from '@/features/trafego'
 
-import cover1 from '@assets/1/10.webp'
-import cover2 from '@assets/2/8.webp'
-import cover3 from '@assets/3/7.webp'
-import cover4 from '@assets/4/1.webp'
-import cover5 from '@assets/5/1.webp'
-import cover6 from '@assets/6/3.webp'
-import cover7 from '@assets/7/11.webp'
-import cover8 from '@assets/8/3.webp'
+// URLs do Cloudinary para as capas dos projetos
+const cloudinaryCovers = {
+  cover1:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_cover.webp',
+  cover2:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj2_cover.webp',
+  cover3:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_cover.webp',
+  cover4:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_cover.webp',
+  cover5:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_cover.webp',
+  cover6:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj6_cover.webp',
+  cover7:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_cover.webp',
+  cover8:
+    'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_cover.webp'
+}
 
 // Função para otimizar URLs do Cloudinary
 const optimizeCloudinaryUrl = (
@@ -40,7 +51,6 @@ const optimizeCloudinaryUrl = (
   if (!match) return url
 
   const [, cloudName, imagePath] = match
-
   const transformations = []
 
   if (width || height) {
@@ -58,11 +68,11 @@ const optimizeCloudinaryUrl = (
   transformations.push('fl_immutable_cache')
 
   const transformationString = transformations.join('/')
-
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transformationString}/${imagePath}`
 }
 
-const generateOptimizedUrls = (originalUrl: string) => {
+// Função para gerar URLs otimizadas específicas para projetos
+const generateProjectUrls = (originalUrl: string) => {
   return {
     thumbnail: optimizeCloudinaryUrl(originalUrl, {
       width: 400,
@@ -89,114 +99,65 @@ const generateOptimizedUrls = (originalUrl: string) => {
   }
 }
 
-// Dados dos projetos (agora sem dependência das traduções específicas)
+// Dados dos projetos
 const projectsData = [
   {
     id: 'faces-of-horror',
     title: 'Faces of Horror',
     titlePt: 'Faces do Horror',
-    url: cover1,
+    url: cloudinaryCovers.cover1,
     linkTo: '/facesofhorror'
   },
   {
     id: 'macabre-faces',
     title: 'Macabre Faces T-shirt',
     titlePt: 'Camiseta Faces Macabras',
-    url: cover2,
+    url: cloudinaryCovers.cover2,
     linkTo: '/tshirt-raglan'
   },
   {
     id: 'killer-ladybugs',
     title: 'Killer Ladybugs',
     titlePt: 'Joaninhas Assassinas',
-    url: cover3,
+    url: cloudinaryCovers.cover3,
     linkTo: '/ladybugs'
   },
   {
     id: 'creepy-faces',
     title: 'Creepy Faces',
     titlePt: 'Rostos Assustadores',
-    url: cover4,
+    url: cloudinaryCovers.cover4,
     linkTo: '/creepy'
   },
   {
     id: 'horror-art',
     title: 'Horror Art',
     titlePt: 'Arte de Horror',
-    url: cover5,
+    url: cloudinaryCovers.cover5,
     linkTo: '/horror-art'
   },
   {
     id: 'halloween-tshirts',
     title: 'Halloween T-shirts',
     titlePt: 'Camisetas de Halloween',
-    url: cover6,
+    url: cloudinaryCovers.cover6,
     linkTo: '/halloween'
   },
   {
     id: 'fantasy-creatures',
     title: 'Fantasy Creatures',
     titlePt: 'Criaturas Fantásticas',
-    url: cover7,
+    url: cloudinaryCovers.cover7,
     linkTo: '/fantasy'
   },
   {
     id: 'arachnophobia',
     title: 'Arachnophobia',
     titlePt: 'Aracnofobia',
-    url: cover8,
+    url: cloudinaryCovers.cover8,
     linkTo: '/arachnophobia'
   }
 ]
-
-// Função para criar dados dos projetos com base no idioma
-const createProjectData = (language: string): ImageItem[] => {
-  return projectsData.map((project) => ({
-    id: project.id,
-    url: project.url,
-    alt: language === 'pt' ? project.titlePt : project.title,
-    title: language === 'pt' ? project.titlePt : project.title,
-    linkTo: project.linkTo,
-    urls: undefined
-  }))
-}
-
-const preloadImageItems = async (
-  originalImageItems: ImageItem[]
-): Promise<ImageItem[]> => {
-  const optimizedForGridUrls: string[] = originalImageItems.map((item) =>
-    optimizeCloudinaryUrl(item.url, {
-      width: 600,
-      quality: 'auto',
-      format: 'auto'
-    })
-  )
-
-  try {
-    const validPreloadedImages = (await batchPreloadImages(
-      optimizedForGridUrls
-    )) as ImageItem[]
-
-    const imagesWithMultipleResolutions: ImageItem[] = validPreloadedImages.map(
-      (preloadedImage, index) => {
-        const originalItem = originalImageItems[index]
-        if (!originalItem) {
-          return preloadedImage
-        }
-        return {
-          ...originalItem,
-          url: preloadedImage.url,
-          urls: generateOptimizedUrls(originalItem.url)
-        }
-      }
-    )
-
-    return imagesWithMultipleResolutions
-  } catch (error) {
-    console.error('Erro no preload das imagens dos projetos:', error)
-    return []
-  }
-}
 
 export const ProjectsPage: React.FC = () => {
   const { t, language } = useI18n()
@@ -211,22 +172,71 @@ export const ProjectsPage: React.FC = () => {
     const loadImages = async () => {
       setLoading(true)
       setError(null)
+
       try {
-        const projectData = createProjectData(language)
-        const validImages = await preloadImageItems(projectData)
+        console.log('🔍 Projects - Iniciando carregamento das capas...')
 
-        setImages(validImages)
+        // Cria dados dos projetos baseado no idioma
+        const projectData: ImageItem[] = projectsData.map((project) => ({
+          id: project.id,
+          url: project.url,
+          alt: language === 'pt' ? project.titlePt : project.title,
+          title: language === 'pt' ? project.titlePt : project.title,
+          linkTo: project.linkTo,
+          urls: undefined
+        }))
 
-        if (validImages.length === 0) {
+        // URLs otimizadas para grid
+        const optimizedGridUrls = projectData.map((item) =>
+          optimizeCloudinaryUrl(item.url, {
+            width: 600,
+            height: 600,
+            quality: 80,
+            format: 'webp',
+            crop: 'fill'
+          })
+        )
+
+        console.log('📋 URLs otimizadas para grid:', optimizedGridUrls)
+
+        // Preload das imagens
+        const validPreloadedImages = await batchPreloadImages(optimizedGridUrls)
+        console.log('✅ Imagens precarregadas:', validPreloadedImages.length)
+
+        // Adiciona URLs múltiplas
+        const finalImages = validPreloadedImages.map(
+          (preloadedImage, index) => {
+            const originalItem = projectData[index]
+            if (!originalItem) return preloadedImage
+
+            return {
+              ...originalItem,
+              url: preloadedImage.url,
+              urls: generateProjectUrls(originalItem.url)
+            }
+          }
+        )
+
+        setImages(finalImages)
+
+        if (finalImages.length === 0) {
+          console.error('❌ Nenhuma capa foi carregada!')
           setError(t.common.noImages)
+        } else {
+          console.log(
+            '🎉 Projects - Carregamento concluído:',
+            finalImages.length,
+            'capas'
+          )
         }
       } catch (err) {
+        console.error('❌ Erro ao carregar capas:', err)
         setError(t.common.error)
-        console.error('Error loading project images:', err)
       } finally {
         setLoading(false)
       }
     }
+
     loadImages()
   }, [t, language])
 
@@ -237,13 +247,12 @@ export const ProjectsPage: React.FC = () => {
       navigate(image.linkTo)
     } else {
       navigate(`/projects/${image.id}`)
-      console.warn(
-        `A imagem com ID ${image.id} não possui um 'linkTo' definido. Navegando para o ID como fallback.`
-      )
+      console.warn(`Projeto ${image.id} sem linkTo definido`)
     }
   }
 
   const handleImageError = (image: ImageItem) => {
+    console.error(`❌ Erro ao carregar capa: ${image.id}`)
     setImages((prev) => prev.filter((img) => img.id !== image.id))
   }
 
@@ -259,6 +268,7 @@ export const ProjectsPage: React.FC = () => {
         </p>
       </div>
 
+      {/* Grid de projetos */}
       <section className="pb-8 px-6 sm:px-8 lg:px-12">
         <MasonryGrid
           images={images}
@@ -278,6 +288,7 @@ export const ProjectsPage: React.FC = () => {
         />
       </section>
 
+      {/* Divider */}
       <div className="mt-16 w-32 h-0.5 bg-primary-black dark:bg-primary-white mx-auto"></div>
     </div>
   )

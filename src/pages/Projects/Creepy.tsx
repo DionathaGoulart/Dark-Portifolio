@@ -58,18 +58,18 @@ const optimizeCloudinaryUrl = (
 
 // URLs das 13 imagens
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_8.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_9.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_10.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p4_12.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj4_12.webp'
 ]
 
 // Função para gerar URLs otimizadas para diferentes contextos
