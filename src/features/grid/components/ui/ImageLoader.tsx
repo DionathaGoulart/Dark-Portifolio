@@ -19,34 +19,22 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
   const loadStartTime = useRef<number>(Date.now())
 
   useEffect(() => {
-    // Reset when src changes
+    // Reseta os estados quando a URL da imagem muda
     loadStartTime.current = Date.now()
     setIsLoading(true)
     setHasError(false)
-    setImageLoaded(false)
+    setIsImageLoaded(false)
   }, [src])
 
   const handleLoad = () => {
-    setImageLoaded(true)
+    setIsImageLoaded(true)
     setHasError(false)
-
-    const elapsedTime = Date.now() - loadStartTime.current
-    const minLoadTime = 1000 // 1 segundo
-
-    if (elapsedTime >= minLoadTime) {
-      setIsLoading(false)
-      onLoad?.()
-    } else {
-      // Aguarda o tempo restante
-      setTimeout(() => {
-        setIsLoading(false)
-        onLoad?.()
-      }, minLoadTime - elapsedTime)
-    }
+    setIsLoading(false)
+    onLoad?.()
   }
 
   const handleError = () => {
@@ -58,6 +46,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
       setHasError(true)
       onError?.()
     } else {
+      // Se deu erro muito rápido, espera o tempo restante antes de exibir a falha
       setTimeout(() => {
         setIsLoading(false)
         setHasError(true)
@@ -100,6 +89,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
         }}
       />
 
+      {/* Renderiza o loader somente se estiver carregando ou se o tempo mínimo não passou */}
       {isLoading && (
         <div className="absolute inset-0 bg-primary-white dark:bg-primary-black">
           {/* Shimmer effect */}

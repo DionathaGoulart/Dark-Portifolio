@@ -307,17 +307,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }
 
   if (validImages.length === 0 && !loading) {
-    return (
-      <div
-        className={`w-full flex items-center justify-center p-8 ${className}`}
-      >
-        <div className="text-center">
-          <div className="text-gray-700 dark:text-gray-300 text-lg">
-            📷 Nenhuma imagem disponível
-          </div>
-        </div>
-      </div>
-    )
+    return <></>
   }
 
   return (

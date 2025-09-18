@@ -7,6 +7,7 @@ import {
   AdaptiveThreeColumnGrid,
   AdaptiveTwoColumnGrid
 } from '@/shared/components/ui/FlexibleImageGrid'
+import { ModalZoom } from '@/features/grid/components/ui/ModalZoom'
 
 // Função para otimizar URLs do Cloudinary
 const optimizeCloudinaryUrl = (
@@ -56,7 +57,7 @@ const optimizeCloudinaryUrl = (
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transformationString}/${imagePath}`
 }
 
-// URLs das 13 imagens
+// URLs das 12 imagens
 const originalUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj2_1.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj2_2.webp',
@@ -78,7 +79,6 @@ const generateContextOptimizedUrls = (
   context: 'solo' | 'grid'
 ) => {
   if (context === 'solo') {
-    // Para imagens solo: alta qualidade e tamanhos maiores
     return {
       small: optimizeCloudinaryUrl(originalUrl, {
         width: 800,
@@ -98,7 +98,6 @@ const generateContextOptimizedUrls = (
         quality: 95,
         format: 'webp'
       }),
-      // URL principal também em alta qualidade para solos
       main: optimizeCloudinaryUrl(originalUrl, {
         width: 1200,
         quality: 85,
@@ -106,7 +105,6 @@ const generateContextOptimizedUrls = (
       })
     }
   } else {
-    // Para grids: qualidade padrão
     return {
       small: optimizeCloudinaryUrl(originalUrl, {
         width: 400,
@@ -126,7 +124,6 @@ const generateContextOptimizedUrls = (
         quality: 85,
         format: 'webp'
       }),
-      // URL principal padrão para grids
       main: optimizeCloudinaryUrl(originalUrl, {
         width: 600,
         quality: 'auto',
@@ -179,11 +176,11 @@ const optimizedSoloUrls = originalUrls.map((url) =>
 
 // Configuração personalizada de adaptação para horror art
 const horrorAdaptiveRules = {
-  portrait: { aspectRatio: 'card', objectFit: 'cover' }, // Imagens altas ficam em formato card
-  landscape: { aspectRatio: 'wide', objectFit: 'cover' }, // Imagens largas ficam wide
-  square: { aspectRatio: 'square', objectFit: 'cover' }, // Quadradas ficam quadradas
-  ultraWide: { aspectRatio: 'cinema', objectFit: 'cover' }, // Muito largas ficam cinema
-  ultraTall: { aspectRatio: 'tall', objectFit: 'contain' } // Muito altas ficam com contain para mostrar tudo
+  portrait: { aspectRatio: 'card', objectFit: 'cover' },
+  landscape: { aspectRatio: 'wide', objectFit: 'cover' },
+  square: { aspectRatio: 'square', objectFit: 'cover' },
+  ultraWide: { aspectRatio: 'cinema', objectFit: 'cover' },
+  ultraTall: { aspectRatio: 'tall', objectFit: 'contain' }
 }
 
 export const Macabre: React.FC = () => {
@@ -202,12 +199,12 @@ export const Macabre: React.FC = () => {
     pt: {
       title: 'Macabre',
       description:
-        'Desenhos perturbadores de rostos para serem usados em produtos estampados! Agora com adaptação automática de tamanho baseada nas proporções originais das imagens.'
+        'Uma coleção de designs macabros, com uma estética sombria e cativante. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
     },
     en: {
       title: 'Macabre',
       description:
-        'Disturbing face designs for use on printed products! Now with automatic size adaptation based on original image proportions.'
+        'A collection of macabre designs, with a dark and captivating aesthetic. The images automatically adapt to fit any device.'
     }
   }
 
@@ -225,256 +222,192 @@ export const Macabre: React.FC = () => {
       setError(null)
 
       try {
-        // Carrega URLs otimizadas para grids
         const validGridImages = await batchPreloadImages(optimizedUrls)
-
-        // Carrega URLs otimizadas para solos
         const validSoloImages = await batchPreloadImages(optimizedSoloUrls)
 
-        // Cria duas versões das imagens: uma para grid e uma para solo
         const gridImages = validGridImages.map((image, index) => ({
           ...image,
           urls: generateOptimizedUrls(originalUrls[index]),
-          alt: `Faces of Horror - Design ${index + 1}`,
+          alt: `${texts.title} - Design ${index + 1}`,
           context: 'grid' as const
         }))
 
         const soloImages = validSoloImages.map((image, index) => ({
           ...image,
-          id: `solo-${image.id}`, // ID diferente para evitar conflitos
-          url: optimizedSoloUrls[index], // URL de alta qualidade
+          id: `solo-${image.id}`,
+          url: optimizedSoloUrls[index],
           urls: generateContextOptimizedUrls(originalUrls[index], 'solo'),
-          alt: `Faces of Horror - Design ${index + 1}`,
+          alt: `${texts.title} - Design ${index + 1}`,
           context: 'solo' as const
         }))
 
-        // Combina as duas listas (você pode usar gridImages ou soloImages dependendo do contexto)
         setImages({ grid: gridImages, solo: soloImages })
-
-        if (validGridImages.length === 0 && validSoloImages.length === 0) {
-          setError('Erro ao carregar imagens')
-        }
-      } catch (err) {
-        setError('Erro ao carregar imagens')
-        console.error('Error loading images:', err)
-      } finally {
+        setLoading(false)
+      } catch (e) {
+        setError('Failed to load images.')
+        console.error(e)
         setLoading(false)
       }
     }
 
     loadImages()
-  }, [])
+  }, [texts.title])
 
-  const handleImageClick = (image: ImageItem) => {
+  const handleImageClick = (image: any) => {
     setSelectedImage(image)
   }
 
-  const handleImageError = (image: ImageItem) => {
-    setImages((prev) => ({
-      grid: prev.grid.filter((img) => img.id !== image.id),
-      solo: prev.solo.filter((img) => img.id !== image.id)
-    }))
+  const handleCloseModal = () => {
+    setSelectedImage(null)
   }
 
-  // Se ainda está carregando ou há erro, exibe componente de loading/erro
-  if (loading || error) {
-    return (
-      <div className="min-h-screen bg-transparent">
-        <section className="py-8 px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-              {texts.title}
-            </h1>
-            <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-              {texts.description}
-            </p>
-          </div>
-
-          <AdaptiveImageGrid
-            images={[]}
-            loading={loading}
-            error={error}
-            mode="grid"
-            gridColumns={3}
-            adaptiveMode="auto"
-            adaptiveRules={horrorAdaptiveRules}
-          />
-        </section>
-      </div>
-    )
+  const handleImageError = (image: ImageItem) => {
+    console.error(`Failed to load image: ${image.url}`)
   }
 
   return (
-    <div className="min-h-screen bg-transparent">
-      {/* Container principal */}
-      <section className="py-8 px-6 sm:px-8 lg:px-12">
-        {/* Título centralizado */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
-            {texts.title}
-          </h1>
-          <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-            {texts.description}
-          </p>
-        </div>
+    <div className="py-12 md:py-16">
+      <div className="container mx-auto px-4">
+        <section className="py-8 px-6 sm:px-8 lg:px-12">
+          {/* Título centralizado */}
+          {/* Grid adaptativo - as imagens se ajustam automaticamente */}
+          <div className="space-y-8">
+            {/* Grid de 3 colunas - usando imagens otimizadas para grid */}
+            <div className="mb-12 sm:px-16">
+              <AdaptiveThreeColumnGrid
+                images={images.grid.slice(0, 3)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="card"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
 
-        {/* Grid adaptativo - as imagens se ajustam automaticamente */}
-        <div className="space-y-8">
-          {/* Grid de 3 colunas - usando imagens otimizadas para grid */}
-          <div className="mb-12 sm:px-16">
-            <AdaptiveThreeColumnGrid
-              images={images.grid.slice(0, 3)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="card"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
+            {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(3, 4)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="card"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(4, 5)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(5, 6)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="card"
+                fallbackObjectFit="contain"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(6, 7)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="card"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(7, 8)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="wide"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(8, 9)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(9, 10)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Mais uma seção solo - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(10, 11)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
+
+            {/* Imagem solo final - alta qualidade */}
+            <div className="mb-12">
+              <AdaptiveSoloGrid
+                images={images.solo.slice(11, 12)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="wide"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />
+            </div>
           </div>
+        </section>
+      </div>
 
-          {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(3, 4)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="card"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Imagem solo - usando imagem otimizada para solo (alta qualidade) */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(4, 5)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="portrait"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(5, 6)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="card"
-              fallbackObjectFit="contain"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(6, 7)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="card"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(7, 8)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="wide"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(8, 9)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="portrait"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(9, 10)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="portrait"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Mais uma seção solo - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(10, 11)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="portrait"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-
-          {/* Imagem solo final - alta qualidade */}
-          <div className="mb-12">
-            <AdaptiveSoloGrid
-              images={images.solo.slice(11, 12)}
-              adaptiveMode="manual"
-              fallbackAspectRatio="wide"
-              adaptiveRules={horrorAdaptiveRules}
-              onImageClick={handleImageClick}
-              onImageError={handleImageError}
-              gap={1}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Modal de imagem ampliada */}
       {selectedImage && (
-        <div
-          className="fixed inset-0 bg-primary-black/90 flex items-center justify-center z-50 p-4 cursor-pointer"
-          onClick={() => setSelectedImage(null)}
-        >
-          <img
-            src={selectedImage.urls?.large || selectedImage.url}
-            alt={selectedImage.alt || ''}
-            className="max-w-full max-h-full object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          {/* Fechar com ESC */}
-          <button
-            className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition-colors"
-            onClick={() => setSelectedImage(null)}
-            aria-label="Fechar"
-          >
-            ✕
-          </button>
-        </div>
+        <ModalZoom image={selectedImage} onClose={handleCloseModal} />
       )}
     </div>
   )
