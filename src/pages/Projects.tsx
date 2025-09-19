@@ -345,20 +345,6 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => (
   </div>
 )
 
-/**
- * Page header component
- */
-const PageHeader: React.FC<PageHeaderProps> = ({ title, description }) => (
-  <div className="text-center py-12 px-6">
-    <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-4">
-      {title}
-    </h1>
-    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-      {description}
-    </p>
-  </div>
-)
-
 // ================================
 // HOOKS
 // ================================
@@ -502,12 +488,7 @@ export const ProjectsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
-      <PageHeader
-        title={stableTranslations.title}
-        description={stableTranslations.description}
-      />
-
+    <div className="py-12 md:py-16 min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
       {!loadingState.loading && loadingState.lazyLoading && (
         <LazyLoadingIndicator />
       )}

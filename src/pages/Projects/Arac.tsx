@@ -232,8 +232,13 @@ export const Arac: React.FC = () => {
   }
 
   return (
-    <div>
-      <section className="py-8 px-6 sm:px-8 lg:px-12">
+    <div className="py-12 md:py-16">
+      <section className="px-6 sm:px-8 lg:px-12">
+        <div className="text-center mb-16 animate-fade-in">
+          <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
+            {texts.description}
+          </p>
+        </div>
         <div className="space-y-8">
           {!loading && lazyLoading && <LazyLoadingIndicator />}
 
@@ -244,7 +249,7 @@ export const Arac: React.FC = () => {
                 <AdaptiveSoloGrid
                   images={images.solo.slice(index, index + 1)}
                   adaptiveMode="manual"
-                  fallbackAspectRatio="auto"
+                  fallbackAspectRatio="card"
                   adaptiveRules={horrorAdaptiveRules}
                   onImageClick={handleImageClick}
                   onImageError={handleImageError}
