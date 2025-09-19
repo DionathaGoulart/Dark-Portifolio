@@ -179,7 +179,7 @@ export const FacesOfHorror: React.FC = () => {
               <AdaptiveThreeColumnGrid
                 images={images.grid.slice(0, 3)}
                 adaptiveMode="manual"
-                fallbackAspectRatio="card"
+                fallbackAspectRatio="portrait"
                 adaptiveRules={horrorAdaptiveRules}
                 onImageClick={handleImageClick}
                 onImageError={handleImageError}

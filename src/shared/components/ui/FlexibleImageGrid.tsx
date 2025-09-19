@@ -216,7 +216,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     }
   }
 
-  // Função para obter classes de grid CORRIGIDA para dominantSide
+  // Função para obter classes de grid
   const getGridClass = () => {
     if (mode === 'solo') return 'grid grid-cols-1'
 
@@ -239,7 +239,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     }
   }
 
-  // Função para classes de dominância CORRIGIDA
+  // Função para classes de dominância
   const getDominanceClasses = (index: number) => {
     if (mode !== 'grid' || gridColumns !== 2 || dominantSide === 'none') {
       return ''
@@ -285,6 +285,18 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     return getAdaptiveAspectRatio(imageId)
   }
 
+  // NOVA FUNÇÃO: Para obter classes de centralização quando usa scale-down
+  const getCenteringClasses = (objectFit: string, isDominantGrid: boolean) => {
+    // Se é scale-down ou contain E está em grid dominante, centraliza
+    if (
+      (objectFit === 'scale-down' || objectFit === 'contain') &&
+      isDominantGrid
+    ) {
+      return 'flex items-center justify-center'
+    }
+    return ''
+  }
+
   const renderImageCard = (image: ImageItem, index: number) => {
     const dominanceClasses = getDominanceClasses(index)
     const adaptiveAspectRatio = getAdjustedAspectRatio(image.id, index)
@@ -295,10 +307,20 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     const isDominantGrid =
       mode === 'grid' && gridColumns === 2 && dominantSide !== 'none'
 
+    // Classes para centralização quando necessário
+    const centeringClasses = getCenteringClasses(
+      adaptiveObjectFit,
+      isDominantGrid
+    )
+
     return (
       <div key={image.id} className={`${dominanceClasses}`}>
         <div
-          className={`w-full ${isDominantGrid ? 'h-full min-h-[300px]' : aspectClasses}`}
+          className={`w-full ${
+            isDominantGrid
+              ? `h-full min-h-[300px] ${centeringClasses}`
+              : `${aspectClasses} ${centeringClasses}`
+          }`}
           style={{ backfaceVisibility: 'hidden' }}
         >
           <ImageCard
@@ -311,7 +333,13 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
             showHoverEffect={false}
             enableHoverScale={false}
             showTitle={false}
-            className="w-full h-full"
+            className={`${
+              isDominantGrid &&
+              (adaptiveObjectFit === 'scale-down' ||
+                adaptiveObjectFit === 'contain')
+                ? 'max-w-full max-h-full' // Garante que a imagem não ultrapasse os limites do container
+                : 'w-full h-full'
+            }`}
           />
         </div>
       </div>
