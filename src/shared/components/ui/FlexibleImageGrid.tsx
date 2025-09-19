@@ -216,9 +216,14 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     }
   }
 
-  // Função para obter classes de grid
+  // Função para obter classes de grid CORRIGIDA para dominantSide
   const getGridClass = () => {
     if (mode === 'solo') return 'grid grid-cols-1'
+
+    // Para 2 colunas com dominantSide, usamos uma configuração específica
+    if (gridColumns === 2 && dominantSide !== 'none') {
+      return 'grid grid-cols-6 auto-rows-fr' // 6 colunas para proporções 4:2
+    }
 
     switch (gridColumns) {
       case 2:
@@ -234,44 +239,66 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     }
   }
 
-  // Função para classes de dominância (apenas para 2 colunas)
+  // Função para classes de dominância CORRIGIDA
   const getDominanceClasses = (index: number) => {
     if (mode !== 'grid' || gridColumns !== 2 || dominantSide === 'none') {
       return ''
     }
 
-    const isEvenRow = Math.floor(index / 2) % 2 === 0
-    const isFirstInPair = index % 2 === 0
+    const pairIndex = Math.floor(index / 2) // Qual par de imagens (0, 1, 2...)
+    const positionInPair = index % 2 // Posição dentro do par (0 = primeira, 1 = segunda)
+
+    // Alterna a dominância a cada par para criar um padrão interessante
+    const isEvenPair = pairIndex % 2 === 0
 
     if (dominantSide === 'left') {
-      if (isFirstInPair) {
-        return isEvenRow ? 'col-span-1 row-span-2' : 'col-span-1'
+      if (positionInPair === 0) {
+        // Primeira imagem do par
+        return isEvenPair ? 'col-span-4 h-full' : 'col-span-2 h-full'
       } else {
-        return isEvenRow ? 'col-span-1' : 'col-span-1 row-span-2'
+        // Segunda imagem do par
+        return isEvenPair ? 'col-span-2 h-full' : 'col-span-4 h-full'
       }
     }
 
     if (dominantSide === 'right') {
-      if (!isFirstInPair) {
-        return isEvenRow ? 'col-span-1 row-span-2' : 'col-span-1'
+      if (positionInPair === 0) {
+        // Primeira imagem do par
+        return isEvenPair ? 'col-span-2 h-full' : 'col-span-4 h-full'
       } else {
-        return isEvenRow ? 'col-span-1' : 'col-span-1 row-span-2'
+        // Segunda imagem do par
+        return isEvenPair ? 'col-span-4 h-full' : 'col-span-2 h-full'
       }
     }
 
     return ''
   }
 
+  // Função para obter aspect ratio ajustado para dominância
+  const getAdjustedAspectRatio = (imageId: string, index: number) => {
+    // Se há dominância em grid de 2 colunas, remove aspect ratio fixo
+    // para permitir que as imagens se ajustem à altura da linha
+    if (mode === 'grid' && gridColumns === 2 && dominantSide !== 'none') {
+      return 'auto' // Remove aspect ratio fixo
+    }
+
+    return getAdaptiveAspectRatio(imageId)
+  }
+
   const renderImageCard = (image: ImageItem, index: number) => {
     const dominanceClasses = getDominanceClasses(index)
-    const adaptiveAspectRatio = getAdaptiveAspectRatio(image.id)
+    const adaptiveAspectRatio = getAdjustedAspectRatio(image.id, index)
     const adaptiveObjectFit = getAdaptiveObjectFit(image.id)
     const aspectClasses = getAspectRatioClass(adaptiveAspectRatio)
+
+    // Para dominantSide em grid de 2 colunas, usa height 100% em vez de aspect ratio fixo
+    const isDominantGrid =
+      mode === 'grid' && gridColumns === 2 && dominantSide !== 'none'
 
     return (
       <div key={image.id} className={`${dominanceClasses}`}>
         <div
-          className={`w-full ${aspectClasses}`}
+          className={`w-full ${isDominantGrid ? 'h-full min-h-[300px]' : aspectClasses}`}
           style={{ backfaceVisibility: 'hidden' }}
         >
           <ImageCard
@@ -279,7 +306,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
             onClick={onImageClick}
             onLoad={handleImageLoad}
             onError={handleImageError}
-            isSquare={adaptiveAspectRatio === 'square'}
+            isSquare={false}
             objectFit={adaptiveObjectFit as any}
             showHoverEffect={false}
             enableHoverScale={false}
@@ -331,3 +358,11 @@ export const AdaptiveTwoColumnGrid: React.FC<
 export const AdaptiveThreeColumnGrid: React.FC<
   Omit<AdaptiveImageGridProps, 'mode' | 'gridColumns'>
 > = (props) => <AdaptiveImageGrid {...props} mode="grid" gridColumns={3} />
+
+export const AdaptiveFourColumnGrid: React.FC<
+  Omit<AdaptiveImageGridProps, 'mode' | 'gridColumns'>
+> = (props) => <AdaptiveImageGrid {...props} mode="grid" gridColumns={4} />
+
+export const AdaptiveFiveColumnGrid: React.FC<
+  Omit<AdaptiveImageGridProps, 'mode' | 'gridColumns'>
+> = (props) => <AdaptiveImageGrid {...props} mode="grid" gridColumns={5} />

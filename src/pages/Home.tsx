@@ -3,7 +3,7 @@ import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { useI18n } from '@/shared/contexts/I18nContext'
 
-// Função para otimizar URLs do Cloudinary (mantida igual)
+// Função para otimizar URLs do Cloudinary
 const optimizeCloudinaryUrl = (
   url: string,
   options: {
@@ -51,7 +51,7 @@ const optimizeCloudinaryUrl = (
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transformationString}/${imagePath}`
 }
 
-// URLs originais (mantidas iguais)
+// URLs originais das 35 imagens
 const originalPrintUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/1.png',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/2.png',
@@ -114,12 +114,64 @@ const generateOptimizedUrls = (originalUrl: string) => {
   }
 }
 
-const optimizedPrintUrls = originalPrintUrls.map((url) =>
-  optimizeCloudinaryUrl(url, {
-    width: 600,
-    quality: 'auto',
-    format: 'auto'
-  })
+// Componente de loading elegante para o masonry grid
+const MasonryGridLoader = ({ count = 12 }: { count?: number }) => (
+  <div className="columns-2 md:columns-2 lg:columns-4 xl:columns-4 gap-4 space-y-4">
+    {Array.from({ length: count }).map((_, index) => {
+      // Varia as alturas para simular um masonry
+      const heights = ['h-48', 'h-64', 'h-56', 'h-72', 'h-52', 'h-60']
+      const randomHeight = heights[index % heights.length]
+
+      return (
+        <div
+          key={index}
+          className={`relative w-full ${randomHeight} overflow-hidden rounded-lg bg-primary-white dark:bg-primary-black border border-primary-black/10 dark:border-primary-white/10 break-inside-avoid mb-4`}
+        >
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
+              @keyframes shimmer {
+                0% { transform: translateX(-100%) skewX(-12deg); }
+                100% { transform: translateX(200%) skewX(-12deg); }
+              }
+              @keyframes bounce {
+                0%, 80%, 100% { transform: scale(0); }
+                40% { transform: scale(1); }
+              }
+            `
+            }}
+          />
+
+          {/* Shimmer effect */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-black/5 dark:via-primary-white/5 to-transparent transform -skew-x-12"
+            style={{
+              animation: 'shimmer 2s infinite',
+              transform: 'translateX(-100%) skewX(-12deg)'
+            }}
+          />
+
+          {/* Bounce dots */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex space-x-1">
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 0ms' }}
+              />
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 200ms' }}
+              />
+              <div
+                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 400ms' }}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    })}
+  </div>
 )
 
 export const HomePage: React.FC = () => {
@@ -128,34 +180,73 @@ export const HomePage: React.FC = () => {
 
   const [images, setImages] = useState<ImageItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [lazyLoading, setLazyLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null)
 
   useEffect(() => {
     const loadImages = async () => {
       setLoading(true)
+      setLazyLoading(true)
       setError(null)
 
       try {
-        const validImages = await batchPreloadImages(optimizedPrintUrls)
-
-        const imagesWithMultipleResolutions = validImages.map(
-          (image, index) => ({
-            ...image,
-            urls: generateOptimizedUrls(originalPrintUrls[index])
+        // FASE 1: Carrega as primeiras 12 imagens (prioritárias - o que aparece na tela)
+        const priorityUrls = originalPrintUrls.slice(0, 12)
+        const priorityOptimizedUrls = priorityUrls.map((url) =>
+          optimizeCloudinaryUrl(url, {
+            width: 600,
+            quality: 'auto',
+            format: 'auto'
           })
         )
 
-        setImages(imagesWithMultipleResolutions)
+        const priorityImages = await batchPreloadImages(priorityOptimizedUrls)
 
-        if (validImages.length === 0) {
-          setError(t.common.noImages)
+        const priorityImagesWithUrls = priorityImages.map((image, index) => ({
+          ...image,
+          urls: generateOptimizedUrls(priorityUrls[index])
+        }))
+
+        setImages(priorityImagesWithUrls)
+        setLoading(false)
+
+        // FASE 2: Carrega as imagens restantes (23 restantes)
+        if (originalPrintUrls.length > 12) {
+          const remainingUrls = originalPrintUrls.slice(12)
+          const remainingOptimizedUrls = remainingUrls.map((url) =>
+            optimizeCloudinaryUrl(url, {
+              width: 600,
+              quality: 'auto',
+              format: 'auto'
+            })
+          )
+
+          const remainingImages = await batchPreloadImages(
+            remainingOptimizedUrls
+          )
+
+          const remainingImagesWithUrls = remainingImages.map(
+            (image, index) => ({
+              ...image,
+              urls: generateOptimizedUrls(remainingUrls[index])
+            })
+          )
+
+          setImages((prev) => [...prev, ...remainingImagesWithUrls])
+          setLazyLoading(false)
+        } else {
+          setLazyLoading(false)
+        }
+
+        if (priorityImages.length === 0) {
+          setError(t.common.noImages || 'Nenhuma imagem encontrada')
         }
       } catch (err) {
-        setError(t.common.error)
-        console.error('Error loading images:', err)
-      } finally {
+        console.error('❌ Erro ao carregar imagens:', err)
+        setError(t.common.error || 'Erro ao carregar imagens')
         setLoading(false)
+        setLazyLoading(false)
       }
     }
 
@@ -167,26 +258,68 @@ export const HomePage: React.FC = () => {
   }
 
   const handleImageError = (image: ImageItem) => {
+    console.error(`❌ Erro ao exibir imagem: ${image.id}`)
     setImages((prev) => prev.filter((img) => img.id !== image.id))
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              Erro ao carregar imagens
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">{error}</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
+      {/* Indicador de carregamento das imagens restantes */}
+      {!loading && lazyLoading && (
+        <div className="text-center py-8">
+          <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
+            <div className="flex space-x-1">
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 0ms' }}
+              />
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 200ms' }}
+              />
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 400ms' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       <section className="py-8 px-6 sm:px-8 lg:px-12">
-        <MasonryGrid
-          images={images}
-          loading={loading}
-          error={error}
-          onImageClick={handleImageClick}
-          onImageError={handleImageError}
-          columnCount={{
-            sm: 2,
-            md: 2,
-            lg: 4,
-            xl: 4
-          }}
-          gap={4}
-        />
+        {loading ? (
+          <MasonryGridLoader count={12} />
+        ) : (
+          <MasonryGrid
+            images={images}
+            loading={false}
+            error={null}
+            onImageClick={handleImageClick}
+            onImageError={handleImageError}
+            columnCount={{
+              sm: 2,
+              md: 2,
+              lg: 4,
+              xl: 4
+            }}
+            gap={4}
+          />
+        )}
       </section>
 
       {/* Modal de imagem ampliada */}

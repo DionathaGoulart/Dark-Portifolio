@@ -174,7 +174,7 @@ export const FacesOfHorror: React.FC = () => {
       <section className="py-8 px-6 sm:px-8 lg:px-12">
         <div className="space-y-8">
           {/* Grid de 3 colunas - PRIORIDADE ALTA (primeiras imagens visíveis) */}
-          <div className="mb-12 sm:px-16">
+          <div className="sm:px-16">
             {renderSection(
               <AdaptiveThreeColumnGrid
                 images={images.grid.slice(0, 3)}
@@ -196,12 +196,12 @@ export const FacesOfHorror: React.FC = () => {
           </div>
 
           {/* Imagem solo - PRIORIDADE ALTA */}
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(0, 1)}
+                images={images.solo.slice(3, 4)}
                 adaptiveMode="manual"
-                fallbackAspectRatio="square"
+                fallbackAspectRatio="auto"
                 adaptiveRules={horrorAdaptiveRules}
                 onImageClick={handleImageClick}
                 onImageError={handleImageError}
@@ -214,13 +214,12 @@ export const FacesOfHorror: React.FC = () => {
           </div>
 
           {/* Imagem solo - PRIORIDADE ALTA */}
-          <div className="mb-12">
+          <div className="sm:px-36">
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(1, 2)}
+                images={images.solo.slice(4, 5)}
                 adaptiveMode="manual"
-                fallbackAspectRatio="square"
-                fallbackObjectFit="contain"
+                fallbackAspectRatio="auto"
                 adaptiveRules={horrorAdaptiveRules}
                 onImageClick={handleImageClick}
                 onImageError={handleImageError}
@@ -256,18 +255,15 @@ export const FacesOfHorror: React.FC = () => {
                     }}
                   />
                 </div>
-                <span className="text-sm font-medium">
-                  Carregando mais imagens...
-                </span>
               </div>
             </div>
           )}
 
           {/* Grid de 2 colunas - CARREGAMENTO LAZY */}
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveTwoColumnGrid
-                images={images.grid.slice(3, 5)}
+                images={images.grid.slice(5, 7)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 adaptiveRules={horrorAdaptiveRules}
@@ -285,12 +281,12 @@ export const FacesOfHorror: React.FC = () => {
           </div>
 
           {/* Restante das seções com lazy loading */}
-          <div className="mb-12">
+          <div className="sm:px-36">
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(4, 5)}
+                images={images.solo.slice(7, 8)}
                 adaptiveMode="manual"
-                fallbackAspectRatio="square"
+                fallbackAspectRatio="auto"
                 fallbackObjectFit="contain"
                 adaptiveRules={horrorAdaptiveRules}
                 onImageClick={handleImageClick}
@@ -303,10 +299,10 @@ export const FacesOfHorror: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(5, 6)}
+                images={images.solo.slice(8, 9)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 adaptiveRules={horrorAdaptiveRules}
@@ -323,10 +319,10 @@ export const FacesOfHorror: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(6, 7)}
+                images={images.solo.slice(9, 10)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="card"
                 adaptiveRules={horrorAdaptiveRules}
@@ -338,14 +334,14 @@ export const FacesOfHorror: React.FC = () => {
               'solo',
               <ImageSectionLoader className="max-w-2xl mx-auto" />
             )}
-          </div>
+          </>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveTwoColumnGrid
-                images={images.grid.slice(8, 10)}
+                images={images.grid.slice(10, 12)}
                 adaptiveMode="manual"
-                fallbackAspectRatio="wide"
+                fallbackAspectRatio="auto"
                 adaptiveRules={horrorAdaptiveRules}
                 onImageClick={handleImageClick}
                 onImageError={handleImageError}
@@ -360,10 +356,10 @@ export const FacesOfHorror: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(9, 10)}
+                images={images.solo.slice(12, 13)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="card"
                 adaptiveRules={horrorAdaptiveRules}
@@ -377,10 +373,10 @@ export const FacesOfHorror: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveTwoColumnGrid
-                images={images.grid.slice(11, 13)}
+                images={images.grid.slice(13, 15)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 adaptiveRules={horrorAdaptiveRules}
@@ -397,10 +393,10 @@ export const FacesOfHorror: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(12, 13)}
+                images={images.solo.slice(15, 16)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 adaptiveRules={horrorAdaptiveRules}
