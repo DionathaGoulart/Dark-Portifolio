@@ -76,18 +76,7 @@ const originalPrintUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/21.png',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/22.png',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/23.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/24.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/25.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/26.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/27.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/28.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/29.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/30.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/31.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/32.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/33.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/34.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/35.png'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/24.png'
 ]
 
 const generateOptimizedUrls = (originalUrl: string) => {
