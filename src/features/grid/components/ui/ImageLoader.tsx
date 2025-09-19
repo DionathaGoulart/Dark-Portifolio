@@ -1,141 +1,108 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 
 interface ImageLoaderProps {
   src: string
-  alt?: string
-  className?: string
+  alt: string
   onLoad?: () => void
   onError?: () => void
-  fallback?: React.ReactNode
+  className?: string
+  crossOrigin?: 'anonymous' | 'use-credentials' | ''
 }
 
 export const ImageLoader: React.FC<ImageLoaderProps> = ({
   src,
-  alt = '',
-  className = '',
+  alt,
   onLoad,
   onError,
-  fallback
+  className = '',
+  crossOrigin = 'anonymous' // Adiciona suporte CORS
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const [isImageLoaded, setIsImageLoaded] = useState(false)
-  const loadStartTime = useRef<number>(Date.now())
+  const [imageSrc, setImageSrc] = useState(src)
+  const imgRef = useRef<HTMLImageElement>(null)
 
-  useEffect(() => {
-    // Reseta os estados quando a URL da imagem muda
-    loadStartTime.current = Date.now()
-    setIsLoading(true)
-    setHasError(false)
-    setIsImageLoaded(false)
-  }, [src])
+  // Função para garantir HTTPS nas URLs da Cloudinary
+  const ensureHttps = (url: string): string => {
+    if (url.startsWith('http://')) {
+      return url.replace('http://', 'https://')
+    }
+    return url
+  }
+
+  // Função para adicionar parâmetros anti-cache se necessário
+  const addCacheBuster = (url: string): string => {
+    const separator = url.includes('?') ? '&' : '?'
+    return `${url}${separator}cb=${Date.now()}`
+  }
 
   const handleLoad = () => {
-    setIsImageLoaded(true)
-    setHasError(false)
     setIsLoading(false)
+    setHasError(false)
     onLoad?.()
   }
 
   const handleError = () => {
-    const elapsedTime = Date.now() - loadStartTime.current
-    const minLoadTime = 1000
+    setIsLoading(false)
+    setHasError(true)
 
-    if (elapsedTime >= minLoadTime) {
-      setIsLoading(false)
-      setHasError(true)
-      onError?.()
-    } else {
-      // Se deu erro muito rápido, espera o tempo restante antes de exibir a falha
-      setTimeout(() => {
-        setIsLoading(false)
-        setHasError(true)
-        onError?.()
-      }, minLoadTime - elapsedTime)
+    // Tentativa de recovery: força HTTPS e adiciona cache buster
+    const httpsUrl = ensureHttps(src)
+    const urlWithCacheBuster = addCacheBuster(httpsUrl)
+
+    // Se ainda não tentamos com cache buster, tenta uma vez
+    if (!imageSrc.includes('cb=')) {
+      setImageSrc(urlWithCacheBuster)
+      setHasError(false)
+      setIsLoading(true)
+      return
     }
+
+    onError?.()
   }
+
+  // Garantir que a URL inicial seja HTTPS
+  React.useEffect(() => {
+    const httpsUrl = ensureHttps(src)
+    if (httpsUrl !== imageSrc) {
+      setImageSrc(httpsUrl)
+    }
+  }, [src])
 
   if (hasError) {
     return (
-      fallback || (
-        <div className="w-full h-48 bg-primary-white dark:bg-primary-black border border-primary-black/10 dark:border-primary-white/10 flex items-center justify-center transition-all duration-300">
-          <div className="text-center text-primary-black/50 dark:text-primary-white/50">
-            <div className="w-12 h-12 mx-auto mb-3 bg-primary-black/10 dark:bg-primary-white/10 flex items-center justify-center">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
-              </svg>
-            </div>
-            <p className="text-sm font-medium">Imagem não encontrada</p>
+      <div
+        className={`flex items-center justify-center bg-gray-200 dark:bg-gray-700 ${className}`}
+      >
+        <div className="text-center p-4">
+          <div className="text-gray-500 dark:text-gray-400 text-sm">
+            ⚠️ Erro ao carregar
           </div>
         </div>
-      )
+      </div>
     )
   }
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes shimmer {
-            0% { transform: translateX(-100%) skewX(-12deg); }
-            100% { transform: translateX(200%) skewX(-12deg); }
-          }
-          @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-          }
-        `
-        }}
-      />
-
-      {/* Renderiza o loader somente se estiver carregando ou se o tempo mínimo não passou */}
+    <div className="relative">
       {isLoading && (
-        <div className="absolute inset-0 bg-primary-white dark:bg-primary-black">
-          {/* Shimmer effect */}
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-black/5 dark:via-primary-white/5 to-transparent transform -skew-x-12"
-            style={{
-              animation: 'shimmer 2s infinite',
-              transform: 'translateX(-100%) skewX(-12deg)'
-            }}
-          />
-
-          {/* Elegant loading dots */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex space-x-1">
-              <div
-                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
-                style={{
-                  animation: 'bounce 1.4s infinite 0ms'
-                }}
-              />
-              <div
-                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
-                style={{
-                  animation: 'bounce 1.4s infinite 200ms'
-                }}
-              />
-              <div
-                className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
-                style={{
-                  animation: 'bounce 1.4s infinite 400ms'
-                }}
-              />
-            </div>
-          </div>
+        <div
+          className={`absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800 ${className}`}
+        >
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
         </div>
       )}
-
       <img
-        src={src}
+        ref={imgRef}
+        src={imageSrc}
         alt={alt}
-        className={`w-full h-full object-cover transition-all duration-700 ease-out ${
-          isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-        } ${className}`}
         onLoad={handleLoad}
         onError={handleError}
-        loading="lazy"
+        crossOrigin={crossOrigin}
+        referrerPolicy="no-referrer-when-downgrade" // Política de referrer mais permissiva
+        className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+        loading="lazy" // Lazy loading nativo
+        decoding="async" // Decodificação assíncrona
       />
     </div>
   )
