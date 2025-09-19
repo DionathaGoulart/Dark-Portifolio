@@ -76,7 +76,13 @@ const originalPrintUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/21.png',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/22.png',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/23.png',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/24.png'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/24.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/25.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/26.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/27.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/28.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/29.png',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158/30.png'
 ]
 
 const generateOptimizedUrls = (originalUrl: string) => {
