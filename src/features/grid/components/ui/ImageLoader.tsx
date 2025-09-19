@@ -15,7 +15,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   onLoad,
   onError,
   className = '',
-  crossOrigin = 'anonymous' // Adiciona suporte CORS
+  crossOrigin = 'anonymous'
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -84,7 +84,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full overflow-hidden">
       {isLoading && (
         <div
           className={`absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800 ${className}`}
