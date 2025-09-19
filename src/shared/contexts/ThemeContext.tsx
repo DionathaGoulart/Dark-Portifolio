@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
+// ================================
+// INTERFACES & TYPES
+// ================================
+
 export type Theme = 'light' | 'dark'
 
 interface ThemeContextType {
@@ -8,50 +12,150 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void
 }
 
+interface ThemeProviderProps {
+  children: React.ReactNode
+}
+
+// ================================
+// CONSTANTS
+// ================================
+
+const STORAGE_KEY = 'theme'
+const DEFAULT_THEME: Theme = 'dark'
+const DARK_CLASS = 'dark'
+const SUPPORTED_THEMES: Theme[] = ['light', 'dark']
+
+// ================================
+// HELPER FUNCTIONS
+// ================================
+
+/**
+ * Validates if theme value is supported
+ */
+const isValidTheme = (theme: string): theme is Theme => {
+  return SUPPORTED_THEMES.includes(theme as Theme)
+}
+
+/**
+ * Safely gets theme from localStorage
+ */
+const getStoredTheme = (): Theme | null => {
+  try {
+    const savedTheme = localStorage.getItem(STORAGE_KEY)
+    if (savedTheme && isValidTheme(savedTheme)) {
+      return savedTheme
+    }
+  } catch (error) {
+    console.warn('Could not access localStorage for theme:', error)
+  }
+
+  return null
+}
+
+/**
+ * Gets initial theme from storage or returns default
+ */
+const getInitialTheme = (): Theme => {
+  return getStoredTheme() || DEFAULT_THEME
+}
+
+/**
+ * Safely saves theme to localStorage
+ */
+const saveThemeToStorage = (theme: Theme): void => {
+  try {
+    localStorage.setItem(STORAGE_KEY, theme)
+  } catch (error) {
+    console.warn('Could not save theme to localStorage:', error)
+  }
+}
+
+/**
+ * Applies theme to document root element
+ */
+const applyThemeToDOM = (theme: Theme): void => {
+  try {
+    const root = document.documentElement
+
+    if (theme === 'dark') {
+      root.classList.add(DARK_CLASS)
+    } else {
+      root.classList.remove(DARK_CLASS)
+    }
+  } catch (error) {
+    console.warn('Could not apply theme to DOM:', error)
+  }
+}
+
+// ================================
+// CONTEXT
+// ================================
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
-}) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    try {
-      const savedTheme = localStorage.getItem('theme') as Theme
-      if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
-        return savedTheme
-      }
-    } catch (error) {}
-    return 'dark'
-  })
+// ================================
+// PROVIDER COMPONENT
+// ================================
+
+/**
+ * Theme Provider that manages light/dark theme state
+ * Automatically persists theme preference and applies to DOM
+ */
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme)
+
+  // ================================
+  // EFFECTS
+  // ================================
 
   useEffect(() => {
-    try {
-      // Salva no localStorage
-      localStorage.setItem('theme', theme)
-
-      // Controla APENAS a classe 'dark' no HTML
-      const root = document.documentElement
-
-      if (theme === 'dark') {
-        root.classList.add('dark')
-      } else {
-        root.classList.remove('dark')
-      }
-    } catch (error) {}
+    saveThemeToStorage(theme)
+    applyThemeToDOM(theme)
   }, [theme])
+
+  // ================================
+  // HANDLERS
+  // ================================
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme)
+  }
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light'
     setTheme(newTheme)
   }
 
+  // ================================
+  // COMPUTED VALUES
+  // ================================
+
+  const contextValue: ThemeContextType = {
+    theme,
+    toggleTheme,
+    setTheme
+  }
+
+  // ================================
+  // RENDER
+  // ================================
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   )
 }
 
-export const useTheme = () => {
+// ================================
+// HOOKS
+// ================================
+
+/**
+ * Hook to access theme context
+ * Must be used within ThemeProvider
+ */
+export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext)
 
   if (context === undefined) {

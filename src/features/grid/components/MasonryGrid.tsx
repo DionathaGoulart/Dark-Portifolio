@@ -2,15 +2,51 @@ import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { ImageCard } from './ui/ImageCard'
 import { MasonryGridProps, ImageItem } from '../types'
 
-// Hook para gerenciar breakpoints
+// ================================
+// INTERFACES & TYPES
+// ================================
+
+/**
+ * Extended props interface for MasonryGrid component
+ */
+interface MasonryGridPropsExtended extends MasonryGridProps {
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
+}
+
+// ================================
+// UTILITIES
+// ================================
+
+/**
+ * Debounce utility to optimize resize events
+ */
+const debounce = (func: Function, wait: number) => {
+  let timeout: NodeJS.Timeout
+  return (...args: any[]) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(null, args), wait)
+  }
+}
+
+// ================================
+// CUSTOM HOOKS
+// ================================
+
+/**
+ * Hook to manage responsive columns based on screen width
+ */
 const useResponsiveColumns = (columnCount: MasonryGridProps['columnCount']) => {
-  const [columns, setColumns] = useState(() => {
-    const width = typeof window !== 'undefined' ? window.innerWidth : 1024
+  const getInitialColumns = () => {
+    if (typeof window === 'undefined') return columnCount?.lg || 3
+
+    const width = window.innerWidth
     if (width < 640) return columnCount?.sm || 1
     if (width < 1024) return columnCount?.md || 2
     if (width < 1280) return columnCount?.lg || 3
     return columnCount?.xl || 4
-  })
+  }
+
+  const [columns, setColumns] = useState(getInitialColumns)
 
   useEffect(() => {
     const updateColumns = () => {
@@ -33,20 +69,14 @@ const useResponsiveColumns = (columnCount: MasonryGridProps['columnCount']) => {
   return columns
 }
 
-// Utilitário de debounce inline para evitar dependência externa
-const debounce = (func: Function, wait: number) => {
-  let timeout: NodeJS.Timeout
-  return (...args: any[]) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func.apply(null, args), wait)
-  }
-}
+// ================================
+// MAIN COMPONENT
+// ================================
 
-// Interface atualizada para incluir objectFit
-interface MasonryGridPropsExtended extends MasonryGridProps {
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
-}
-
+/**
+ * MasonryGrid component for displaying images in a masonry layout
+ * Supports responsive columns, hover effects, and various image fit modes
+ */
 export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   images = [],
   columnCount = { sm: 1, md: 2, lg: 3, xl: 4 },
@@ -61,16 +91,26 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   showHoverEffect = false,
   objectFit = 'cover'
 }) => {
+  // ================================
+  // STATE & REFS
+  // ================================
+
   const [validImages, setValidImages] = useState<ImageItem[]>(images)
   const containerRef = useRef<HTMLDivElement>(null)
   const currentColumns = useResponsiveColumns(columnCount)
 
-  // Atualiza imagens válidas quando props.images mudam
+  // ================================
+  // EFFECTS
+  // ================================
+
   useEffect(() => {
     setValidImages(images)
   }, [images])
 
-  // Distribui imagens em colunas de forma otimizada
+  // ================================
+  // COMPUTED VALUES
+  // ================================
+
   const distributedColumns = useMemo(() => {
     if (validImages.length === 0 || currentColumns === 0) return []
 
@@ -86,15 +126,6 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
     return columns
   }, [validImages, currentColumns])
 
-  // Handlers otimizados
-  const handleImageLoad = (image: ImageItem) => onImageLoad?.(image)
-
-  const handleImageError = (image: ImageItem) => {
-    setValidImages((prev) => prev.filter((img) => img.id !== image.id))
-    onImageError?.(image)
-  }
-
-  // Classes CSS calculadas
   const gapClasses = useMemo(
     () => ({
       container: `-m-${gap}`,
@@ -103,7 +134,21 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
     [gap]
   )
 
-  // Estados de erro
+  // ================================
+  // EVENT HANDLERS
+  // ================================
+
+  const handleImageLoad = (image: ImageItem) => onImageLoad?.(image)
+
+  const handleImageError = (image: ImageItem) => {
+    setValidImages((prev) => prev.filter((img) => img.id !== image.id))
+    onImageError?.(image)
+  }
+
+  // ================================
+  // EARLY RETURNS
+  // ================================
+
   if (error) {
     return (
       <div
@@ -132,6 +177,10 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
       </div>
     )
   }
+
+  // ================================
+  // MAIN RENDER
+  // ================================
 
   return (
     <div ref={containerRef} className={`w-full ${className}`}>

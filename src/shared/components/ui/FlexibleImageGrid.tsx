@@ -1,7 +1,25 @@
+import React, { useState, useEffect } from 'react'
 import { ImageCard } from '@/features/grid'
 import { ImageItem } from '@/features/grid/types'
-import React, { useState, useEffect } from 'react'
 
+// ================================
+// INTERFACES & TYPES
+// ================================
+
+/**
+ * Adaptive rules for different image orientations
+ */
+interface AdaptiveRules {
+  portrait: { aspectRatio: string; objectFit: string }
+  landscape: { aspectRatio: string; objectFit: string }
+  square: { aspectRatio: string; objectFit: string }
+  ultraWide: { aspectRatio: string; objectFit: string }
+  ultraTall: { aspectRatio: string; objectFit: string }
+}
+
+/**
+ * Props for the AdaptiveImageGrid component
+ */
 export interface AdaptiveImageGridProps {
   images?: ImageItem[]
   mode?: 'solo' | 'grid'
@@ -32,29 +50,21 @@ export interface AdaptiveImageGridProps {
   onImageError?: (image: ImageItem) => void
   loading?: boolean
   error?: string | null
-  // Configurações de adaptação
-  adaptiveRules?: {
-    portrait: { aspectRatio: string; objectFit: string }
-    landscape: { aspectRatio: string; objectFit: string }
-    square: { aspectRatio: string; objectFit: string }
-    ultraWide: { aspectRatio: string; objectFit: string }
-    ultraTall: { aspectRatio: string; objectFit: string }
-  }
+  adaptiveRules?: AdaptiveRules
 }
 
-// Função para detectar a orientação da imagem baseada nas dimensões
-const detectImageOrientation = (width: number, height: number) => {
-  const ratio = width / height
+type ImageOrientation =
+  | 'ultraWide'
+  | 'landscape'
+  | 'square'
+  | 'portrait'
+  | 'ultraTall'
 
-  if (ratio > 2.5) return 'ultraWide' // Muito largo (ex: 21:9, banners)
-  if (ratio > 1.3) return 'landscape' // Paisagem (ex: 16:9, 4:3)
-  if (ratio > 0.9 && ratio < 1.1) return 'square' // Quadrado (aprox 1:1)
-  if (ratio > 0.4) return 'portrait' // Retrato (ex: 3:4, 9:16)
-  return 'ultraTall' // Muito alto (ex: banners verticais)
-}
+// ================================
+// CONSTANTS & HELPERS
+// ================================
 
-// Configurações padrão de adaptação
-const defaultAdaptiveRules = {
+const defaultAdaptiveRules: AdaptiveRules = {
   portrait: { aspectRatio: 'portrait', objectFit: 'cover' },
   landscape: { aspectRatio: 'landscape', objectFit: 'cover' },
   square: { aspectRatio: 'square', objectFit: 'cover' },
@@ -62,6 +72,70 @@ const defaultAdaptiveRules = {
   ultraTall: { aspectRatio: 'tall', objectFit: 'cover' }
 }
 
+/**
+ * Detects image orientation based on width/height ratio
+ */
+const detectImageOrientation = (
+  width: number,
+  height: number
+): ImageOrientation => {
+  const ratio = width / height
+
+  if (ratio > 2.5) return 'ultraWide'
+  if (ratio > 1.3) return 'landscape'
+  if (ratio > 0.9 && ratio < 1.1) return 'square'
+  if (ratio > 0.4) return 'portrait'
+  return 'ultraTall'
+}
+
+/**
+ * Maps aspect ratio strings to Tailwind classes
+ */
+const getAspectRatioClass = (aspectRatio: string): string => {
+  const aspectRatioMap: Record<string, string> = {
+    square: 'aspect-square',
+    portrait: 'aspect-[3/4]',
+    landscape: 'aspect-[4/3]',
+    wide: 'aspect-[16/9]',
+    ultrawide: 'aspect-[21/9]',
+    tall: 'aspect-[2/3]',
+    vertical: 'aspect-[9/16]',
+    story: 'aspect-[9/16]',
+    photo: 'aspect-[5/4]',
+    golden: 'aspect-[8/5]',
+    cinema: 'aspect-[2/1]',
+    banner: 'aspect-[5/1]',
+    instagram: 'aspect-square',
+    card: 'aspect-[5/6]'
+  }
+
+  return aspectRatioMap[aspectRatio] || ''
+}
+
+/**
+ * Maps gap numbers to Tailwind classes
+ */
+const getGapClass = (gap: number): string => {
+  const gapMap: Record<number, string> = {
+    1: 'gap-1',
+    2: 'gap-2',
+    3: 'gap-3',
+    4: 'gap-4',
+    6: 'gap-6',
+    8: 'gap-8'
+  }
+
+  return gapMap[gap] || 'gap-4'
+}
+
+// ================================
+// MAIN COMPONENT
+// ================================
+
+/**
+ * Adaptive image grid that automatically adjusts layout based on image orientations
+ * Supports various grid configurations and dominant side layouts
+ */
 export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   images = [],
   mode = 'grid',
@@ -84,210 +158,145 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     Record<string, string>
   >({})
 
+  // ================================
+  // EFFECTS
+  // ================================
+
   useEffect(() => {
     setValidImages(images)
 
-    // Se modo adaptativo está ativado, detecta orientações das imagens
-    if (adaptiveMode === 'auto') {
-      const loadImageDimensions = async () => {
-        const orientations: Record<string, string> = {}
+    if (adaptiveMode !== 'auto') return
 
-        for (const image of images) {
-          try {
-            const img = new Image()
-            img.src = image.url
+    const loadImageDimensions = async () => {
+      const orientations: Record<string, string> = {}
 
-            await new Promise((resolve, reject) => {
-              img.onload = () => {
-                const orientation = detectImageOrientation(
-                  img.naturalWidth,
-                  img.naturalHeight
-                )
-                orientations[image.id] = orientation
-                resolve(img)
-              }
-              img.onerror = reject
-            })
-          } catch (error) {
-            // Se falhar ao carregar, usa fallback
-            orientations[image.id] = 'square'
-          }
+      for (const image of images) {
+        try {
+          const img = new Image()
+          img.src = image.url
+
+          await new Promise((resolve, reject) => {
+            img.onload = () => {
+              const orientation = detectImageOrientation(
+                img.naturalWidth,
+                img.naturalHeight
+              )
+              orientations[image.id] = orientation
+              resolve(img)
+            }
+            img.onerror = reject
+          })
+        } catch {
+          orientations[image.id] = 'square'
         }
-
-        setImageOrientations(orientations)
       }
 
-      loadImageDimensions()
+      setImageOrientations(orientations)
     }
+
+    loadImageDimensions()
   }, [images, adaptiveMode])
 
+  // ================================
+  // HANDLERS
+  // ================================
+
   const handleImageLoad = (image: ImageItem) => {
-    if (onImageLoad) {
-      onImageLoad(image)
-    }
+    onImageLoad?.(image)
   }
 
   const handleImageError = (image: ImageItem) => {
     setValidImages((prev) => prev.filter((img) => img.id !== image.id))
-    if (onImageError) {
-      onImageError(image)
-    }
+    onImageError?.(image)
   }
 
-  // Função para obter aspect ratio adaptativo
-  const getAdaptiveAspectRatio = (imageId: string) => {
+  // ================================
+  // COMPUTED VALUES
+  // ================================
+
+  const getAdaptiveAspectRatio = (imageId: string): string => {
     if (adaptiveMode === 'manual') return fallbackAspectRatio
 
     const orientation = imageOrientations[imageId]
     if (!orientation) return fallbackAspectRatio
 
     return (
-      adaptiveRules[orientation as keyof typeof adaptiveRules]?.aspectRatio ||
+      adaptiveRules[orientation as keyof AdaptiveRules]?.aspectRatio ||
       fallbackAspectRatio
     )
   }
 
-  // Função para obter object-fit adaptativo
-  const getAdaptiveObjectFit = (imageId: string) => {
+  const getAdaptiveObjectFit = (imageId: string): string => {
     if (adaptiveMode === 'manual') return fallbackObjectFit
 
     const orientation = imageOrientations[imageId]
     if (!orientation) return fallbackObjectFit
 
     return (
-      adaptiveRules[orientation as keyof typeof adaptiveRules]?.objectFit ||
+      adaptiveRules[orientation as keyof AdaptiveRules]?.objectFit ||
       fallbackObjectFit
     )
   }
 
-  // Função para obter classes de aspect ratio
-  const getAspectRatioClass = (aspectRatio: string) => {
-    switch (aspectRatio) {
-      case 'square':
-        return 'aspect-square'
-      case 'portrait':
-        return 'aspect-[3/4]'
-      case 'landscape':
-        return 'aspect-[4/3]'
-      case 'wide':
-        return 'aspect-[16/9]'
-      case 'ultrawide':
-        return 'aspect-[21/9]'
-      case 'tall':
-        return 'aspect-[2/3]'
-      case 'vertical':
-        return 'aspect-[9/16]'
-      case 'story':
-        return 'aspect-[9/16]'
-      case 'photo':
-        return 'aspect-[5/4]'
-      case 'golden':
-        return 'aspect-[8/5]'
-      case 'cinema':
-        return 'aspect-[2/1]'
-      case 'banner':
-        return 'aspect-[5/1]'
-      case 'instagram':
-        return 'aspect-square'
-      case 'card':
-        return 'aspect-[5/6]'
-      default:
-        return ''
-    }
-  }
-
-  // Função para obter classes de gap
-  const getGapClass = () => {
-    switch (gap) {
-      case 1:
-        return 'gap-1'
-      case 2:
-        return 'gap-2'
-      case 3:
-        return 'gap-3'
-      case 4:
-        return 'gap-4'
-      case 6:
-        return 'gap-6'
-      case 8:
-        return 'gap-8'
-      default:
-        return 'gap-4'
-    }
-  }
-
-  // Função para obter classes de grid
-  const getGridClass = () => {
+  const getGridClass = (): string => {
     if (mode === 'solo') return 'grid grid-cols-1'
 
-    // Para 2 colunas com dominantSide, usamos uma configuração específica
     if (gridColumns === 2 && dominantSide !== 'none') {
-      return 'grid grid-cols-6 auto-rows-fr' // 6 colunas para proporções 4:2
+      return 'grid grid-cols-6 auto-rows-fr'
     }
 
-    switch (gridColumns) {
-      case 2:
-        return 'grid grid-cols-2'
-      case 3:
-        return 'grid grid-cols-3'
-      case 4:
-        return 'grid grid-cols-4'
-      case 5:
-        return 'grid grid-cols-5'
-      default:
-        return 'grid grid-cols-3'
+    const gridMap: Record<number, string> = {
+      2: 'grid grid-cols-2',
+      3: 'grid grid-cols-3',
+      4: 'grid grid-cols-4',
+      5: 'grid grid-cols-5'
     }
+
+    return gridMap[gridColumns] || 'grid grid-cols-3'
   }
 
-  // Função para classes de dominância
-  const getDominanceClasses = (index: number) => {
+  const getDominanceClasses = (index: number): string => {
     if (mode !== 'grid' || gridColumns !== 2 || dominantSide === 'none') {
       return ''
     }
 
-    const pairIndex = Math.floor(index / 2) // Qual par de imagens (0, 1, 2...)
-    const positionInPair = index % 2 // Posição dentro do par (0 = primeira, 1 = segunda)
-
-    // Alterna a dominância a cada par para criar um padrão interessante
+    const pairIndex = Math.floor(index / 2)
+    const positionInPair = index % 2
     const isEvenPair = pairIndex % 2 === 0
 
+    const getDominantClasses = (
+      isFirst: boolean,
+      isDominant: boolean
+    ): string => {
+      return isDominant ? 'col-span-4 h-full' : 'col-span-2 h-full'
+    }
+
     if (dominantSide === 'left') {
-      if (positionInPair === 0) {
-        // Primeira imagem do par
-        return isEvenPair ? 'col-span-4 h-full' : 'col-span-2 h-full'
-      } else {
-        // Segunda imagem do par
-        return isEvenPair ? 'col-span-2 h-full' : 'col-span-4 h-full'
-      }
+      const isDominant = positionInPair === 0 ? isEvenPair : !isEvenPair
+      return getDominantClasses(positionInPair === 0, isDominant)
     }
 
     if (dominantSide === 'right') {
-      if (positionInPair === 0) {
-        // Primeira imagem do par
-        return isEvenPair ? 'col-span-2 h-full' : 'col-span-4 h-full'
-      } else {
-        // Segunda imagem do par
-        return isEvenPair ? 'col-span-4 h-full' : 'col-span-2 h-full'
-      }
+      const isDominant = positionInPair === 0 ? !isEvenPair : isEvenPair
+      return getDominantClasses(positionInPair === 0, isDominant)
     }
 
     return ''
   }
 
-  // Função para obter aspect ratio ajustado para dominância
-  const getAdjustedAspectRatio = (imageId: string, index: number) => {
-    // Se há dominância em grid de 2 colunas, remove aspect ratio fixo
-    // para permitir que as imagens se ajustem à altura da linha
+  const getAdjustedAspectRatio = (imageId: string, index: number): string => {
+    // Remove fixed aspect ratio for dominant grid to allow height adjustment
     if (mode === 'grid' && gridColumns === 2 && dominantSide !== 'none') {
-      return 'auto' // Remove aspect ratio fixo
+      return 'auto'
     }
 
     return getAdaptiveAspectRatio(imageId)
   }
 
-  // NOVA FUNÇÃO: Para obter classes de centralização quando usa scale-down
-  const getCenteringClasses = (objectFit: string, isDominantGrid: boolean) => {
-    // Se é scale-down ou contain E está em grid dominante, centraliza
+  const getCenteringClasses = (
+    objectFit: string,
+    isDominantGrid: boolean
+  ): string => {
     if (
       (objectFit === 'scale-down' || objectFit === 'contain') &&
       isDominantGrid
@@ -297,30 +306,36 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     return ''
   }
 
+  // ================================
+  // RENDER HELPERS
+  // ================================
+
   const renderImageCard = (image: ImageItem, index: number) => {
     const dominanceClasses = getDominanceClasses(index)
     const adaptiveAspectRatio = getAdjustedAspectRatio(image.id, index)
     const adaptiveObjectFit = getAdaptiveObjectFit(image.id)
     const aspectClasses = getAspectRatioClass(adaptiveAspectRatio)
-
-    // Para dominantSide em grid de 2 colunas, usa height 100% em vez de aspect ratio fixo
     const isDominantGrid =
       mode === 'grid' && gridColumns === 2 && dominantSide !== 'none'
-
-    // Classes para centralização quando necessário
     const centeringClasses = getCenteringClasses(
       adaptiveObjectFit,
       isDominantGrid
     )
 
+    const containerClasses = isDominantGrid
+      ? `h-full min-h-[300px] ${centeringClasses}`
+      : `${aspectClasses} ${centeringClasses}`
+
+    const imageClasses =
+      isDominantGrid &&
+      (adaptiveObjectFit === 'scale-down' || adaptiveObjectFit === 'contain')
+        ? 'max-w-full max-h-full'
+        : 'w-full h-full'
+
     return (
-      <div key={image.id} className={`${dominanceClasses}`}>
+      <div key={image.id} className={dominanceClasses}>
         <div
-          className={`w-full ${
-            isDominantGrid
-              ? `h-full min-h-[300px] ${centeringClasses}`
-              : `${aspectClasses} ${centeringClasses}`
-          }`}
+          className={`w-full ${containerClasses}`}
           style={{ backfaceVisibility: 'hidden' }}
         >
           <ImageCard
@@ -333,18 +348,16 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
             showHoverEffect={false}
             enableHoverScale={false}
             showTitle={false}
-            className={`${
-              isDominantGrid &&
-              (adaptiveObjectFit === 'scale-down' ||
-                adaptiveObjectFit === 'contain')
-                ? 'max-w-full max-h-full' // Garante que a imagem não ultrapasse os limites do container
-                : 'w-full h-full'
-            }`}
+            className={imageClasses}
           />
         </div>
       </div>
     )
   }
+
+  // ================================
+  // RENDER
+  // ================================
 
   if (error) {
     return (
@@ -367,14 +380,17 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
 
   return (
     <div className={`w-full ${className}`}>
-      <div className={`${getGridClass()} ${getGapClass()}`}>
+      <div className={`${getGridClass()} ${getGapClass(gap)}`}>
         {validImages.map((image, index) => renderImageCard(image, index))}
       </div>
     </div>
   )
 }
 
-// Componentes de conveniência
+// ================================
+// CONVENIENCE COMPONENTS
+// ================================
+
 export const AdaptiveSoloGrid: React.FC<
   Omit<AdaptiveImageGridProps, 'mode'>
 > = (props) => <AdaptiveImageGrid {...props} mode="solo" />

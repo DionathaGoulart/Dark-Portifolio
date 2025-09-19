@@ -1,3 +1,7 @@
+// ================================
+// External and Internal Imports
+// ================================
+import { RouteConfig } from '@core/router'
 import {
   HomePage,
   AboutPage,
@@ -5,17 +9,27 @@ import {
   PrintsPage,
   ContactPage
 } from '@pages'
-import { RouteConfig } from '@core/router'
-import { Macabre } from '@/pages/Projects/Macabre'
-import { Joaninho } from '@/pages/Projects/Joaninho'
-import { Creepy } from '@/pages/Projects/Creepy'
-import { Horror } from '@/pages/Projects/Horror'
-import { Halloween } from '@/pages/Projects/Halloween'
-import { Fantasy } from '@/pages/Projects/Fantasy'
-import { Arac } from '@/pages/Projects/Arac'
-import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
 
+// Project-specific page imports
+import { Arac } from '@/pages/Projects/Arac'
+import { Creepy } from '@/pages/Projects/Creepy'
+import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
+import { Fantasy } from '@/pages/Projects/Fantasy'
+import { Halloween } from '@/pages/Projects/Halloween'
+import { Horror } from '@/pages/Projects/Horror'
+import { Joaninho } from '@/pages/Projects/Joaninho'
+import { Macabre } from '@/pages/Projects/Macabre'
+
+// ================================
+// Route Configuration
+// ================================
+
+/**
+ * Application routes configuration
+ * Defines all available routes and their corresponding page components
+ */
 export const appRoutes: RouteConfig[] = [
+  // Main navigation routes
   {
     path: '/',
     element: HomePage
@@ -36,36 +50,38 @@ export const appRoutes: RouteConfig[] = [
     path: '/prints',
     element: PrintsPage
   },
+
+  // Project-specific routes (alphabetically ordered)
   {
-    path: '/facesofhorror',
-    element: FacesOfHorror
-  },
-  {
-    path: '/tshirt-raglan',
-    element: Macabre
-  },
-  {
-    path: '/ladybugs',
-    element: Joaninho
+    path: '/arachnophobia',
+    element: Arac
   },
   {
     path: '/creepy',
     element: Creepy
   },
   {
-    path: '/horror-art',
-    element: Horror
-  },
-  {
-    path: '/halloween',
-    element: Halloween
+    path: '/facesofhorror',
+    element: FacesOfHorror
   },
   {
     path: '/fantasy',
     element: Fantasy
   },
   {
-    path: '/arachnophobia',
-    element: Arac
+    path: '/halloween',
+    element: Halloween
+  },
+  {
+    path: '/horror-art',
+    element: Horror
+  },
+  {
+    path: '/ladybugs',
+    element: Joaninho
+  },
+  {
+    path: '/tshirt-raglan',
+    element: Macabre
   }
 ]

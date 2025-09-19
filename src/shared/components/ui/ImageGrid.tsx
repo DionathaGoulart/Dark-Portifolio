@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
-// Interfaces e tipos
+// ================================
+// INTERFACES & TYPES
+// ================================
+
 interface ImageData {
   src: string
   alt?: string
 }
 
-type AspectRatio = '1/1' | '16/9' | '4/3' | '3/2' | '2/1' | '3/4' | '9/16'
-type ObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
-type Rounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
-type Gap = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8' | '10' | '12'
-type Columns = 1 | 2 | 3 | 4 | 5
-type TwoColumnLayout = 'equal' | 'left-dominant' | 'right-dominant'
+interface FullscreenModalProps {
+  image: ImageData
+  isOpen: boolean
+  onClose: () => void
+}
 
 interface ImageGridProps {
   images: ImageData[]
@@ -25,91 +27,17 @@ interface ImageGridProps {
   enableFullscreen?: boolean
 }
 
-// Componente Modal para Fullscreen
-const FullscreenModal: React.FC<{
-  image: ImageData
-  isOpen: boolean
-  onClose: () => void
-}> = ({ image, isOpen, onClose }) => {
-  // Previne scroll do body quando modal está aberto
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
+type AspectRatio = '1/1' | '16/9' | '4/3' | '3/2' | '2/1' | '3/4' | '9/16'
+type ObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+type Rounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
+type Gap = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8' | '10' | '12'
+type Columns = 1 | 2 | 3 | 4 | 5
+type TwoColumnLayout = 'equal' | 'left-dominant' | 'right-dominant'
 
-    // Cleanup
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
+// ================================
+// CONSTANTS
+// ================================
 
-  // Fecha modal com ESC
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose()
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown)
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [isOpen, onClose])
-
-  if (!isOpen || !image) return null
-
-  return (
-    <div
-      className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4"
-      onClick={onClose}
-    >
-      <div className="relative w-full h-full flex items-center justify-center">
-        {/* Botão de fechar */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            onClose()
-          }}
-          className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 flex items-center justify-center group"
-          aria-label="Fechar imagem"
-        >
-          <svg
-            className="w-6 h-6 group-hover:scale-110 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-
-        {/* Container da imagem com limites corretos */}
-        <div className="w-full h-full p-16 flex items-center justify-center">
-          <img
-            src={image.src}
-            alt={image.alt || 'Imagem em tela cheia'}
-            className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-            draggable={false}
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Mapeamentos para classes Tailwind
 const aspectRatioClasses: Record<AspectRatio, string> = {
   '1/1': 'aspect-square',
   '16/9': 'aspect-video',
@@ -158,7 +86,123 @@ const twoColumnLayoutClasses: Record<TwoColumnLayout, string> = {
   'right-dominant': 'grid-cols-[1fr_2fr]'
 }
 
-// Componente ImageGrid
+const columnClasses: Record<Columns, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2', // Will be overridden by twoColumnLayout
+  3: 'grid-cols-3',
+  4: 'grid-cols-4',
+  5: 'grid-cols-5'
+}
+
+// ================================
+// HELPER COMPONENTS
+// ================================
+
+/**
+ * Fullscreen modal component for displaying images
+ */
+const FullscreenModal: React.FC<FullscreenModalProps> = ({
+  image,
+  isOpen,
+  onClose
+}) => {
+  // Handle body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
+
+  if (!isOpen || !image) return null
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="relative w-full h-full flex items-center justify-center">
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onClose()
+          }}
+          className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 flex items-center justify-center group"
+          aria-label="Fechar imagem"
+        >
+          <svg
+            className="w-6 h-6 group-hover:scale-110 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <div className="w-full h-full p-16 flex items-center justify-center">
+          <img
+            src={image.src}
+            alt={image.alt || 'Imagem em tela cheia'}
+            className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            draggable={false}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ================================
+// HELPER FUNCTIONS
+// ================================
+
+/**
+ * Gets grid column classes based on columns count and layout
+ */
+const getGridClasses = (
+  columns: Columns,
+  twoColumnLayout: TwoColumnLayout
+): string => {
+  if (columns === 2) {
+    return twoColumnLayoutClasses[twoColumnLayout]
+  }
+  return columnClasses[columns]
+}
+
+// ================================
+// MAIN COMPONENT
+// ================================
+
+/**
+ * Responsive image grid component with fullscreen modal support
+ * Supports various column layouts, aspect ratios, and styling options
+ */
 const ImageGrid: React.FC<ImageGridProps> = ({
   images,
   columns,
@@ -172,40 +216,33 @@ const ImageGrid: React.FC<ImageGridProps> = ({
 }) => {
   const [fullscreenImage, setFullscreenImage] = useState<ImageData | null>(null)
 
-  const getGridClasses = (): string => {
-    if (columns === 1) {
-      return 'grid-cols-1'
-    }
-    if (columns === 2) {
-      return twoColumnLayoutClasses[twoColumnLayout]
-    }
-    if (columns === 3) {
-      return 'grid-cols-3'
-    }
-    if (columns === 4) {
-      return 'grid-cols-4'
-    }
-    if (columns === 5) {
-      return 'grid-cols-5'
-    }
-    return 'grid-cols-3' // fallback
-  }
+  // ================================
+  // COMPUTED VALUES
+  // ================================
 
-  const gridClasses = `
-    grid
-    ${getGridClasses()}
-    ${gapClasses[gap]}
-    ${className}
-  `.trim()
+  const gridClasses = [
+    'grid',
+    getGridClasses(columns, twoColumnLayout),
+    gapClasses[gap],
+    className
+  ]
+    .filter(Boolean)
+    .join(' ')
 
-  const imageClasses = `
-    w-full
-    h-full
-    ${aspectRatioClasses[aspectRatio]}
-    ${objectFitClasses[objectFit]}
-    ${roundedClasses[rounded]}
-    ${enableFullscreen ? 'cursor-pointer' : ''}
-  `.trim()
+  const imageClasses = [
+    'w-full',
+    'h-full',
+    aspectRatioClasses[aspectRatio],
+    objectFitClasses[objectFit],
+    roundedClasses[rounded],
+    enableFullscreen ? 'cursor-pointer' : ''
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  // ================================
+  // HANDLERS
+  // ================================
 
   const handleImageClick = (image: ImageData) => {
     if (enableFullscreen) {
@@ -216,6 +253,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   const closeFullscreen = () => {
     setFullscreenImage(null)
   }
+
+  // ================================
+  // RENDER
+  // ================================
 
   return (
     <>
@@ -236,7 +277,6 @@ const ImageGrid: React.FC<ImageGridProps> = ({
         ))}
       </div>
 
-      {/* Modal Fullscreen */}
       {enableFullscreen && (
         <FullscreenModal
           image={fullscreenImage!}
@@ -247,5 +287,9 @@ const ImageGrid: React.FC<ImageGridProps> = ({
     </>
   )
 }
+
+// ================================
+// EXPORTS
+// ================================
 
 export default ImageGrid
