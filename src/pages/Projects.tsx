@@ -158,36 +158,81 @@ const projectsData = [
   }
 ]
 
+// Componente de loading elegante para o grid
+const ProjectGridLoader = ({ count = 8 }: { count?: number }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+    {Array.from({ length: count }).map((_, index) => (
+      <div
+        key={index}
+        className="relative aspect-square overflow-hidden rounded-lg bg-primary-white dark:bg-primary-black border border-primary-black/10 dark:border-primary-white/10"
+      >
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            @keyframes shimmer {
+              0% { transform: translateX(-100%) skewX(-12deg); }
+              100% { transform: translateX(200%) skewX(-12deg); }
+            }
+            @keyframes bounce {
+              0%, 80%, 100% { transform: scale(0); }
+              40% { transform: scale(1); }
+            }
+          `
+          }}
+        />
+
+        {/* Shimmer effect */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-black/5 dark:via-primary-white/5 to-transparent transform -skew-x-12"
+          style={{
+            animation: 'shimmer 2s infinite',
+            transform: 'translateX(-100%) skewX(-12deg)'
+          }}
+        />
+
+        {/* Bounce dots */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex space-x-1">
+            <div
+              className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+              style={{ animation: 'bounce 1.4s infinite 0ms' }}
+            />
+            <div
+              className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+              style={{ animation: 'bounce 1.4s infinite 200ms' }}
+            />
+            <div
+              className="w-2 h-2 bg-primary-black/30 dark:bg-primary-white/30 rounded-full"
+              style={{ animation: 'bounce 1.4s infinite 400ms' }}
+            />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+)
+
 export const ProjectsPage: React.FC = () => {
   const { t, language } = useI18n()
   useDocumentTitle('projects')
+  const navigate = useNavigate()
 
   const [images, setImages] = useState<ImageItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [lazyLoading, setLazyLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const navigate = useNavigate()
 
   useEffect(() => {
     const loadImages = async () => {
       setLoading(true)
+      setLazyLoading(true)
       setError(null)
 
       try {
-        console.log('🔍 Projects - Iniciando carregamento das capas...')
-
-        // Cria dados dos projetos baseado no idioma
-        const projectData: ImageItem[] = projectsData.map((project) => ({
-          id: project.id,
-          url: project.url,
-          alt: language === 'pt' ? project.titlePt : project.title,
-          title: language === 'pt' ? project.titlePt : project.title,
-          linkTo: project.linkTo,
-          urls: undefined
-        }))
-
-        // URLs otimizadas para grid
-        const optimizedGridUrls = projectData.map((item) =>
-          optimizeCloudinaryUrl(item.url, {
+        // FASE 1: Carrega as primeiras 4 capas (prioritárias)
+        const priorityProjects = projectsData.slice(0, 4)
+        const priorityUrls = priorityProjects.map((project) =>
+          optimizeCloudinaryUrl(project.url, {
             width: 600,
             height: 600,
             quality: 80,
@@ -196,43 +241,64 @@ export const ProjectsPage: React.FC = () => {
           })
         )
 
-        console.log('📋 URLs otimizadas para grid:', optimizedGridUrls)
+        const priorityImages = await batchPreloadImages(priorityUrls)
 
-        // Preload das imagens
-        const validPreloadedImages = await batchPreloadImages(optimizedGridUrls)
-        console.log('✅ Imagens precarregadas:', validPreloadedImages.length)
-
-        // Adiciona URLs múltiplas
-        const finalImages = validPreloadedImages.map(
-          (preloadedImage, index) => {
-            const originalItem = projectData[index]
-            if (!originalItem) return preloadedImage
-
+        const priorityItems: ImageItem[] = priorityImages.map(
+          (image, index) => {
+            const project = priorityProjects[index]
             return {
-              ...originalItem,
-              url: preloadedImage.url,
-              urls: generateProjectUrls(originalItem.url)
+              id: project.id,
+              url: image.url,
+              alt: language === 'pt' ? project.titlePt : project.title,
+              title: language === 'pt' ? project.titlePt : project.title,
+              linkTo: project.linkTo,
+              urls: generateProjectUrls(project.url)
             }
           }
         )
 
-        setImages(finalImages)
+        setImages(priorityItems)
+        setLoading(false)
 
-        if (finalImages.length === 0) {
-          console.error('❌ Nenhuma capa foi carregada!')
-          setError(t.common.noImages)
-        } else {
-          console.log(
-            '🎉 Projects - Carregamento concluído:',
-            finalImages.length,
-            'capas'
+        // FASE 2: Carrega as capas restantes
+        if (projectsData.length > 4) {
+          const remainingProjects = projectsData.slice(4)
+          const remainingUrls = remainingProjects.map((project) =>
+            optimizeCloudinaryUrl(project.url, {
+              width: 600,
+              height: 600,
+              quality: 80,
+              format: 'webp',
+              crop: 'fill'
+            })
           )
+
+          const remainingImages = await batchPreloadImages(remainingUrls)
+
+          const remainingItems: ImageItem[] = remainingImages.map(
+            (image, index) => {
+              const project = remainingProjects[index]
+              return {
+                id: project.id,
+                url: image.url,
+                alt: language === 'pt' ? project.titlePt : project.title,
+                title: language === 'pt' ? project.titlePt : project.title,
+                linkTo: project.linkTo,
+                urls: generateProjectUrls(project.url)
+              }
+            }
+          )
+
+          setImages((prev) => [...prev, ...remainingItems])
+          setLazyLoading(false)
+        } else {
+          setLazyLoading(false)
         }
       } catch (err) {
         console.error('❌ Erro ao carregar capas:', err)
-        setError(t.common.error)
-      } finally {
+        setError(t.common.error || 'Erro ao carregar projetos')
         setLoading(false)
+        setLazyLoading(false)
       }
     }
 
@@ -253,6 +319,19 @@ export const ProjectsPage: React.FC = () => {
     setImages((prev) => prev.filter((img) => img.id !== image.id))
   }
 
+  if (error) {
+    return (
+      <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
+        <div className="text-center py-16">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">
+            Erro ao carregar projetos
+          </h2>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
       {/* Header da página */}
@@ -265,24 +344,50 @@ export const ProjectsPage: React.FC = () => {
         </p>
       </div>
 
+      {/* Indicador de carregamento das capas restantes */}
+      {!loading && lazyLoading && (
+        <div className="text-center py-8">
+          <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
+            <div className="flex space-x-1">
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 0ms' }}
+              />
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 200ms' }}
+              />
+              <div
+                className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                style={{ animation: 'bounce 1.4s infinite 400ms' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Grid de projetos */}
       <section className="pb-8 px-6 sm:px-8 lg:px-12">
-        <MasonryGrid
-          images={images}
-          loading={loading}
-          error={error}
-          onImageClick={handleProjectClick}
-          onImageError={handleImageError}
-          columnCount={{
-            sm: 1,
-            md: 2,
-            lg: 2,
-            xl: 4
-          }}
-          gap={3}
-          isSquareGrid
-          showHoverEffect
-        />
+        {loading ? (
+          <ProjectGridLoader count={8} />
+        ) : (
+          <MasonryGrid
+            images={images}
+            loading={false}
+            error={null}
+            onImageClick={handleProjectClick}
+            onImageError={handleImageError}
+            columnCount={{
+              sm: 1,
+              md: 2,
+              lg: 2,
+              xl: 4
+            }}
+            gap={3}
+            isSquareGrid
+            showHoverEffect
+          />
+        )}
       </section>
 
       {/* Divider */}

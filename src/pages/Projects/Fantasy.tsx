@@ -156,190 +156,185 @@ export const Fantasy: React.FC = () => {
 
   return (
     <div className="py-12 md:py-16">
-      <div className="container mx-auto px-4">
-        <section className="py-8 px-6 sm:px-8 lg:px-12">
-          <div className="space-y-8">
-            {/* Imagem solo - PRIORIDADE ALTA */}
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(0, 1)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="square"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [0],
-                'solo',
-                <ImageSectionLoader className="max-w-2xl mx-auto" />
-              )}
-            </div>
+      <section className="py-8 px-6 sm:px-8 lg:px-12">
+        <div className="space-y-8">
+          {/* Imagem solo - PRIORIDADE ALTA */}
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(0, 1)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [0],
+              'solo',
+              <ImageSectionLoader className="max-w-2xl mx-auto" />
+            )}
+          </div>
 
-            {/* Grid de 3 colunas - PRIORIDADE ALTA */}
-            <div className="mb-12 sm:px-16">
-              {renderSection(
-                <AdaptiveThreeColumnGrid
-                  images={images.grid.slice(1, 4)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="card"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [1, 2, 3],
-                'grid',
-                <div className="grid grid-cols-3 gap-1">
-                  <ImageSectionLoader />
-                  <ImageSectionLoader />
-                  <ImageSectionLoader />
-                </div>
-              )}
-            </div>
-
-            {/* Imagem solo - PRIORIDADE ALTA */}
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(4, 5)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="square"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [4],
-                'solo',
-                <ImageSectionLoader className="max-w-2xl mx-auto" />
-              )}
-            </div>
-
-            {/* Indicador de carregamento das demais imagens */}
-            {!loading && lazyLoading && (
-              <div className="text-center py-8">
-                <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
-                  <div className="flex space-x-1">
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 0ms' }}
-                    />
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 200ms' }}
-                    />
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 400ms' }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium">
-                    Carregando mais imagens...
-                  </span>
-                </div>
+          {/* Grid de 3 colunas - PRIORIDADE ALTA */}
+          <div className="mb-12 sm:px-16">
+            {renderSection(
+              <AdaptiveThreeColumnGrid
+                images={images.grid.slice(1, 4)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [1, 2, 3],
+              'grid',
+              <div className="grid grid-cols-3 gap-1">
+                <ImageSectionLoader />
+                <ImageSectionLoader />
+                <ImageSectionLoader />
               </div>
             )}
-
-            {/* Restante das seções com lazy loading */}
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(5, 6)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="square"
-                  fallbackObjectFit="contain"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [5],
-                'solo',
-                <ImageSectionLoader className="max-w-2xl mx-auto" />
-              )}
-            </div>
-
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(6, 7)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="square"
-                  fallbackObjectFit="contain"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [6],
-                'solo',
-                <ImageSectionLoader className="max-w-2xl mx-auto" />
-              )}
-            </div>
-
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveThreeColumnGrid
-                  images={images.grid.slice(7, 10)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="wide"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [7, 8, 9],
-                'grid',
-                <div className="grid grid-cols-3 gap-1">
-                  <ImageSectionLoader aspectRatio="aspect-video" />
-                  <ImageSectionLoader aspectRatio="aspect-video" />
-                  <ImageSectionLoader aspectRatio="aspect-video" />
-                </div>
-              )}
-            </div>
-
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(10, 11)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="square"
-                  fallbackObjectFit="contain"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [10],
-                'solo',
-                <ImageSectionLoader className="max-w-2xl mx-auto" />
-              )}
-            </div>
-
-            <div className="mb-12">
-              {renderSection(
-                <AdaptiveSoloGrid
-                  images={images.solo.slice(11, 12)}
-                  adaptiveMode="manual"
-                  fallbackAspectRatio="wide"
-                  adaptiveRules={horrorAdaptiveRules}
-                  onImageClick={handleImageClick}
-                  onImageError={handleImageError}
-                  gap={1}
-                />,
-                [11],
-                'solo',
-                <ImageSectionLoader
-                  className="max-w-2xl mx-auto"
-                  aspectRatio="aspect-video"
-                />
-              )}
-            </div>
           </div>
-        </section>
-      </div>
+
+          {/* Imagem solo - PRIORIDADE ALTA */}
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(4, 5)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [4],
+              'solo',
+              <ImageSectionLoader className="max-w-2xl mx-auto" />
+            )}
+          </div>
+
+          {/* Indicador de carregamento das demais imagens */}
+          {!loading && lazyLoading && (
+            <div className="text-center py-8">
+              <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
+                <div className="flex space-x-1">
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 0ms' }}
+                  />
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 200ms' }}
+                  />
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 400ms' }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Restante das seções com lazy loading */}
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(5, 6)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                fallbackObjectFit="contain"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [5],
+              'solo',
+              <ImageSectionLoader className="max-w-2xl mx-auto" />
+            )}
+          </div>
+
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(6, 7)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                fallbackObjectFit="contain"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [6],
+              'solo',
+              <ImageSectionLoader className="max-w-2xl mx-auto" />
+            )}
+          </div>
+
+          <div>
+            {renderSection(
+              <AdaptiveThreeColumnGrid
+                images={images.grid.slice(7, 10)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="portrait"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [7, 8, 9],
+              'grid',
+              <div className="grid grid-cols-3 gap-1">
+                <ImageSectionLoader aspectRatio="aspect-video" />
+                <ImageSectionLoader aspectRatio="aspect-video" />
+                <ImageSectionLoader aspectRatio="aspect-video" />
+              </div>
+            )}
+          </div>
+
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(10, 11)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                fallbackObjectFit="contain"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [10],
+              'solo',
+              <ImageSectionLoader className="max-w-2xl mx-auto" />
+            )}
+          </div>
+
+          <div>
+            {renderSection(
+              <AdaptiveSoloGrid
+                images={images.solo.slice(11, 12)}
+                adaptiveMode="manual"
+                fallbackAspectRatio="auto"
+                adaptiveRules={horrorAdaptiveRules}
+                onImageClick={handleImageClick}
+                onImageError={handleImageError}
+                gap={1}
+              />,
+              [11],
+              'solo',
+              <ImageSectionLoader
+                className="max-w-2xl mx-auto"
+                aspectRatio="aspect-video"
+              />
+            )}
+          </div>
+        </div>
+      </section>
 
       {selectedImage && (
         <ModalZoom image={selectedImage} onClose={handleCloseModal} />

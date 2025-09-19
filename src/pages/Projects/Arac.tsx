@@ -146,59 +146,54 @@ export const Arac: React.FC = () => {
   }
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="container mx-auto px-4">
-        <section className="py-8 px-6 sm:px-8 lg:px-12">
-          <div className="space-y-8">
-            {/* Indicador de carregamento das demais imagens */}
-            {!loading && lazyLoading && (
-              <div className="text-center py-8">
-                <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
-                  <div className="flex space-x-1">
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 0ms' }}
-                    />
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 200ms' }}
-                    />
-                    <div
-                      className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
-                      style={{ animation: 'bounce 1.4s infinite 400ms' }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium">
-                    Carregando mais imagens...
-                  </span>
+    <div>
+      <section className="py-8 px-6 sm:px-8 lg:px-12">
+        <div className="space-y-8">
+          {/* Indicador de carregamento das demais imagens */}
+          {!loading && lazyLoading && (
+            <div className="text-center py-8">
+              <div className="inline-flex flex-col items-center space-y-3 text-primary-black/70 dark:text-primary-white/70">
+                <div className="flex space-x-1">
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 0ms' }}
+                  />
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 200ms' }}
+                  />
+                  <div
+                    className="w-3 h-3 bg-primary-black/40 dark:bg-primary-white/40 rounded-full"
+                    style={{ animation: 'bounce 1.4s infinite 400ms' }}
+                  />
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
-            {/* Todas as 8 imagens em solo - carregamento otimizado */}
-            {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
-              <div key={index} className="mb-12">
-                {renderSection(
-                  <AdaptiveSoloGrid
-                    images={images.solo.slice(index, index + 1)}
-                    adaptiveMode="manual"
-                    fallbackAspectRatio="wide"
-                    adaptiveRules={horrorAdaptiveRules}
-                    onImageClick={handleImageClick}
-                    onImageError={handleImageError}
-                    gap={1}
-                  />,
-                  [index],
-                  <ImageSectionLoader
-                    className="max-w-2xl mx-auto"
-                    aspectRatio="aspect-video"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
+          {/* Todas as 8 imagens em solo - carregamento otimizado */}
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
+            <div key={index}>
+              {renderSection(
+                <AdaptiveSoloGrid
+                  images={images.solo.slice(index, index + 1)}
+                  adaptiveMode="manual"
+                  fallbackAspectRatio="auto"
+                  adaptiveRules={horrorAdaptiveRules}
+                  onImageClick={handleImageClick}
+                  onImageError={handleImageError}
+                  gap={1}
+                />,
+                [index],
+                <ImageSectionLoader
+                  className="max-w-2xl mx-auto"
+                  aspectRatio="aspect-video"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
 
       {selectedImage && (
         <ModalZoom image={selectedImage} onClose={handleCloseModal} />

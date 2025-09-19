@@ -182,10 +182,10 @@ export const Creepy: React.FC = () => {
           </div>
 
           {/* Imagem solo - PRIORIDADE ALTA */}
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(0, 1)}
+                images={images.solo.slice(3, 4)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="portrait"
                 adaptiveRules={horrorAdaptiveRules}
@@ -200,10 +200,10 @@ export const Creepy: React.FC = () => {
           </div>
 
           {/* Imagem solo - PRIORIDADE ALTA */}
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(1, 2)}
+                images={images.solo.slice(4, 5)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 fallbackObjectFit="contain"
@@ -236,18 +236,15 @@ export const Creepy: React.FC = () => {
                     style={{ animation: 'bounce 1.4s infinite 400ms' }}
                   />
                 </div>
-                <span className="text-sm font-medium">
-                  Carregando mais imagens...
-                </span>
               </div>
             </div>
           )}
 
           {/* Restante das seções com lazy loading */}
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(2, 3)}
+                images={images.solo.slice(5, 6)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="portrait"
                 fallbackObjectFit="contain"
@@ -262,10 +259,10 @@ export const Creepy: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(3, 4)}
+                images={images.solo.slice(6, 7)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 fallbackObjectFit="contain"
@@ -280,10 +277,10 @@ export const Creepy: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(4, 5)}
+                images={images.solo.slice(7, 8)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="wide"
                 fallbackObjectFit="contain"
@@ -298,10 +295,10 @@ export const Creepy: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(5, 6)}
+                images={images.solo.slice(8, 9)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="square"
                 fallbackObjectFit="contain"
@@ -316,10 +313,10 @@ export const Creepy: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveTwoColumnGrid
-                images={images.grid.slice(7, 9)}
+                images={images.grid.slice(9, 11)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="photo"
                 adaptiveRules={horrorAdaptiveRules}
@@ -336,10 +333,10 @@ export const Creepy: React.FC = () => {
             )}
           </div>
 
-          <div className="mb-12">
+          <div>
             {renderSection(
               <AdaptiveSoloGrid
-                images={images.solo.slice(8, 9)}
+                images={images.solo.slice(11, 12)}
                 adaptiveMode="manual"
                 fallbackAspectRatio="story"
                 fallbackObjectFit="contain"
