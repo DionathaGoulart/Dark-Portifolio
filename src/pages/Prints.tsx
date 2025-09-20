@@ -40,38 +40,26 @@ const LINKS_DATA: LinkData[] = [
   {
     titleKey: 'redbubble',
     url: 'http://GoodDark.redbubble.com',
-    icon: '👕',
+    icon: '',
     eventName: 'click_redbubble'
   },
   {
     titleKey: 'colab55',
     url: 'https://www.colab55.com/@darkning',
-    icon: '🇧🇷',
+    icon: '',
     eventName: 'click_colab55'
   },
   {
     titleKey: 'inprnt',
     url: 'https://www.inprnt.com/gallery/darkning/',
-    icon: '🖼️',
+    icon: '',
     eventName: 'click_inprnt'
   },
   {
     titleKey: 'displate',
     url: 'https://displate.com/Darkning?art=683cd403062f7',
-    icon: '⭐',
+    icon: '',
     eventName: 'click_displate'
-  },
-  {
-    titleKey: 'portfolio',
-    url: 'https://www.behance.net/darkning',
-    icon: '💼',
-    eventName: 'click_portfolio'
-  },
-  {
-    titleKey: 'donate',
-    url: 'https://ko-fi.com/darkning',
-    icon: '💖',
-    eventName: 'click_donate'
   }
 ]
 
