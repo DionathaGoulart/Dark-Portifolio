@@ -90,7 +90,15 @@ export const enTranslations: Translation = {
     // Prints page content
     prints: {
       title: 'Prints & Artwork',
-      subtitle: 'Collection of exclusive art and prints.'
+      subtitle: 'Collection of exclusive art and prints.',
+      links: {
+        redbubble: 'Clothing, stickers and more (Redbubble)',
+        colab55: 'Buy my art in Brazil (Colab55)',
+        inprnt: 'Prints (INPRNT)',
+        displate: 'My exclusive posters on Displate 🤍',
+        portfolio: 'Portfolio',
+        donate: 'Donate (づ⁠ ᴗ _ᴗ)づ⁠☕'
+      }
     }
   },
 

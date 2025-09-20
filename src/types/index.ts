@@ -206,6 +206,14 @@ export interface Translation {
     prints: {
       title: string
       subtitle: string
+      links: {
+        redbubble: string
+        colab55: string
+        inprnt: string
+        displate: string
+        portfolio: string
+        donate: string
+      }
     }
   }
   footer: {

@@ -2,13 +2,25 @@ import React, { useEffect } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackEvent } from '@/features/ga'
+import { Translation } from '@/types'
 
 // ================================
 // INTERFACES & TYPES
 // ================================
 
-interface PrintsPageProps {
-  className?: string
+interface LinkItemProps {
+  title: string
+  url: string
+  icon?: string
+  onClick: () => void
+}
+
+interface LinkData {
+  titleKey?: keyof Translation['pages']['prints']['links']
+  title?: string
+  url: string
+  icon?: string
+  eventName: string
 }
 
 interface DecorativeDividerProps {
@@ -21,7 +33,50 @@ interface PageHeaderProps {
 }
 
 // ================================
-// SUB COMPONENTS
+// CONSTANTS
+// ================================
+
+const LINKS_DATA: LinkData[] = [
+  {
+    titleKey: 'redbubble',
+    url: 'http://GoodDark.redbubble.com',
+    icon: '👕',
+    eventName: 'click_redbubble'
+  },
+  {
+    titleKey: 'colab55',
+    url: 'https://www.colab55.com/@darkning',
+    icon: '🇧🇷',
+    eventName: 'click_colab55'
+  },
+  {
+    titleKey: 'inprnt',
+    url: 'https://www.inprnt.com/gallery/darkning/',
+    icon: '🖼️',
+    eventName: 'click_inprnt'
+  },
+  {
+    titleKey: 'displate',
+    url: 'https://displate.com/Darkning?art=683cd403062f7',
+    icon: '⭐',
+    eventName: 'click_displate'
+  },
+  {
+    titleKey: 'portfolio',
+    url: 'https://www.behance.net/darkning',
+    icon: '💼',
+    eventName: 'click_portfolio'
+  },
+  {
+    titleKey: 'donate',
+    url: 'https://ko-fi.com/darkning',
+    icon: '💖',
+    eventName: 'click_donate'
+  }
+]
+
+// ================================
+// HELPER COMPONENTS
 // ================================
 
 /**
@@ -31,7 +86,7 @@ const DecorativeDivider: React.FC<DecorativeDividerProps> = ({
   className = ''
 }) => (
   <div
-    className={`mt-12 w-32 h-0.5 bg-primary-black dark:bg-primary-white mx-auto ${className}`}
+    className={`mt-8 w-16 h-0.5 bg-black dark:bg-white mx-auto ${className}`}
   />
 )
 
@@ -39,40 +94,77 @@ const DecorativeDivider: React.FC<DecorativeDividerProps> = ({
  * Page header with title and subtitle
  */
 const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
-  <div className="text-center animate-fade-in">
-    <h1 className="text-5xl font-bold text-primary-black dark:text-primary-white mb-6 tracking-tight">
+  <div className="text-center mb-12 animate-slide-up">
+    <h1 className="text-4xl md:text-5xl font-bold text-primary-black dark:text-primary-white mb-4 tracking-tight">
       {title}
     </h1>
-    <p className="text-xl text-primary-black/60 dark:text-primary-white/60 max-w-2xl mx-auto leading-relaxed">
+    <p className="text-lg text-primary-black/60 dark:text-primary-white/60 max-w-md mx-auto leading-relaxed">
       {subtitle}
     </p>
     <DecorativeDivider />
   </div>
 )
 
+/**
+ * Individual link item component
+ */
+const LinkItem: React.FC<LinkItemProps> = ({ title, url, icon, onClick }) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    onClick={onClick}
+    className="block w-full p-4 mb-4 bg-white dark:bg-black border-2 border-primary-black dark:border-primary-white rounded-full text-center font-medium text-primary-black dark:text-primary-white hover:bg-primary-black hover:text-white dark:hover:bg-primary-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+  >
+    <div className="flex items-center justify-center space-x-2">
+      {icon && <span className="text-lg">{icon}</span>}
+      <span>{title}</span>
+    </div>
+  </a>
+)
+
+// ================================
+// HELPER FUNCTIONS
+// ================================
+
+/**
+ * Get translated title for a link with fallback logic
+ */
+const getLinkTitle = (link: LinkData, t: any): string => {
+  if (link.titleKey && t.pages?.prints?.links?.[link.titleKey]) {
+    return t.pages.prints.links[link.titleKey]
+  }
+  return link.title || link.titleKey || 'Unknown'
+}
+
 // ================================
 // MAIN COMPONENT
 // ================================
 
 /**
- * Prints page component displaying available prints information
- * Simple layout with title, subtitle, and decorative elements
+ * Prints & Artwork links page component
+ * Displays a collection of links to various art platforms and portfolio sites
  */
-export const PrintsPage: React.FC<PrintsPageProps> = ({ className = '' }) => {
+export const PrintsPage: React.FC = () => {
   const { t, language } = useI18n()
 
   useDocumentTitle('prints')
 
   // ================================
-  // COMPUTED VALUES
+  // EVENT HANDLERS
   // ================================
 
-  const containerClasses = [
-    'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12',
-    className
-  ]
-    .filter(Boolean)
-    .join(' ')
+  const handleLinkClick = (link: LinkData) => {
+    trackEvent({
+      event_name: link.eventName,
+      event_parameters: {
+        link_url: link.url,
+        link_title: link.titleKey || link.title || 'Unknown',
+        language: language,
+        page_title: 'Prints & Artwork - Portfolio'
+      }
+    })
+  }
 
   // ================================
   // EFFECTS
@@ -80,11 +172,11 @@ export const PrintsPage: React.FC<PrintsPageProps> = ({ className = '' }) => {
 
   useEffect(() => {
     trackEvent({
-      event_name: 'page_view_prints',
+      event_name: 'page_view_prints_artwork',
       event_parameters: {
-        page_title: 'Prints - Portfolio',
+        page_title: 'Prints & Artwork - Portfolio',
         language: language,
-        content_type: 'prints_page'
+        content_type: 'prints_artwork_page'
       }
     })
   }, [language])
@@ -94,11 +186,32 @@ export const PrintsPage: React.FC<PrintsPageProps> = ({ className = '' }) => {
   // ================================
 
   return (
-    <div className={containerClasses}>
-      <PageHeader
-        title={t.pages.prints.title}
-        subtitle={t.pages.prints.subtitle}
-      />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="animate-slide-up">
+        <div className="max-w-md mx-auto">
+          <PageHeader
+            title={t.pages?.prints?.title || 'Prints & Artwork'}
+            subtitle={
+              t.pages?.prints?.subtitle ||
+              'Collection of exclusive art and prints.'
+            }
+          />
+
+          <div className="space-y-4">
+            {LINKS_DATA.map((link, index) => (
+              <LinkItem
+                key={index}
+                title={getLinkTitle(link, t)}
+                url={link.url}
+                icon={link.icon}
+                onClick={() => handleLinkClick(link)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
+
+export default PrintsPage

@@ -91,7 +91,15 @@ export const ptTranslations: Translation = {
     // Prints page content
     prints: {
       title: 'Prints & Arte',
-      subtitle: 'Coleção de arte exclusiva e prints.'
+      subtitle: 'Coleção de arte exclusiva e prints.',
+      links: {
+        redbubble: 'Roupas, adesivos e mais (Redbubble)',
+        colab55: 'Compre minha arte no Brasil (Colab55)',
+        inprnt: 'Prints (INPRNT)',
+        displate: 'Meus pôsteres exclusivos no Displate 🤍',
+        portfolio: 'Portfólio',
+        donate: 'Apoie meu trabalho (づ⁠ ᴗ _ᴗ)づ⁠☕'
+      }
     }
   },
 
