@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
+import { trackEvent } from '@/features/ga'
 
 // ================================
 // MAIN COMPONENT
@@ -11,8 +12,28 @@ import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
  * Uses internationalization for content and sets the document title.
  */
 export const AboutPage: React.FC = () => {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
+
   useDocumentTitle('about')
+
+  // ================================
+  // EFFECTS
+  // ================================
+
+  useEffect(() => {
+    trackEvent({
+      event_name: 'page_view_about',
+      event_parameters: {
+        page_title: 'About - Portfolio',
+        language: language,
+        content_type: 'about_page'
+      }
+    })
+  }, [language])
+
+  // ================================
+  // RENDER
+  // ================================
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 import { ptTranslations } from '../translations/pt'
 import { enTranslations } from '../translations/en'
 import { Language, Translation } from '@/types'
+import { trackLanguageChange } from '@/features/ga'
 
 // ================================
 // INTERFACES & TYPES
@@ -113,6 +114,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const setLanguage = (newLanguage: Language) => {
     setLanguageState(newLanguage)
     saveLanguageToStorage(newLanguage)
+    trackLanguageChange(newLanguage)
   }
 
   // ================================

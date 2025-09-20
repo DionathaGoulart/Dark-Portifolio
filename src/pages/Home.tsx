@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { useI18n } from '@/shared/contexts/I18nContext'
+import { trackEvent } from '@/features/ga'
+import { ModalZoom } from '@/features/grid/components/ui/ModalZoom'
 
 // ================================
 // INTERFACES & TYPES
@@ -26,6 +28,14 @@ interface LoadingState {
   loading: boolean
   lazyLoading: boolean
   error: string | null
+}
+
+interface MasonryGridLoaderProps {
+  count?: number
+}
+
+interface ErrorStateProps {
+  error: string
 }
 
 // ================================
@@ -69,13 +79,6 @@ const LOADER_KEYFRAMES = `
   }
 `
 
-// ================================
-// DATA
-// ================================
-
-/**
- * Generate original print URLs from 1 to 30
- */
 const originalPrintUrls = Array.from(
   { length: 30 },
   (_, index) => `${CLOUDINARY_BASE_URL}/${index + 1}.png`
@@ -173,7 +176,9 @@ const processBatchImages = async (urls: string[]): Promise<ImageItem[]> => {
 /**
  * Loading skeleton component for masonry grid
  */
-const MasonryGridLoader: React.FC<{ count?: number }> = ({ count = 12 }) => (
+const MasonryGridLoader: React.FC<MasonryGridLoaderProps> = ({
+  count = 12
+}) => (
   <div className="columns-2 md:columns-2 lg:columns-4 xl:columns-4 gap-4 space-y-4">
     <style dangerouslySetInnerHTML={{ __html: LOADER_KEYFRAMES }} />
 
@@ -232,7 +237,7 @@ const LazyLoadingIndicator: React.FC = () => (
 /**
  * Error state component
  */
-const ErrorState: React.FC<{ error: string }> = ({ error }) => (
+const ErrorState: React.FC<ErrorStateProps> = ({ error }) => (
   <div className="min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
     <div className="flex items-center justify-center min-h-screen">
       <div className="text-center">
@@ -245,49 +250,86 @@ const ErrorState: React.FC<{ error: string }> = ({ error }) => (
   </div>
 )
 
+// ================================
+// HOOKS
+// ================================
+
 /**
- * Image modal component for enlarged view
+ * Custom hook to handle image loading and state management
  */
-const ImageModal: React.FC<{
-  image: ImageItem | null
-  onClose: () => void
-}> = ({ image, onClose }) => {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
+const useImageLoader = (t: any) => {
+  const [images, setImages] = useState<ImageItem[]>([])
+  const [loadingState, setLoadingState] = useState<LoadingState>({
+    loading: true,
+    lazyLoading: true,
+    error: null
+  })
+
+  const loadImages = async () => {
+    setLoadingState({ loading: true, lazyLoading: true, error: null })
+
+    try {
+      // Load priority images first
+      const priorityUrls = originalPrintUrls.slice(0, PRIORITY_IMAGES_COUNT)
+      const priorityImages = await processBatchImages(priorityUrls)
+
+      setImages(priorityImages)
+      setLoadingState((prev) => ({ ...prev, loading: false }))
+
+      trackEvent({
+        event_name: 'images_loaded',
+        event_parameters: {
+          images_count: priorityImages.length,
+          load_type: 'priority',
+          load_time: 'initial'
+        }
+      })
+
+      // Load remaining images lazily
+      if (originalPrintUrls.length > PRIORITY_IMAGES_COUNT) {
+        const remainingUrls = originalPrintUrls.slice(PRIORITY_IMAGES_COUNT)
+        const remainingImages = await processBatchImages(remainingUrls)
+
+        setImages((prev) => [...prev, ...remainingImages])
+
+        trackEvent({
+          event_name: 'lazy_images_loaded',
+          event_parameters: {
+            total_images: priorityImages.length + remainingImages.length,
+            lazy_images: remainingImages.length,
+            load_type: 'lazy'
+          }
+        })
       }
+
+      setLoadingState((prev) => ({ ...prev, lazyLoading: false }))
+
+      if (priorityImages.length === 0) {
+        setLoadingState((prev) => ({
+          ...prev,
+          error: t.common.noImages || 'Nenhuma imagem encontrada'
+        }))
+      }
+    } catch (err) {
+      console.error('Error loading images:', err)
+
+      trackEvent({
+        event_name: 'image_load_error',
+        event_parameters: {
+          error_message: err instanceof Error ? err.message : 'Unknown error',
+          error_type: 'batch_load_failure'
+        }
+      })
+
+      setLoadingState({
+        loading: false,
+        lazyLoading: false,
+        error: t.common.error || 'Erro ao carregar imagens'
+      })
     }
+  }
 
-    if (image) {
-      document.addEventListener('keydown', handleKeyDown)
-      return () => document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [image, onClose])
-
-  if (!image) return null
-
-  return (
-    <div
-      className="fixed inset-0 bg-primary-black/90 flex items-center justify-center z-50 p-4 cursor-pointer"
-      onClick={onClose}
-    >
-      <img
-        src={image.urls?.large || image.url}
-        alt={image.alt || ''}
-        className="max-w-full max-h-full object-contain"
-        onClick={(e) => e.stopPropagation()}
-      />
-
-      <button
-        className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition-colors"
-        onClick={onClose}
-        aria-label="Fechar"
-      >
-        ✕
-      </button>
-    </div>
-  )
+  return { images, setImages, loadingState, loadImages }
 }
 
 // ================================
@@ -300,58 +342,27 @@ const ImageModal: React.FC<{
  */
 export const HomePage: React.FC = () => {
   const { t } = useI18n()
-  useDocumentTitle('home')
-
-  const [images, setImages] = useState<ImageItem[]>([])
-  const [loadingState, setLoadingState] = useState<LoadingState>({
-    loading: true,
-    lazyLoading: true,
-    error: null
-  })
+  const { images, setImages, loadingState, loadImages } = useImageLoader(t)
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null)
+
+  useDocumentTitle('home')
 
   // ================================
   // EFFECTS
   // ================================
 
   useEffect(() => {
-    const loadImages = async () => {
-      setLoadingState({ loading: true, lazyLoading: true, error: null })
-
-      try {
-        // Phase 1: Load priority images
-        const priorityUrls = originalPrintUrls.slice(0, PRIORITY_IMAGES_COUNT)
-        const priorityImages = await processBatchImages(priorityUrls)
-
-        setImages(priorityImages)
-        setLoadingState((prev) => ({ ...prev, loading: false }))
-
-        // Phase 2: Load remaining images
-        if (originalPrintUrls.length > PRIORITY_IMAGES_COUNT) {
-          const remainingUrls = originalPrintUrls.slice(PRIORITY_IMAGES_COUNT)
-          const remainingImages = await processBatchImages(remainingUrls)
-
-          setImages((prev) => [...prev, ...remainingImages])
-        }
-
-        setLoadingState((prev) => ({ ...prev, lazyLoading: false }))
-
-        if (priorityImages.length === 0) {
-          setLoadingState((prev) => ({
-            ...prev,
-            error: t.common.noImages || 'Nenhuma imagem encontrada'
-          }))
-        }
-      } catch (err) {
-        console.error('Error loading images:', err)
-        setLoadingState({
-          loading: false,
-          lazyLoading: false,
-          error: t.common.error || 'Erro ao carregar imagens'
-        })
+    trackEvent({
+      event_name: 'page_view_home',
+      event_parameters: {
+        page_title: 'Home - Portfolio',
+        content_type: 'portfolio_gallery',
+        total_images_available: originalPrintUrls.length
       }
-    }
+    })
+  }, [])
 
+  useEffect(() => {
     loadImages()
   }, [t])
 
@@ -361,14 +372,40 @@ export const HomePage: React.FC = () => {
 
   const handleImageClick = (image: ImageItem) => {
     setSelectedImage(image)
+
+    trackEvent({
+      event_name: 'image_click',
+      event_parameters: {
+        image_id: image.id,
+        image_title: image.title || 'untitled',
+        action: 'open_modal'
+      }
+    })
   }
 
   const handleImageError = (image: ImageItem) => {
     console.error(`Error displaying image: ${image.id}`)
     setImages((prev) => prev.filter((img) => img.id !== image.id))
+
+    trackEvent({
+      event_name: 'image_display_error',
+      event_parameters: {
+        image_id: image.id,
+        error_type: 'display_failure'
+      }
+    })
   }
 
   const handleModalClose = () => {
+    if (selectedImage) {
+      trackEvent({
+        event_name: 'image_modal_close',
+        event_parameters: {
+          image_id: selectedImage.id,
+          action: 'close_modal'
+        }
+      })
+    }
     setSelectedImage(null)
   }
 
@@ -406,7 +443,9 @@ export const HomePage: React.FC = () => {
         )}
       </section>
 
-      <ImageModal image={selectedImage} onClose={handleModalClose} />
+      {selectedImage && (
+        <ModalZoom image={selectedImage} onClose={handleModalClose} />
+      )}
     </div>
   )
 }

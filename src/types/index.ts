@@ -1,11 +1,26 @@
-// Shared metadata for projects and folders
+import React from 'react'
+
+// ================================
+// SHARED METADATA TYPES
+// ================================
+
+/**
+ * Shared metadata interface for projects and folders
+ * Allows for extensible metadata with type safety
+ */
 export interface Metadata {
   type: string
   createdAt: string
   [key: string]: any // Allows for additional, less strict metadata
 }
 
-// Type for individual project stats
+// ================================
+// PROJECT RELATED TYPES
+// ================================
+
+/**
+ * Statistics for individual projects
+ */
 export interface ProjectStats {
   lines: string
   commits: number
@@ -13,14 +28,19 @@ export interface ProjectStats {
   forks: number
 }
 
-// Type for project links
+/**
+ * External links for projects
+ */
 export interface ProjectLinks {
   live?: string
   github?: string
   figma?: string
 }
 
-// Detailed Project Item (used in ProjectDetail.tsx)
+/**
+ * Detailed project item interface
+ * Used in ProjectDetail.tsx and project-related components
+ */
 export interface ProjectItem {
   id: string
   title: string
@@ -43,7 +63,20 @@ export interface ProjectItem {
   stats: ProjectStats
 }
 
-// Type for FolderCardProps and FolderGrid
+/**
+ * Props for ProjectDetail page component
+ */
+export interface ProjectDetailProps {
+  projectId?: string
+}
+
+// ================================
+// FOLDER RELATED TYPES
+// ================================
+
+/**
+ * Folder item interface for folder grids and cards
+ */
 export interface FolderItem {
   id: string
   title: string
@@ -55,7 +88,9 @@ export interface FolderItem {
   showTitleBelow?: boolean // Added based on FolderCard.tsx usage
 }
 
-// Props for FolderCard component
+/**
+ * Props for FolderCard component
+ */
 export interface FolderCardProps {
   folder: FolderItem
   onClick?: (folder: FolderItem) => void
@@ -63,7 +98,9 @@ export interface FolderCardProps {
   onImageError?: (folder: FolderItem) => void
 }
 
-// Props for FolderGrid component
+/**
+ * Props for FolderGrid component with responsive column configuration
+ */
 export interface FolderGridProps {
   folders: FolderItem[]
   columnCount?: {
@@ -81,31 +118,48 @@ export interface FolderGridProps {
   error?: string | null
 }
 
-// Props for ProjectDetail page
-export interface ProjectDetailProps {
-  projectId?: string
-}
+// ================================
+// ROUTING TYPES
+// ================================
 
-// Route configuration types
+/**
+ * Route metadata configuration
+ */
 export interface RouteMeta {
   title: string
   [key: string]: any
 }
 
+/**
+ * Individual route configuration
+ */
 export interface RouteConfig {
   path: string
   element: React.ComponentType<any>
   meta?: RouteMeta
 }
 
+/**
+ * Route group with shared layout
+ */
 export interface RouteGroup {
   layout: React.ComponentType<any>
   routes: RouteConfig[]
 }
 
-// Language and Translation types (simplified)
+// ================================
+// INTERNATIONALIZATION TYPES
+// ================================
+
+/**
+ * Supported languages
+ */
 export type Language = 'pt' | 'en'
 
+/**
+ * Complete translation interface structure
+ * Covers all application text content
+ */
 export interface Translation {
   nav: {
     home: string
@@ -131,7 +185,6 @@ export interface Translation {
       title: string
       subtitle: string
       info: {
-        // ← ADICIONADO
         title: string
         description: string
       }

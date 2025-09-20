@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
+import { trackEvent } from '@/features/ga'
 
 // ================================
 // INTERFACES & TYPES
@@ -20,6 +21,41 @@ interface EmailJSConfig {
 
 interface ContactPageProps {
   className?: string
+}
+
+interface ContactInfoProps {
+  title: string
+  description: string
+}
+
+interface SuccessMessageProps {
+  title: string
+  message: string
+  buttonText: string
+  onSendAnother: () => void
+}
+
+interface FormFieldProps {
+  label: string
+  name: keyof FormData
+  type: 'text' | 'email' | 'textarea'
+  value: string
+  placeholder: string
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+}
+
+interface ContactFormProps {
+  formData: FormData
+  isSubmitting: boolean
+  submitStatus: SubmitStatus
+  onInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+  onSubmit: (e: React.FormEvent) => void
+  onResetForm: () => void
+  translations: any
 }
 
 type SubmitStatus = 'idle' | 'success' | 'error'
@@ -119,10 +155,7 @@ const sendEmail = async (formData: FormData): Promise<void> => {
 /**
  * Contact information section
  */
-const ContactInfo: React.FC<{ title: string; description: string }> = ({
-  title,
-  description
-}) => (
+const ContactInfo: React.FC<ContactInfoProps> = ({ title, description }) => (
   <div className="border-l-2 border-primary-black dark:border-primary-white pl-6">
     <h2 className="text-2xl font-semibold text-primary-black dark:text-primary-white mb-6">
       {title}
@@ -145,12 +178,12 @@ const ContactInfo: React.FC<{ title: string; description: string }> = ({
 /**
  * Success message component
  */
-const SuccessMessage: React.FC<{
-  title: string
-  message: string
-  buttonText: string
-  onSendAnother: () => void
-}> = ({ title, message, buttonText, onSendAnother }) => (
+const SuccessMessage: React.FC<SuccessMessageProps> = ({
+  title,
+  message,
+  buttonText,
+  onSendAnother
+}) => (
   <div className="text-center py-12">
     <div className="mb-6">
       <div className="w-16 h-16 mx-auto mb-4 border-2 border-green-500 rounded-full flex items-center justify-center">
@@ -187,16 +220,14 @@ const SuccessMessage: React.FC<{
 /**
  * Form input field component
  */
-const FormField: React.FC<{
-  label: string
-  name: keyof FormData
-  type: 'text' | 'email' | 'textarea'
-  value: string
-  placeholder: string
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
-}> = ({ label, name, type, value, placeholder, onChange }) => (
+const FormField: React.FC<FormFieldProps> = ({
+  label,
+  name,
+  type,
+  value,
+  placeholder,
+  onChange
+}) => (
   <div>
     <label className="block text-sm font-medium text-primary-black dark:text-primary-white mb-2">
       {label}
@@ -228,17 +259,7 @@ const FormField: React.FC<{
 /**
  * Contact form component
  */
-const ContactForm: React.FC<{
-  formData: FormData
-  isSubmitting: boolean
-  submitStatus: SubmitStatus
-  onInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
-  onSubmit: (e: React.FormEvent) => void
-  onResetForm: () => void
-  translations: any
-}> = ({
+const ContactForm: React.FC<ContactFormProps> = ({
   formData,
   isSubmitting,
   submitStatus,
@@ -320,6 +341,107 @@ const DecorativeDivider: React.FC = () => (
 )
 
 // ================================
+// HOOKS
+// ================================
+
+/**
+ * Custom hook to handle form state and submission
+ */
+const useContactForm = (t: any) => {
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle')
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+
+    trackEvent({
+      event_name: 'form_field_interaction',
+      event_parameters: {
+        field_name: name,
+        field_length: value.length,
+        form_type: 'contact',
+        interaction_type: 'input'
+      }
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    trackEvent({
+      event_name: 'form_submit_attempt',
+      event_parameters: {
+        form_type: 'contact',
+        message_length: formData.message.length,
+        has_name: !!formData.name,
+        has_email: !!formData.email,
+        has_message: !!formData.message
+      }
+    })
+
+    try {
+      await sendEmail(formData)
+      setSubmitStatus('success')
+      setFormData(INITIAL_FORM_DATA)
+
+      trackEvent({
+        event_name: 'form_submit_success',
+        event_parameters: {
+          form_type: 'contact',
+          message_length: formData.message.length
+        }
+      })
+    } catch (error) {
+      console.error('Error sending email:', error)
+      setSubmitStatus('error')
+
+      trackEvent({
+        event_name: 'form_submit_error',
+        event_parameters: {
+          form_type: 'contact',
+          error_message:
+            error instanceof Error ? error.message : 'Unknown error',
+          error_type: 'email_send_failure'
+        }
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleResetForm = () => {
+    setSubmitStatus('idle')
+    setFormData(INITIAL_FORM_DATA)
+
+    trackEvent({
+      event_name: 'form_reset',
+      event_parameters: {
+        form_type: 'contact',
+        reset_trigger: 'send_another_button'
+      }
+    })
+  }
+
+  return {
+    formData,
+    isSubmitting,
+    submitStatus,
+    handleInputChange,
+    handleSubmit,
+    handleResetForm
+  }
+}
+
+// ================================
 // MAIN COMPONENT
 // ================================
 
@@ -329,11 +451,16 @@ const DecorativeDivider: React.FC = () => (
  */
 export const ContactPage: React.FC<ContactPageProps> = ({ className = '' }) => {
   const { t } = useI18n()
-  useDocumentTitle('contact')
+  const {
+    formData,
+    isSubmitting,
+    submitStatus,
+    handleInputChange,
+    handleSubmit,
+    handleResetForm
+  } = useContactForm(t)
 
-  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle')
+  useDocumentTitle('contact')
 
   // ================================
   // COMPUTED VALUES
@@ -347,40 +474,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({ className = '' }) => {
     .join(' ')
 
   // ================================
-  // HANDLERS
+  // EFFECTS
   // ================================
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-
-    try {
-      await sendEmail(formData)
-      setSubmitStatus('success')
-      setFormData(INITIAL_FORM_DATA)
-    } catch (error) {
-      console.error('Error sending email:', error)
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleResetForm = () => {
-    setSubmitStatus('idle')
-    setFormData(INITIAL_FORM_DATA)
-  }
+  useEffect(() => {
+    trackEvent({
+      event_name: 'page_view_contact',
+      event_parameters: {
+        page_title: 'Contact - Portfolio',
+        content_type: 'contact_form'
+      }
+    })
+  }, [])
 
   // ================================
   // RENDER

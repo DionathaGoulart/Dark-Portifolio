@@ -1,3 +1,4 @@
+import { trackThemeChange } from '@/features/ga'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 // ================================
@@ -119,6 +120,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme)
+    trackThemeChange(newTheme)
   }
 
   const toggleTheme = () => {

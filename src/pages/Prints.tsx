@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
+import { trackEvent } from '@/features/ga'
 
 // ================================
 // INTERFACES & TYPES
@@ -10,6 +11,15 @@ interface PrintsPageProps {
   className?: string
 }
 
+interface DecorativeDividerProps {
+  className?: string
+}
+
+interface PageHeaderProps {
+  title: string
+  subtitle: string
+}
+
 // ================================
 // SUB COMPONENTS
 // ================================
@@ -17,7 +27,7 @@ interface PrintsPageProps {
 /**
  * Decorative divider element
  */
-const DecorativeDivider: React.FC<{ className?: string }> = ({
+const DecorativeDivider: React.FC<DecorativeDividerProps> = ({
   className = ''
 }) => (
   <div
@@ -28,10 +38,7 @@ const DecorativeDivider: React.FC<{ className?: string }> = ({
 /**
  * Page header with title and subtitle
  */
-const PageHeader: React.FC<{ title: string; subtitle: string }> = ({
-  title,
-  subtitle
-}) => (
+const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
   <div className="text-center animate-fade-in">
     <h1 className="text-5xl font-bold text-primary-black dark:text-primary-white mb-6 tracking-tight">
       {title}
@@ -52,7 +59,8 @@ const PageHeader: React.FC<{ title: string; subtitle: string }> = ({
  * Simple layout with title, subtitle, and decorative elements
  */
 export const PrintsPage: React.FC<PrintsPageProps> = ({ className = '' }) => {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
+
   useDocumentTitle('prints')
 
   // ================================
@@ -65,6 +73,21 @@ export const PrintsPage: React.FC<PrintsPageProps> = ({ className = '' }) => {
   ]
     .filter(Boolean)
     .join(' ')
+
+  // ================================
+  // EFFECTS
+  // ================================
+
+  useEffect(() => {
+    trackEvent({
+      event_name: 'page_view_prints',
+      event_parameters: {
+        page_title: 'Prints - Portfolio',
+        language: language,
+        content_type: 'prints_page'
+      }
+    })
+  }, [language])
 
   // ================================
   // RENDER

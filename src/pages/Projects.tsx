@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { batchPreloadImages, ImageItem, MasonryGrid } from '@features/grid'
 import { useI18n } from '@/shared/contexts/I18nContext'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
+import { trackEvent } from '@/features/ga'
 
 // ================================
 // INTERFACES & TYPES
@@ -49,11 +50,6 @@ interface ProjectGridLoaderProps {
 
 interface ErrorStateProps {
   error: string
-}
-
-interface PageHeaderProps {
-  title: string
-  description: string
 }
 
 // ================================
@@ -373,7 +369,7 @@ const useProjectImages = (
       }
 
       try {
-        // Phase 1: Load priority projects
+        // Load priority projects
         const priorityProjects = projectsData.slice(0, PRIORITY_PROJECTS_COUNT)
         const priorityItems = await processProjectsBatch(
           priorityProjects,
@@ -385,7 +381,16 @@ const useProjectImages = (
         setImages(priorityItems)
         setLoadingState((prev) => ({ ...prev, loading: false }))
 
-        // Phase 2: Load remaining projects
+        trackEvent({
+          event_name: 'projects_loaded',
+          event_parameters: {
+            projects_count: priorityItems.length,
+            load_type: 'priority',
+            language: language
+          }
+        })
+
+        // Load remaining projects
         if (projectsData.length > PRIORITY_PROJECTS_COUNT) {
           const remainingProjects = projectsData.slice(PRIORITY_PROJECTS_COUNT)
           const remainingItems = await processProjectsBatch(
@@ -407,6 +412,15 @@ const useProjectImages = (
 
             return [...prevImages, ...newItems]
           })
+
+          trackEvent({
+            event_name: 'projects_lazy_loaded',
+            event_parameters: {
+              total_projects: priorityItems.length + remainingItems.length,
+              lazy_projects: remainingItems.length,
+              language: language
+            }
+          })
         }
 
         if (!isCancelled) {
@@ -415,6 +429,16 @@ const useProjectImages = (
       } catch (err) {
         console.error('Error loading project covers:', err)
         if (!isCancelled) {
+          trackEvent({
+            event_name: 'projects_load_error',
+            event_parameters: {
+              error_message:
+                err instanceof Error ? err.message : 'Unknown error',
+              error_type: 'project_covers_load_failure',
+              language: language
+            }
+          })
+
           setLoadingState({
             loading: false,
             lazyLoading: false,
@@ -434,6 +458,50 @@ const useProjectImages = (
   return { images, loadingState, setImages }
 }
 
+/**
+ * Custom hook to handle project interactions
+ */
+const useProjectHandlers = (
+  navigate: any,
+  language: string,
+  setImages: any
+) => {
+  const handleProjectClick = (image: ImageItem) => {
+    trackEvent({
+      event_name: 'project_click',
+      event_parameters: {
+        project_id: image.id,
+        project_title: image.title || 'untitled',
+        project_link: image.linkTo || 'unknown',
+        language: language,
+        action: 'navigate_to_project'
+      }
+    })
+
+    if (image.linkTo) {
+      navigate(image.linkTo)
+    } else {
+      navigate(`/projects/${image.id}`)
+      console.warn(`Project ${image.id} missing linkTo definition`)
+    }
+  }
+
+  const handleImageError = (image: ImageItem) => {
+    console.error(`Error loading cover: ${image.id}`)
+    setImages((prev: ImageItem[]) => prev.filter((img) => img.id !== image.id))
+
+    trackEvent({
+      event_name: 'project_image_error',
+      event_parameters: {
+        project_id: image.id,
+        error_type: 'project_cover_display_failure'
+      }
+    })
+  }
+
+  return { handleProjectClick, handleImageError }
+}
+
 // ================================
 // MAIN COMPONENT
 // ================================
@@ -444,8 +512,9 @@ const useProjectImages = (
  */
 export const ProjectsPage: React.FC = () => {
   const { t, language } = useI18n()
-  useDocumentTitle('projects')
   const navigate = useNavigate()
+
+  useDocumentTitle('projects')
 
   const stableTranslations = useMemo(
     () => ({
@@ -460,32 +529,39 @@ export const ProjectsPage: React.FC = () => {
     language,
     stableTranslations
   )
+  const { handleProjectClick, handleImageError } = useProjectHandlers(
+    navigate,
+    language,
+    setImages
+  )
 
   // ================================
-  // HANDLERS
+  // EFFECTS
   // ================================
 
-  const handleProjectClick = (image: ImageItem) => {
-    if (image.linkTo) {
-      navigate(image.linkTo)
-    } else {
-      navigate(`/projects/${image.id}`)
-      console.warn(`Project ${image.id} missing linkTo definition`)
-    }
-  }
-
-  const handleImageError = (image: ImageItem) => {
-    console.error(`Error loading cover: ${image.id}`)
-    setImages((prev) => prev.filter((img) => img.id !== image.id))
-  }
+  useEffect(() => {
+    trackEvent({
+      event_name: 'page_view_projects',
+      event_parameters: {
+        page_title: 'Projects - Portfolio',
+        projects_total: projectsData.length,
+        language: language,
+        content_type: 'project_gallery'
+      }
+    })
+  }, [language])
 
   // ================================
-  // RENDER
+  // EARLY RETURNS
   // ================================
 
   if (loadingState.error) {
     return <ErrorState error={loadingState.error} />
   }
+
+  // ================================
+  // RENDER
+  // ================================
 
   return (
     <div className="py-12 md:py-16 min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
