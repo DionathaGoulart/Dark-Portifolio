@@ -63,13 +63,11 @@ const originalUrls = [
 const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Horror',
-    description:
-      'Uma coleção de designs de horror, com uma estética sombria e cativante. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+    description: 'Ilustrações que exploram estresse, desespero e paranoia'
   },
   en: {
     title: 'Horror',
-    description:
-      'A collection of horror designs, with a dark and captivating aesthetic. The images automatically adapt to fit any device.'
+    description: 'Illustrations that explore stress, despair, and paranoia'
   }
 }
 

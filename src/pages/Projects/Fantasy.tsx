@@ -57,12 +57,12 @@ const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Fantasy',
     description:
-      'Uma coleção de desenhos de fantasia, com uma estética mágica e mística. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+      'Ilustrações criadas para o concurso de arte do Clip Studio Paint com o tema Criaturas Fantásticas!!'
   },
   en: {
     title: 'Fantasy',
     description:
-      'A collection of fantasy designs, with a magical and mystical aesthetic. The images automatically adapt to fit any device.'
+      'Illustrations created for the Clip Studio Paint art contest with the theme Fantasy Creatures!!'
   }
 }
 

@@ -43,12 +43,11 @@ const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Faces do Horror',
     description:
-      'Desenhos perturbadores de rostos para serem usados em produtos estampados! Agora com adaptação automática de tamanho baseada nas proporções originais das imagens.'
+      'Designs de rostos perturbadores para uso em produtos impressos!'
   },
   en: {
     title: 'Faces Of Horror',
-    description:
-      'Disturbing face designs for use on printed products! Now with automatic size adaptation based on original image proportions.'
+    description: 'Disturbing face designs for use on printed products!'
   }
 }
 

@@ -58,12 +58,11 @@ const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Creepy',
     description:
-      'Uma coleção de designs perturbadores, com uma estética sombria e cativante. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+      'Designs de rostos perturbadores para uso em produtos impressos!'
   },
   en: {
     title: 'Creepy',
-    description:
-      'A collection of disturbing designs, with a dark and captivating aesthetic. The images automatically adapt to fit any device.'
+    description: 'Disturbing face designs for use on printed products!'
   }
 }
 

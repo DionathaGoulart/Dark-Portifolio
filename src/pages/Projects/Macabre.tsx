@@ -56,13 +56,11 @@ const originalUrls = [
 const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Macabre',
-    description:
-      'Uma coleção de designs macabros, com uma estética sombria e cativante. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+    description: 'Design de rostos macabros estampados em camisetas raglan.'
   },
   en: {
     title: 'Macabre',
-    description:
-      'A collection of macabre designs, with a dark and captivating aesthetic. The images automatically adapt to fit any device.'
+    description: 'Design of macabre faces printed on raglan t-shirts.'
   }
 }
 

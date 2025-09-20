@@ -234,11 +234,6 @@ export const Arac: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <section className="px-6 sm:px-8 lg:px-12">
-        <div className="text-center mb-16 animate-fade-in">
-          <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed">
-            {texts.description}
-          </p>
-        </div>
         <div className="space-y-8">
           {!loading && lazyLoading && <LazyLoadingIndicator />}
 

@@ -61,12 +61,12 @@ const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Joaninho',
     description:
-      'Uma coleção de designs de Joaninho, com uma estética gótica e sombria. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+      'Joaninhas devorando o rosto de uma garota que repousa serenamente em um campo de flores, revelando seu semblante cadavérico.'
   },
   en: {
     title: 'Joaninho',
     description:
-      'A collection of Joaninho designs, with a gothic and dark aesthetic. The images automatically adapt to fit any device.'
+      'Ladybugs devouring the face of a girl resting serenely in a field of flowers, revealing her cadaverous visage.'
   }
 }
 

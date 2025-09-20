@@ -58,13 +58,11 @@ const originalUrls = [
 const pageTexts: PageTextsConfig = {
   pt: {
     title: 'Halloween',
-    description:
-      'Uma coleção de designs de Halloween, com uma estética assustadora e festiva. As imagens se adaptam automaticamente para se encaixar em qualquer dispositivo.'
+    description: 'Designs de Halloween para estampas de camisetas.'
   },
   en: {
     title: 'Halloween',
-    description:
-      'A collection of Halloween designs, with a spooky and festive aesthetic. The images automatically adapt to fit any device.'
+    description: 'Halloween designs for t-shirt prints.'
   }
 }
 
