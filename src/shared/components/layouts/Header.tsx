@@ -8,7 +8,7 @@ import { HeaderConfig } from './types'
 import { useI18n } from '@/shared/contexts/I18nContext'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface SocialLinksProps {
@@ -17,7 +17,7 @@ interface SocialLinksProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const DEFAULT_SOCIAL_URLS = {
@@ -26,11 +26,11 @@ const DEFAULT_SOCIAL_URLS = {
 } as const
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Creates navigation items with translated labels
+ * Cria itens de navegação com rótulos traduzidos
  */
 const createNavItems = (t: any) => [
   { label: t.nav.home, href: '/' },
@@ -41,11 +41,11 @@ const createNavItems = (t: any) => [
 ]
 
 // ================================
-// SUB COMPONENTS
+// SUB-COMPONENTES
 // ================================
 
 /**
- * Social media links component
+ * Componente de links das redes sociais
  */
 const SocialLinks: React.FC<SocialLinksProps> = ({
   instagramUrl,
@@ -74,7 +74,7 @@ const SocialLinks: React.FC<SocialLinksProps> = ({
 )
 
 /**
- * Desktop navigation with centered layout
+ * Navegação desktop com layout centralizado
  */
 const DesktopNavigation: React.FC<{ navItems: any[] }> = ({ navItems }) => (
   <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
@@ -83,7 +83,7 @@ const DesktopNavigation: React.FC<{ navItems: any[] }> = ({ navItems }) => (
 )
 
 /**
- * Mobile navigation with controls
+ * Navegação mobile com controles
  */
 const MobileNavigation: React.FC<{ navItems: any[] }> = ({ navItems }) => (
   <div className="md:hidden flex items-center space-x-3">
@@ -94,7 +94,7 @@ const MobileNavigation: React.FC<{ navItems: any[] }> = ({ navItems }) => (
 )
 
 /**
- * Desktop controls (theme toggle and language switch)
+ * Controles desktop (alternador de tema e troca de idioma)
  */
 const DesktopControls: React.FC = () => (
   <div className="hidden md:flex items-center space-x-3 flex-shrink-0">
@@ -104,12 +104,12 @@ const DesktopControls: React.FC = () => (
 )
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Application header with logo, navigation, and controls
- * Features responsive layout with centered desktop navigation and mobile hamburger menu
+ * Cabeçalho da aplicação com logo, navegação e controles
+ * Apresenta layout responsivo com navegação desktop centralizada e menu hambúrguer mobile
  */
 export const LayoutHeader: React.FC<HeaderConfig> = ({
   logoSrc,
@@ -121,24 +121,24 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
   const { t } = useI18n()
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const navItems = createNavItems(t)
 
   // ================================
-  // EARLY RETURNS
+  // RETORNOS ANTECIPADOS
   // ================================
 
   if (!showNavigation && !logoSrc) return null
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (
     <header className="relative w-full bg-primary-white dark:bg-primary-black transition-all duration-300 z-30">
-      <div className="px-6 sm:px-8 lg:px-12">
+      <div className="px-6 sm:px-10 lg:px-12">
         <div className="flex items-center justify-between h-20 sm:h-24">
           <div className="flex-shrink-0">
             <Logo src={logoSrc} alt={logoAlt} />

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface UseActiveRouteReturn {
@@ -10,38 +10,38 @@ interface UseActiveRouteReturn {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const HOME_ROUTE = '/' as const
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Checks if a route is the home route
+ * Verifica se uma rota é a rota home
  */
 const isHomeRoute = (href: string): boolean => {
   return href === HOME_ROUTE
 }
 
 /**
- * Checks if current path matches home route exactly
+ * Verifica se o caminho atual corresponde exatamente à rota home
  */
 const isHomeRouteActive = (currentPath: string): boolean => {
   return currentPath === HOME_ROUTE
 }
 
 /**
- * Checks if current path matches non-home route exactly or as parent
+ * Verifica se o caminho atual corresponde à rota não-home exatamente ou como pai
  */
 const isNonHomeRouteActive = (currentPath: string, href: string): boolean => {
   return currentPath === href || currentPath.startsWith(href + '/')
 }
 
 /**
- * Determines if a route is currently active based on current path
+ * Determina se uma rota está atualmente ativa baseada no caminho atual
  */
 const checkRouteActive = (currentPath: string, href: string): boolean => {
   if (isHomeRoute(href)) {
@@ -52,24 +52,24 @@ const checkRouteActive = (currentPath: string, href: string): boolean => {
 }
 
 // ================================
-// MAIN HOOK
+// HOOK PRINCIPAL
 // ================================
 
 /**
- * Hook to detect active route with React Router
- * Provides exact matching for home route and parent/child matching for other routes
+ * Hook para detectar rota ativa com React Router
+ * Fornece correspondência exata para rota home e correspondência pai/filho para outras rotas
  */
 export const useActiveRoute = (): UseActiveRouteReturn => {
   const location = useLocation()
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const currentPath = location.pathname
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const isActive = (href: string): boolean => {
@@ -77,7 +77,7 @@ export const useActiveRoute = (): UseActiveRouteReturn => {
   }
 
   // ================================
-  // RETURN
+  // RETORNO
   // ================================
 
   return {

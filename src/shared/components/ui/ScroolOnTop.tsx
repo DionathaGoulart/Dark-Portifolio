@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface ScrollToTopButtonProps {
@@ -21,7 +21,7 @@ interface UseScrollToTopReturn {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const DEFAULT_SHOW_AFTER = 400
@@ -42,11 +42,11 @@ const baseButtonClasses = [
 ].join(' ')
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Calculates scroll progress as a percentage
+ * Calcula o progresso do scroll como uma porcentagem
  */
 const calculateScrollProgress = (): number => {
   const scrollTop = window.pageYOffset
@@ -55,7 +55,7 @@ const calculateScrollProgress = (): number => {
 }
 
 /**
- * Scrolls to top of page with optional smooth behavior
+ * Rola para o topo da página com comportamento suave opcional
  */
 const scrollToTopHandler = (smooth: boolean = true): void => {
   if (smooth) {
@@ -69,7 +69,7 @@ const scrollToTopHandler = (smooth: boolean = true): void => {
 }
 
 /**
- * Gets button classes with optional additional className
+ * Obtém classes do botão com className adicional opcional
  */
 const getButtonClasses = (
   size: 'small' | 'large',
@@ -81,11 +81,11 @@ const getButtonClasses = (
 }
 
 // ================================
-// SUB COMPONENTS
+// SUB-COMPONENTES
 // ================================
 
 /**
- * Arrow up icon component
+ * Componente de ícone de seta para cima
  */
 const ArrowUpIcon: React.FC<{ className?: string }> = ({
   className = 'w-6 h-6'
@@ -107,7 +107,7 @@ const ArrowUpIcon: React.FC<{ className?: string }> = ({
 )
 
 /**
- * Progress circle component for scroll indicator
+ * Componente de círculo de progresso para indicador de scroll
  */
 const ProgressCircle: React.FC<{ progress: number }> = ({ progress }) => (
   <svg
@@ -138,11 +138,11 @@ const ProgressCircle: React.FC<{ progress: number }> = ({ progress }) => (
 )
 
 // ================================
-// MAIN COMPONENTS
+// COMPONENTES PRINCIPAIS
 // ================================
 
 /**
- * Simple scroll to top button that appears after scrolling
+ * Botão simples de voltar ao topo que aparece após o scroll
  */
 export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
   showAfter = DEFAULT_SHOW_AFTER,
@@ -170,7 +170,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
     <button
       onClick={handleClick}
       className={getButtonClasses('small', className)}
-      aria-label="Scroll to top"
+      aria-label="Voltar ao topo"
     >
       <ArrowUpIcon />
     </button>
@@ -178,7 +178,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
 }
 
 /**
- * Advanced scroll to top button with progress indicator
+ * Botão avançado de voltar ao topo com indicador de progresso
  */
 export const ScrollToTopWithProgress: React.FC<ScrollToTopButtonProps> = ({
   showAfter = DEFAULT_SHOW_AFTER,
@@ -215,7 +215,7 @@ export const ScrollToTopWithProgress: React.FC<ScrollToTopButtonProps> = ({
     <button
       onClick={handleClick}
       className={getButtonClasses('large', className)}
-      aria-label="Scroll to top"
+      aria-label="Voltar ao topo"
     >
       <ProgressCircle progress={scrollInfo.scrollProgress} />
       <ArrowUpIcon className="w-6 h-6 relative z-10" />
@@ -228,8 +228,8 @@ export const ScrollToTopWithProgress: React.FC<ScrollToTopButtonProps> = ({
 // ================================
 
 /**
- * Hook for scroll to top functionality
- * Returns visibility state and scroll function for custom implementations
+ * Hook para funcionalidade de voltar ao topo
+ * Retorna estado de visibilidade e função de scroll para implementações customizadas
  */
 export const useScrollToTop = (
   showAfter: number = DEFAULT_SHOW_AFTER

@@ -1,19 +1,12 @@
-// ================================
-// Internal Imports
-// ================================
 import { Translation } from '@/types'
 
-// ================================
-// English Translations
-// ================================
-
 /**
- * English language translations for the application
- * Contains all text content organized by feature and context
+ * Traduções em inglês para a aplicação
+ * Contém todo o conteúdo de texto organizado por funcionalidade e contexto
  */
 export const enTranslations: Translation = {
   // ================================
-  // Navigation Labels
+  // Rótulos de Navegação
   // ================================
   nav: {
     home: 'Home',
@@ -24,15 +17,15 @@ export const enTranslations: Translation = {
   },
 
   // ================================
-  // Page Content
+  // Conteúdo das Páginas
   // ================================
   pages: {
-    // Home page content
+    // Conteúdo da página inicial
     home: {
       title: 'Home'
     },
 
-    // About page content
+    // Conteúdo da página sobre
     about: {
       title: 'About',
       description:
@@ -41,34 +34,34 @@ export const enTranslations: Translation = {
         'She offers exclusive, custom digital illustrations aimed at the alternative fashion market, creating striking designs for products such as t-shirts, collectible stickers, tote bags, and accessories.'
     },
 
-    // Projects page content
+    // Conteúdo da página de projetos
     projects: {
       title: 'Projects',
       description:
         'Explore some of our most recent work. Each image represents a unique and inspiring project.'
     },
 
-    // Contact page content
+    // Conteúdo da página de contato
     contact: {
       title: 'Contact',
       subtitle:
         'For commissions, inquiries, or collaborations, feel free to reach out!',
 
-      // Contact information section
+      // Seção de informações de contato
       info: {
         title: 'Contact Information',
         description:
           "Get in touch with us for any inquiries, collaborations, or custom projects. We'd love to hear from you!"
       },
 
-      // Contact form labels and messages
+      // Rótulos e mensagens do formulário de contato
       form: {
-        // Form field labels
+        // Rótulos dos campos do formulário
         name: 'Name',
         email: 'Email',
         message: 'Message',
 
-        // Form actions
+        // Ações do formulário
         send: 'Send Message',
         sending: 'Sending...',
         sendAnother: 'Send another message',
@@ -78,16 +71,16 @@ export const enTranslations: Translation = {
         emailPlaceholder: 'your@email.com',
         messagePlaceholder: 'Your message...',
 
-        // Success messages
+        // Mensagens de sucesso
         successTitle: 'Message sent successfully!',
         successMessage: 'Thank you for contacting us. We will respond soon.',
 
-        // Error messages
+        // Mensagens de erro
         errorMessage: 'Error sending message. Please try again.'
       }
     },
 
-    // Prints page content
+    // Conteúdo da página de prints
     prints: {
       title: 'Prints & Artwork',
       subtitle: 'Collection of exclusive art and prints.',
@@ -103,7 +96,7 @@ export const enTranslations: Translation = {
   },
 
   // ================================
-  // Footer Content
+  // Conteúdo do Rodapé
   // ================================
   footer: {
     rights: '© 2025 All rights reserved.',
@@ -111,7 +104,7 @@ export const enTranslations: Translation = {
   },
 
   // ================================
-  // Common UI Text
+  // Texto Comum da UI
   // ================================
   common: {
     loading: 'Loading...',

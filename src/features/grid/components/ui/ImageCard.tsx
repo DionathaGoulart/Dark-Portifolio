@@ -3,11 +3,11 @@ import { ImageLoader } from './ImageLoader'
 import { ImageCardProps } from '../../types'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Extended props interface for ImageCard component
+ * Interface de props estendida para o componente ImageCard
  */
 export interface ImageCardPropsExtended extends ImageCardProps {
   enableHoverScale?: boolean
@@ -16,11 +16,11 @@ export interface ImageCardPropsExtended extends ImageCardProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 /**
- * Mapping of object fit values to Tailwind CSS classes
+ * Mapeamento de valores object-fit para classes CSS do Tailwind
  */
 const OBJECT_FIT_CLASSES = {
   cover: 'object-cover',
@@ -31,12 +31,12 @@ const OBJECT_FIT_CLASSES = {
 } as const
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * ImageCard component with hover effects, scaling animations, and customizable object fit
- * Features conditional title overlay, error handling, and responsive design
+ * Componente ImageCard com efeitos de hover, animações de escala e object-fit customizável
+ * Possui overlay de título condicional, tratamento de erros e design responsivo
  */
 export const ImageCard: React.FC<ImageCardPropsExtended> = ({
   image,
@@ -51,13 +51,13 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
   showTitle = true
 }) => {
   // ================================
-  // STATE
+  // ESTADO
   // ================================
 
   const [isVisible, setIsVisible] = useState(true)
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const objectFitClass = OBJECT_FIT_CLASSES[objectFit]
@@ -75,7 +75,7 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
     : `w-full h-full ${objectFitClass}`
 
   // ================================
-  // EVENT HANDLERS
+  // MANIPULADORES DE EVENTOS
   // ================================
 
   const handleClick = () => onClick?.(image)
@@ -88,7 +88,7 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
   }
 
   // ================================
-  // RENDER HELPERS
+  // FUNÇÕES AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
   const renderHoverOverlay = () => {
@@ -119,13 +119,13 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
   }
 
   // ================================
-  // EARLY RETURNS
+  // RETORNOS ANTECIPADOS
   // ================================
 
   if (!isVisible) return null
 
   // ================================
-  // MAIN RENDER
+  // RENDERIZAÇÃO PRINCIPAL
   // ================================
 
   return (

@@ -1,21 +1,18 @@
-// ================================
-// IMPORTS
-// ================================
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { trackPageView } from './gtag'
 
 // ================================
-// TYPES
+// TIPOS
 // ================================
 
 /**
- * Analytics hook configuration options
+ * Opções de configuração do hook de analytics
  */
 interface UseAnalyticsOptions {
-  /** Whether to track page views automatically */
+  /** Se deve rastrear visualizações de página automaticamente */
   trackPageViews?: boolean
-  /** Custom page title override */
+  /** Substituição customizada do título da página */
   pageTitle?: string
 }
 
@@ -24,10 +21,10 @@ interface UseAnalyticsOptions {
 // ================================
 
 /**
- * Hook to automatically track route changes and page views
- * Integrates with React Router to monitor navigation events
+ * Hook para rastrear automaticamente mudanças de rota e visualizações de página
+ * Integra com React Router para monitorar eventos de navegação
  *
- * @param {UseAnalyticsOptions} options - Configuration options for analytics tracking
+ * @param {UseAnalyticsOptions} options - Opções de configuração para rastreamento de analytics
  */
 export const useAnalytics = (options: UseAnalyticsOptions = {}) => {
   const location = useLocation()

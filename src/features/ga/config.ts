@@ -1,16 +1,13 @@
-// ================================
-// IMPORTS
-// ================================
 import { validateAnalyticsEnv } from '@/shared/utils/envValidation'
 import { AnalyticsConfig } from './types'
 
 // ================================
-// CONFIGURATION
+// CONFIGURAÇÃO
 // ================================
 
 /**
- * Google Analytics configuration using environment variables
- * Ensures no sensitive information is exposed in the code
+ * Configuração do Google Analytics usando variáveis de ambiente
+ * Garante que nenhuma informação sensível seja exposta no código
  */
 export const ANALYTICS_CONFIG: AnalyticsConfig = {
   measurementId: import.meta.env.VITE_GA_MEASUREMENT_ID,
@@ -18,12 +15,12 @@ export const ANALYTICS_CONFIG: AnalyticsConfig = {
 }
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Validates if the necessary environment variables are defined
- * @returns {boolean} True if analytics environment is properly configured
+ * Valida se as variáveis de ambiente necessárias estão definidas
+ * @returns {boolean} True se o ambiente de analytics estiver configurado corretamente
  */
 export const validateAnalyticsConfig = (): boolean => {
   return validateAnalyticsEnv()

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface ImageData {
@@ -35,7 +35,7 @@ type Columns = 1 | 2 | 3 | 4 | 5
 type TwoColumnLayout = 'equal' | 'left-dominant' | 'right-dominant'
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const aspectRatioClasses: Record<AspectRatio, string> = {
@@ -88,25 +88,25 @@ const twoColumnLayoutClasses: Record<TwoColumnLayout, string> = {
 
 const columnClasses: Record<Columns, string> = {
   1: 'grid-cols-1',
-  2: 'grid-cols-2', // Will be overridden by twoColumnLayout
+  2: 'grid-cols-2', // Será sobrescrito por twoColumnLayout
   3: 'grid-cols-3',
   4: 'grid-cols-4',
   5: 'grid-cols-5'
 }
 
 // ================================
-// HELPER COMPONENTS
+// COMPONENTES AUXILIARES
 // ================================
 
 /**
- * Fullscreen modal component for displaying images
+ * Componente modal de tela cheia para exibir imagens
  */
 const FullscreenModal: React.FC<FullscreenModalProps> = ({
   image,
   isOpen,
   onClose
 }) => {
-  // Handle body scroll when modal is open
+  // Gerencia o scroll do corpo quando o modal está aberto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -119,7 +119,7 @@ const FullscreenModal: React.FC<FullscreenModalProps> = ({
     }
   }, [isOpen])
 
-  // Handle ESC key to close modal
+  // Gerencia a tecla ESC para fechar o modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -179,11 +179,11 @@ const FullscreenModal: React.FC<FullscreenModalProps> = ({
 }
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Gets grid column classes based on columns count and layout
+ * Obtém classes de colunas da grade baseadas na contagem de colunas e layout
  */
 const getGridClasses = (
   columns: Columns,
@@ -196,12 +196,12 @@ const getGridClasses = (
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Responsive image grid component with fullscreen modal support
- * Supports various column layouts, aspect ratios, and styling options
+ * Componente de grade de imagens responsiva com suporte a modal de tela cheia
+ * Suporta vários layouts de colunas, proporções e opções de estilização
  */
 const ImageGrid: React.FC<ImageGridProps> = ({
   images,
@@ -217,7 +217,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   const [fullscreenImage, setFullscreenImage] = useState<ImageData | null>(null)
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const gridClasses = [
@@ -241,7 +241,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
     .join(' ')
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const handleImageClick = (image: ImageData) => {
@@ -255,7 +255,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   }
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (
@@ -289,7 +289,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
 }
 
 // ================================
-// EXPORTS
+// EXPORTAÇÕES
 // ================================
 
 export default ImageGrid

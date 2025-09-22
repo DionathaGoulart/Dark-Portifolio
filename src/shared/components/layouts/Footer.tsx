@@ -2,7 +2,7 @@ import React from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface LayoutFooterProps {
@@ -10,12 +10,12 @@ interface LayoutFooterProps {
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Application footer with copyright information
- * Displays translated rights text with responsive design
+ * Rodapé da aplicação com informações de copyright
+ * Exibe texto de direitos traduzido com design responsivo
  */
 export const LayoutFooter: React.FC<LayoutFooterProps> = ({
   className = ''
@@ -23,7 +23,7 @@ export const LayoutFooter: React.FC<LayoutFooterProps> = ({
   const { t } = useI18n()
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const footerClasses = [
@@ -34,7 +34,7 @@ export const LayoutFooter: React.FC<LayoutFooterProps> = ({
     .join(' ')
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

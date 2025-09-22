@@ -1,18 +1,11 @@
-// ================================
-// External Imports
-// ================================
 import { useState, useEffect } from 'react'
-
-// ================================
-// Internal Imports
-// ================================
 import { batchPreloadImages, ImageItem } from '@features/grid'
 
 // ================================
-// Types and Interfaces
+// Tipos e Interfaces
 // ================================
 
-/** Cloudinary URL optimization options */
+/** Opções de otimização de URL do Cloudinary */
 interface CloudinaryOptions {
   width?: number
   height?: number
@@ -21,7 +14,7 @@ interface CloudinaryOptions {
   crop?: 'fill' | 'fit' | 'scale' | 'pad'
 }
 
-/** Optimized URLs for different screen sizes */
+/** URLs otimizadas para diferentes tamanhos de tela */
 interface OptimizedUrls {
   small: string
   medium: string
@@ -29,19 +22,19 @@ interface OptimizedUrls {
   main: string
 }
 
-/** Extended ImageItem with optimized URLs */
+/** ImageItem estendido com URLs otimizadas */
 export interface OptimizedImageItem extends ImageItem {
   urls: OptimizedUrls
   alt: string
 }
 
-/** Image state organized by context */
+/** Estado de imagens organizadas por contexto */
 interface ImageOptimizationState {
   grid: OptimizedImageItem[]
   solo: OptimizedImageItem[]
 }
 
-/** Hook return interface */
+/** Interface de retorno do hook */
 interface UseImageOptimizationReturn {
   images: ImageOptimizationState
   loading: boolean
@@ -50,14 +43,14 @@ interface UseImageOptimizationReturn {
 }
 
 // ================================
-// Utility Functions
+// Funções Utilitárias
 // ================================
 
 /**
- * Optimizes Cloudinary URLs with specified transformations
- * @param url - Original Cloudinary URL
- * @param options - Optimization parameters
- * @returns Optimized URL or original if not Cloudinary
+ * Otimiza URLs do Cloudinary com transformações especificadas
+ * @param url - URL original do Cloudinary
+ * @param options - Parâmetros de otimização
+ * @returns URL otimizada ou original se não for Cloudinary
  */
 const optimizeCloudinaryUrl = (
   url: string,
@@ -72,7 +65,7 @@ const optimizeCloudinaryUrl = (
   const [, cloudName, imagePath] = match
   const transformations = []
 
-  // Add dimension transformations
+  // Adiciona transformações de dimensão
   if (options.width || options.height) {
     const dimensions = []
     if (options.width) dimensions.push(`w_${options.width}`)
@@ -81,11 +74,11 @@ const optimizeCloudinaryUrl = (
     transformations.push(dimensions.join(','))
   }
 
-  // Add quality and format transformations
+  // Adiciona transformações de qualidade e formato
   if (options.quality) transformations.push(`q_${options.quality}`)
   if (options.format) transformations.push(`f_${options.format}`)
 
-  // Add performance optimizations
+  // Adiciona otimizações de performance
   transformations.push('fl_progressive')
   transformations.push('fl_immutable_cache')
 
@@ -95,9 +88,9 @@ const optimizeCloudinaryUrl = (
 }
 
 /**
- * Generates multiple optimized URL variants for responsive loading
- * @param originalUrl - Base URL to optimize
- * @returns Object with optimized URLs for different screen sizes
+ * Gera múltiplas variantes de URL otimizadas para carregamento responsivo
+ * @param originalUrl - URL base para otimizar
+ * @returns Objeto com URLs otimizadas para diferentes tamanhos de tela
  */
 const generateOptimizedUrls = (originalUrl: string): OptimizedUrls => {
   return {
@@ -125,16 +118,16 @@ const generateOptimizedUrls = (originalUrl: string): OptimizedUrls => {
 }
 
 // ================================
-// Custom Hook
+// Hook Customizado
 // ================================
 
 /**
- * Hook for optimizing and loading images with priority-based loading strategy
- * @param originalUrls - Array of original image URLs
- * @param language - Current language setting
- * @param priorityCount - Number of images to load with high priority
- * @param bypassCache - Flag to bypass cache for development
- * @returns Object containing optimized images and loading states
+ * Hook para otimizar e carregar imagens com estratégia de carregamento baseada em prioridade
+ * @param originalUrls - Array de URLs originais das imagens
+ * @param language - Configuração de idioma atual
+ * @param priorityCount - Número de imagens para carregar com alta prioridade
+ * @param bypassCache - Flag para ignorar cache durante desenvolvimento
+ * @returns Objeto contendo imagens otimizadas e estados de carregamento
  */
 export const useImageOptimization = (
   originalUrls: string[],
@@ -143,7 +136,7 @@ export const useImageOptimization = (
   bypassCache: boolean = false
 ): UseImageOptimizationReturn => {
   // ================================
-  // State Management
+  // Gerenciamento de Estado
   // ================================
   const [images, setImages] = useState<ImageOptimizationState>({
     grid: [],
@@ -154,7 +147,7 @@ export const useImageOptimization = (
   const [error, setError] = useState<string | null>(null)
 
   // ================================
-  // Image Loading Effect
+  // Efeito de Carregamento de Imagens
   // ================================
   useEffect(() => {
     const loadImages = async () => {
@@ -163,7 +156,7 @@ export const useImageOptimization = (
       setError(null)
 
       try {
-        // PHASE 1: Load priority images first
+        // FASE 1: Carregar imagens prioritárias primeiro
         const priorityUrls = originalUrls.slice(0, priorityCount)
         const priorityPromises = priorityUrls.map(
           async (originalUrl, index) => {
@@ -173,7 +166,7 @@ export const useImageOptimization = (
               format: 'webp'
             })
 
-            // Add cache-busting for development
+            // Adiciona cache-busting para desenvolvimento
             if (bypassCache) {
               optimizedUrl += `?t=${Date.now()}&i=${index}`
             }
@@ -184,7 +177,7 @@ export const useImageOptimization = (
               return {
                 ...validImage,
                 urls: generateOptimizedUrls(originalUrl),
-                alt: `Image design ${index + 1}`
+                alt: `Design de imagem ${index + 1}`
               } as OptimizedImageItem
             }
             return null
@@ -196,7 +189,7 @@ export const useImageOptimization = (
           Boolean
         ) as OptimizedImageItem[]
 
-        // Set priority images for both grid and solo contexts
+        // Define imagens prioritárias para ambos os contextos grid e solo
         setImages({
           grid: validPriorityImages,
           solo: validPriorityImages
@@ -204,7 +197,7 @@ export const useImageOptimization = (
 
         setLoading(false)
 
-        // PHASE 2: Load remaining images
+        // FASE 2: Carregar imagens restantes
         if (originalUrls.length > priorityCount) {
           const remainingUrls = originalUrls.slice(priorityCount)
           const remainingPromises = remainingUrls.map(
@@ -216,7 +209,7 @@ export const useImageOptimization = (
                 format: 'webp'
               })
 
-              // Add cache-busting for development
+              // Adiciona cache-busting para desenvolvimento
               if (bypassCache) {
                 optimizedUrl += `?t=${Date.now()}&i=${actualIndex}`
               }
@@ -227,7 +220,7 @@ export const useImageOptimization = (
                 return {
                   ...validImage,
                   urls: generateOptimizedUrls(originalUrl),
-                  alt: `Image design ${actualIndex + 1}`
+                  alt: `Design de imagem ${actualIndex + 1}`
                 } as OptimizedImageItem
               }
               return null
@@ -239,7 +232,7 @@ export const useImageOptimization = (
             Boolean
           ) as OptimizedImageItem[]
 
-          // Add remaining images to existing state
+          // Adiciona imagens restantes ao estado existente
           setImages((prevImages) => {
             const allImages = [...validPriorityImages, ...validRemainingImages]
             return {
@@ -251,7 +244,7 @@ export const useImageOptimization = (
 
         setLazyLoading(false)
       } catch (err) {
-        setError('Failed to load images.')
+        setError('Falha ao carregar imagens.')
         setLoading(false)
         setLazyLoading(false)
       }
@@ -261,7 +254,7 @@ export const useImageOptimization = (
   }, [originalUrls, language, priorityCount, bypassCache])
 
   // ================================
-  // Return Hook API
+  // Retorna API do Hook
   // ================================
   return {
     images,

@@ -5,7 +5,7 @@ import { Language, Translation } from '@/types'
 import { trackLanguageChange } from '@/features/ga'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface I18nContextType {
@@ -20,7 +20,7 @@ interface I18nProviderProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const STORAGE_KEY = 'app-language'
@@ -33,11 +33,11 @@ const translations = {
 const SUPPORTED_LANGUAGES: Language[] = ['pt', 'en']
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Detects browser language and returns supported language
+ * Detecta o idioma do navegador e retorna idioma suportado
  */
 const detectBrowserLanguage = (): Language => {
   const browserLang = navigator.language.toLowerCase()
@@ -50,14 +50,14 @@ const detectBrowserLanguage = (): Language => {
 }
 
 /**
- * Validates if language is supported
+ * Valida se o idioma é suportado
  */
 const isValidLanguage = (lang: string): lang is Language => {
   return SUPPORTED_LANGUAGES.includes(lang as Language)
 }
 
 /**
- * Safely gets language from localStorage
+ * Obtém idioma de forma segura do localStorage
  */
 const getStoredLanguage = (): Language | null => {
   try {
@@ -66,49 +66,49 @@ const getStoredLanguage = (): Language | null => {
       return savedLanguage
     }
   } catch (error) {
-    console.warn('Could not access localStorage:', error)
+    console.warn('Não foi possível acessar o localStorage:', error)
   }
 
   return null
 }
 
 /**
- * Gets initial language from storage or browser detection
+ * Obtém idioma inicial do armazenamento ou detecção do navegador
  */
 const getInitialLanguage = (): Language => {
   return getStoredLanguage() || detectBrowserLanguage()
 }
 
 /**
- * Safely saves language to localStorage
+ * Salva idioma de forma segura no localStorage
  */
 const saveLanguageToStorage = (language: Language): void => {
   try {
     localStorage.setItem(STORAGE_KEY, language)
   } catch (error) {
-    console.warn('Could not save language to localStorage:', error)
+    console.warn('Não foi possível salvar idioma no localStorage:', error)
   }
 }
 
 // ================================
-// CONTEXT
+// CONTEXTO
 // ================================
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
 
 // ================================
-// PROVIDER COMPONENT
+// COMPONENTE PROVEDOR
 // ================================
 
 /**
- * I18n Provider that manages language state and translations
- * Automatically detects browser language and persists user preference
+ * Provedor I18n que gerencia estado de idioma e traduções
+ * Detecta automaticamente o idioma do navegador e persiste preferência do usuário
  */
 export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(getInitialLanguage)
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const setLanguage = (newLanguage: Language) => {
@@ -118,7 +118,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   }
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const currentTranslations = translations[language]
@@ -131,7 +131,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   }
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (
@@ -144,14 +144,14 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
 // ================================
 
 /**
- * Hook to access I18n context
- * Must be used within I18nProvider
+ * Hook para acessar contexto I18n
+ * Deve ser usado dentro do I18nProvider
  */
 export const useI18n = (): I18nContextType => {
   const context = useContext(I18nContext)
 
   if (context === undefined) {
-    throw new Error('useI18n must be used within an I18nProvider')
+    throw new Error('useI18n deve ser usado dentro de um I18nProvider')
   }
 
   return context

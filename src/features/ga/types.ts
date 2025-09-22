@@ -1,49 +1,49 @@
 // ================================
-// ANALYTICS TYPES & INTERFACES
+// TIPOS E INTERFACES DE ANALYTICS
 // ================================
 
 /**
- * Google Analytics configuration interface
- * Defines the structure for analytics setup and control
+ * Interface de configuração do Google Analytics
+ * Define a estrutura para configuração e controle de analytics
  */
 export interface AnalyticsConfig {
-  /** Google Analytics measurement ID (GA4) */
+  /** ID de medição do Google Analytics (GA4) */
   measurementId: string
-  /** Whether analytics tracking is enabled */
+  /** Se o rastreamento de analytics está habilitado */
   enabled: boolean
 }
 
 /**
- * Page view event data structure
- * Used for tracking navigation and page visits
+ * Estrutura de dados do evento de visualização de página
+ * Usado para rastrear navegação e visitas de página
  */
 export interface PageViewEvent {
-  /** Title of the current page */
+  /** Título da página atual */
   page_title: string
-  /** Full URL of the current page */
+  /** URL completa da página atual */
   page_location: string
 }
 
 /**
- * Custom event data structure
- * Flexible interface for tracking user interactions and behaviors
+ * Estrutura de dados do evento customizado
+ * Interface flexível para rastrear interações e comportamentos do usuário
  */
 export interface CustomEvent {
-  /** Name of the custom event */
+  /** Nome do evento customizado */
   event_name: string
-  /** Additional parameters for the event (optional) */
+  /** Parâmetros adicionais para o evento (opcional) */
   event_parameters?: Record<string, any>
 }
 
 /**
- * User preferences data structure
- * Tracks user settings and personalization choices
+ * Estrutura de dados das preferências do usuário
+ * Rastreia configurações do usuário e escolhas de personalização
  */
 export interface UserPreferences {
-  /** Selected theme preference */
+  /** Preferência de tema selecionada */
   theme: 'light' | 'dark'
-  /** Selected language preference */
+  /** Preferência de idioma selecionada */
   language: 'pt' | 'en'
-  /** User's location (optional) */
+  /** Localização do usuário (opcional) */
   location?: string
 }

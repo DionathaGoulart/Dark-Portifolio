@@ -2,7 +2,7 @@ import React from 'react'
 import { useTheme } from '../../contexts/ThemeContext'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface ThemeToggleProps {
@@ -15,7 +15,7 @@ interface IconProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const buttonBaseClasses = [
@@ -50,11 +50,11 @@ const iconBaseClasses = [
 ].join(' ')
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Gets appropriate icon classes based on active state
+ * Obtém classes apropriadas do ícone baseado no estado ativo
  */
 const getIconClasses = (isActive: boolean, textColor: string): string => {
   const stateClasses = isActive
@@ -65,7 +65,7 @@ const getIconClasses = (isActive: boolean, textColor: string): string => {
 }
 
 /**
- * Gets moon icon classes with inverted rotation
+ * Obtém classes do ícone da lua com rotação invertida
  */
 const getMoonIconClasses = (isActive: boolean): string => {
   const stateClasses = isActive
@@ -76,7 +76,7 @@ const getMoonIconClasses = (isActive: boolean): string => {
 }
 
 /**
- * Gets appropriate aria label based on current theme
+ * Obtém rótulo aria apropriado baseado no tema atual
  */
 const getAriaLabel = (currentTheme: string): string => {
   const targetTheme = currentTheme === 'light' ? 'escuro' : 'claro'
@@ -84,11 +84,11 @@ const getAriaLabel = (currentTheme: string): string => {
 }
 
 // ================================
-// SUB COMPONENTS
+// SUB-COMPONENTES
 // ================================
 
 /**
- * Sun icon component for light theme
+ * Componente de ícone do sol para tema claro
  */
 const SunIcon: React.FC<IconProps> = ({ isActive, className = '' }) => (
   <svg
@@ -104,7 +104,7 @@ const SunIcon: React.FC<IconProps> = ({ isActive, className = '' }) => (
 )
 
 /**
- * Moon icon component for dark theme
+ * Componente de ícone da lua para tema escuro
  */
 const MoonIcon: React.FC<IconProps> = ({ isActive, className = '' }) => (
   <svg
@@ -119,18 +119,18 @@ const MoonIcon: React.FC<IconProps> = ({ isActive, className = '' }) => (
 )
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Theme toggle button with animated sun/moon icons
- * Provides smooth transitions between light and dark themes
+ * Botão de alternância de tema com ícones animados de sol/lua
+ * Fornece transições suaves entre temas claro e escuro
  */
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
   const { theme, toggleTheme } = useTheme()
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const handleClick = () => {
@@ -138,7 +138,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
   }
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const isLightTheme = theme === 'light'
@@ -150,7 +150,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
     .join(' ')
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

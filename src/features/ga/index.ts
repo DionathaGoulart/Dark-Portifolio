@@ -1,20 +1,20 @@
 // ================================
-// ANALYTICS MODULE EXPORTS
+// EXPORTAÇÕES DO MÓDULO DE ANALYTICS
 // ================================
 
 /**
- * Analytics module public API
- * Provides centralized access to all analytics functionality
+ * API pública do módulo de analytics
+ * Fornece acesso centralizado a todas as funcionalidades de analytics
  */
 
-// Types and interfaces
+// Tipos e interfaces
 export * from './types'
 
-// Configuration
+// Configuração
 export * from './config'
 
-// Core analytics service
+// Serviço principal de analytics
 export * from './gtag'
 
-// React hooks
+// Hooks do React
 export * from './hooks'

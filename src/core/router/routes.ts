@@ -1,6 +1,3 @@
-// ================================
-// External and Internal Imports
-// ================================
 import { RouteConfig } from '@core/router'
 import {
   HomePage,
@@ -10,7 +7,7 @@ import {
   ContactPage
 } from '@pages'
 
-// Project-specific page imports
+// Importações de páginas específicas de projetos
 import { Arac } from '@/pages/Projects/Arac'
 import { Creepy } from '@/pages/Projects/Creepy'
 import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
@@ -21,15 +18,15 @@ import { Joaninho } from '@/pages/Projects/Joaninho'
 import { Macabre } from '@/pages/Projects/Macabre'
 
 // ================================
-// Route Configuration
+// Configuração de Rotas
 // ================================
 
 /**
- * Application routes configuration
- * Defines all available routes and their corresponding page components
+ * Configuração das rotas da aplicação
+ * Define todas as rotas disponíveis e seus respectivos componentes de página
  */
 export const appRoutes: RouteConfig[] = [
-  // Main navigation routes
+  // Rotas de navegação principal
   {
     path: '/',
     element: HomePage
@@ -51,7 +48,7 @@ export const appRoutes: RouteConfig[] = [
     element: PrintsPage
   },
 
-  // Project-specific routes (alphabetically ordered)
+  // Rotas específicas de projetos (ordenadas alfabeticamente)
   {
     path: '/arachnophobia',
     element: Arac

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Props interface for ModalZoom component
+ * Interface de props para o componente ModalZoom
  */
 interface ModalZoomProps {
   image: {
@@ -17,7 +17,7 @@ interface ModalZoomProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const KEYFRAME_STYLES = `
@@ -32,16 +32,16 @@ const KEYFRAME_STYLES = `
 `
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * ModalZoom component for displaying images in fullscreen with loading states
- * Features loading animation, error handling, and click-to-close functionality
+ * Componente ModalZoom para exibir imagens em tela cheia com estados de carregamento
+ * Possui animação de carregamento, tratamento de erros e funcionalidade de fechar ao clicar
  */
 export const ModalZoom: React.FC<ModalZoomProps> = ({ image, onClose }) => {
   // ================================
-  // STATE & REFS
+  // ESTADO E REFS
   // ================================
 
   const [isLoading, setIsLoading] = useState(true)
@@ -49,28 +49,28 @@ export const ModalZoom: React.FC<ModalZoomProps> = ({ image, onClose }) => {
   const loadStartTime = useRef<number>(Date.now())
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const imageUrl = image?.urls?.large || image?.url
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
-    // Reset states when image URL changes (for modal reopening with different image)
+    // Reseta estados quando a URL da imagem muda (para reabertura do modal com imagem diferente)
     loadStartTime.current = Date.now()
     setIsLoading(true)
     setHasError(false)
   }, [imageUrl])
 
   // ================================
-  // EVENT HANDLERS
+  // MANIPULADORES DE EVENTOS
   // ================================
 
   const handleImageClick = (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent image click from closing modal
+    e.stopPropagation() // Impede que o clique na imagem feche o modal
   }
 
   const handleLoad = () => {
@@ -83,15 +83,15 @@ export const ModalZoom: React.FC<ModalZoomProps> = ({ image, onClose }) => {
   }
 
   // ================================
-  // EARLY RETURNS
+  // RETORNOS ANTECIPADOS
   // ================================
 
   if (!imageUrl) {
-    return null // Don't render if no image URL
+    return null // Não renderiza se não há URL da imagem
   }
 
   // ================================
-  // RENDER HELPERS
+  // FUNÇÕES AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
   const renderLoadingSpinner = () => (
@@ -130,7 +130,7 @@ export const ModalZoom: React.FC<ModalZoomProps> = ({ image, onClose }) => {
   )
 
   // ================================
-  // MAIN RENDER
+  // RENDERIZAÇÃO PRINCIPAL
   // ================================
 
   return (

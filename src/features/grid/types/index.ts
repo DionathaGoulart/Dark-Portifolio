@@ -1,13 +1,10 @@
-// ================================
-// External Imports
-// ================================
 import { ReactNode } from 'react'
 
 // ================================
-// Base Types
+// Tipos Base
 // ================================
 
-/** Column count configuration for responsive grid layouts */
+/** Configuração de contagem de colunas para layouts de grade responsivos */
 export interface ColumnCount {
   sm: number
   md: number
@@ -16,128 +13,128 @@ export interface ColumnCount {
 }
 
 // ================================
-// Image-Related Types
+// Tipos Relacionados a Imagens
 // ================================
 
-/** Core image item interface */
+/** Interface principal do item de imagem */
 export interface ImageItem {
-  /** Optimized URLs for different screen sizes */
+  /** URLs otimizadas para diferentes tamanhos de tela */
   urls: any
-  /** Unique identifier */
+  /** Identificador único */
   id: string
-  /** Main image URL */
+  /** URL principal da imagem */
   url: string
-  /** Alternative text for accessibility */
+  /** Texto alternativo para acessibilidade */
   alt?: string
-  /** Image title (can be string or React component) */
+  /** Título da imagem (pode ser string ou componente React) */
   title?: string | ReactNode
-  /** Detailed description */
+  /** Descrição detalhada */
   description?: string
-  /** Image width in pixels */
+  /** Largura da imagem em pixels */
   width?: number
-  /** Image height in pixels */
+  /** Altura da imagem em pixels */
   height?: number
-  /** Navigation link URL */
+  /** URL do link de navegação */
   linkTo?: string
 }
 
-/** Props for individual image card components */
+/** Props para componentes individuais de cartão de imagem */
 export interface ImageCardProps {
-  /** Image data */
+  /** Dados da imagem */
   image: ImageItem
-  /** Click handler */
+  /** Manipulador de clique */
   onClick?: (image: ImageItem) => void
-  /** Load success handler */
+  /** Manipulador de sucesso de carregamento */
   onLoad?: (image: ImageItem) => void
-  /** Load error handler */
+  /** Manipulador de erro de carregamento */
   onError?: (image: ImageItem) => void
-  /** Additional CSS classes */
+  /** Classes CSS adicionais */
   className?: string
-  /** Force square aspect ratio */
+  /** Forçar proporção quadrada */
   isSquare?: boolean
-  /** Enable hover effects */
+  /** Habilitar efeitos de hover */
   showHoverEffect?: boolean
-  /** Enable scale animation on hover */
+  /** Habilitar animação de escala no hover */
   enableHoverScale?: boolean
-  /** CSS object-fit property value */
+  /** Valor da propriedade CSS object-fit */
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
-  /** Show image title overlay */
+  /** Mostrar sobreposição do título da imagem */
   showTitle?: boolean
 }
 
-/** Props for image loader component */
+/** Props para componente carregador de imagem */
 export interface ImageLoaderProps {
-  /** Image source URL */
+  /** URL da fonte da imagem */
   src: string
-  /** Alternative text */
+  /** Texto alternativo */
   alt?: string
-  /** CSS classes */
+  /** Classes CSS */
   className?: string
-  /** Load success callback */
+  /** Callback de sucesso de carregamento */
   onLoad?: () => void
-  /** Load error callback */
+  /** Callback de erro de carregamento */
   onError?: () => void
-  /** Fallback content for failed loads */
+  /** Conteúdo de fallback para carregamentos que falharam */
   fallback?: React.ReactNode
 }
 
 // ================================
-// Grid Configuration Types
+// Tipos de Configuração da Grade
 // ================================
 
-/** Base grid configuration */
+/** Configuração base da grade */
 export interface GridConfig {
-  /** Array of images to display */
+  /** Array de imagens para exibir */
   images: ImageItem[]
-  /** Responsive column count configuration */
+  /** Configuração de contagem de colunas responsiva */
   columnCount?: ColumnCount
-  /** Gap between grid items in pixels */
+  /** Espaçamento entre itens da grade em pixels */
   gap?: number
-  /** Additional CSS classes */
+  /** Classes CSS adicionais */
   className?: string
-  /** Image click handler */
+  /** Manipulador de clique da imagem */
   onImageClick?: (image: ImageItem) => void
-  /** Image load success handler */
+  /** Manipulador de sucesso de carregamento da imagem */
   onImageLoad?: (image: ImageItem) => void
-  /** Image load error handler */
+  /** Manipulador de erro de carregamento da imagem */
   onImageError?: (image: ImageItem) => void
 }
 
-/** Props for masonry grid component */
+/** Props para componente de grade masonry */
 export interface MasonryGridProps extends GridConfig {
-  /** Loading state indicator */
+  /** Indicador de estado de carregamento */
   loading?: boolean
-  /** Error message */
+  /** Mensagem de erro */
   error?: string | null
-  /** Force square grid layout */
+  /** Forçar layout de grade quadrada */
   isSquareGrid?: boolean
-  /** Enable hover effects on cards */
+  /** Habilitar efeitos de hover nos cartões */
   showHoverEffect?: boolean
-  /** CSS object-fit property for images */
+  /** Propriedade CSS object-fit para imagens */
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
 }
 
 // ================================
-// Folder-Related Types
+// Tipos Relacionados a Pastas
 // ================================
 
-/** Folder item interface for folder grid displays */
+/** Interface do item de pasta para exibições de grade de pastas */
 export interface FolderItem {
-  /** Unique identifier */
+  /** Identificador único */
   id: string
-  /** Folder title */
+  /** Título da pasta */
   title?: string
-  /** Folder description */
+  /** Descrição da pasta */
   description?: string
-  /** Cover image URL */
+  /** URL da imagem de capa */
   coverImage?: string
-  /** Number of items in folder */
+  /** Número de itens na pasta */
   itemCount?: number
-  /** Navigation path/route */
+  /** Caminho/rota de navegação */
   path?: string
-  /** Show title below image */
+  /** Mostrar título abaixo da imagem */
   showTitleBelow?: boolean
-  /** Additional metadata */
+  /** Metadados adicionais */
   metadata?: {
     createdAt?: string
     updatedAt?: string
@@ -146,50 +143,50 @@ export interface FolderItem {
   }
 }
 
-/** Props for folder grid component */
+/** Props para componente de grade de pastas */
 export interface FolderGridProps {
-  /** Array of folders to display */
+  /** Array de pastas para exibir */
   folders: FolderItem[]
-  /** Responsive column configuration */
+  /** Configuração de colunas responsiva */
   columnCount?: ColumnCount
-  /** Gap between items */
+  /** Espaçamento entre itens */
   gap?: number
-  /** Additional CSS classes */
+  /** Classes CSS adicionais */
   className?: string
-  /** Loading state */
+  /** Estado de carregamento */
   loading?: boolean
-  /** Error message */
+  /** Mensagem de erro */
   error?: string | null
-  /** Folder click handler */
+  /** Manipulador de clique da pasta */
   onFolderClick?: (folder: FolderItem) => void
-  /** Folder image load handler */
+  /** Manipulador de carregamento de imagem da pasta */
   onImageLoad?: (folder: FolderItem) => void
-  /** Folder image error handler */
+  /** Manipulador de erro de imagem da pasta */
   onImageError?: (folder: FolderItem) => void
 }
 
-/** Props for individual folder card component */
+/** Props para componente individual de cartão de pasta */
 export interface FolderCardProps {
-  /** Folder data */
+  /** Dados da pasta */
   folder: FolderItem
-  /** Click handler */
+  /** Manipulador de clique */
   onClick?: (folder: FolderItem) => void
-  /** Image load success handler */
+  /** Manipulador de sucesso de carregamento de imagem */
   onImageLoad?: (folder: FolderItem) => void
-  /** Image load error handler */
+  /** Manipulador de erro de carregamento de imagem */
   onImageError?: (folder: FolderItem) => void
 }
 
 // ================================
-// UI Component Types
+// Tipos de Componentes de UI
 // ================================
 
-/** Props for grid loading skeleton component */
+/** Props para componente skeleton de carregamento da grade */
 export interface GridLoadingSkeletonProps {
-  /** Number of skeleton items to show */
+  /** Número de itens skeleton para mostrar */
   count?: number
-  /** Aspect ratio of skeleton items */
+  /** Proporção dos itens skeleton */
   aspectRatio?: 'square' | 'rectangle'
-  /** Additional CSS classes */
+  /** Classes CSS adicionais */
   className?: string
 }

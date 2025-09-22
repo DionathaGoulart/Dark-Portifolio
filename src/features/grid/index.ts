@@ -1,34 +1,34 @@
 // ================================
-// Grid Module Exports
+// Exportações do Módulo Grid
 // ================================
 
 /**
- * Central export point for grid-related functionality
- * Provides access to components, hooks, types, and utilities
+ * Ponto central de exportação para funcionalidades relacionadas à grade
+ * Fornece acesso a componentes, hooks, tipos e utilitários
  */
 
 // ================================
-// Main Components
+// Componentes Principais
 // ================================
 export { MasonryGrid } from './components/MasonryGrid'
 
 // ================================
-// UI Components
+// Componentes de UI
 // ================================
 export { ImageCard } from './components/ui/ImageCard'
 export { ImageLoader } from './components/ui/ImageLoader'
 
 // ================================
-// Custom Hooks
+// Hooks Customizados
 // ================================
 export { useGridState } from './hooks/useGridState'
 
 // ================================
-// Type Definitions
+// Definições de Tipos
 // ================================
 export * from './types'
 
 // ================================
-// Utility Functions
+// Funções Utilitárias
 // ================================
 export * from './utils/imageUtils'

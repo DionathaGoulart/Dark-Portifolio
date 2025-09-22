@@ -1,90 +1,90 @@
 // ================================
-// Layout Types and Interfaces
+// Tipos e Interfaces de Layout
 // ================================
 
 /**
- * Type definitions for layout components and configurations
- * Defines interfaces for headers, footers, navigation, and main layout
+ * Definições de tipos para componentes de layout e configurações
+ * Define interfaces para cabeçalhos, rodapés, navegação e layout principal
  */
 
 // ================================
-// Base Layout Types
+// Tipos Base de Layout
 // ================================
 
-/** Base props for layout components */
+/** Props base para componentes de layout */
 export interface LayoutProps {
-  /** Child components to render */
+  /** Componentes filhos para renderizar */
   children: React.ReactNode
 }
 
-/** Navigation item configuration */
+/** Configuração do item de navegação */
 export interface NavItem {
-  /** Display text for the navigation item */
+  /** Texto de exibição para o item de navegação */
   label: string
-  /** URL or route path */
+  /** URL ou caminho da rota */
   href: string
-  /** Optional click handler for custom navigation logic */
+  /** Manipulador de clique opcional para lógica de navegação customizada */
   onClick?: () => void
 }
 
 // ================================
-// Header Configuration
+// Configuração do Cabeçalho
 // ================================
 
-/** Header component configuration options */
+/** Opções de configuração do componente de cabeçalho */
 export interface HeaderConfig {
-  /** Logo image source URL */
+  /** URL da fonte da imagem do logo */
   logoSrc?: string
-  /** Logo image alt text for accessibility */
+  /** Texto alternativo da imagem do logo para acessibilidade */
   logoAlt?: string
-  /** Whether to show the main navigation menu */
+  /** Se deve mostrar o menu de navegação principal */
   showNavigation?: boolean
-  /** Custom navigation items array */
+  /** Array de itens de navegação customizados */
   customNav?: NavItem[]
-  /** Instagram profile URL for social link */
+  /** URL do perfil do Instagram para link social */
   instagramUrl?: string
-  /** YouTube channel URL for social link */
+  /** URL do canal do YouTube para link social */
   youtubeUrl?: string
 }
 
 // ================================
-// Footer Configuration
+// Configuração do Rodapé
 // ================================
 
-/** Footer component configuration options */
+/** Opções de configuração do componente de rodapé */
 export interface FooterConfig {
-  /** Whether to display the footer */
+  /** Se deve exibir o rodapé */
   show?: boolean
-  /** Custom footer content */
+  /** Conteúdo customizado do rodapé */
   content?: React.ReactNode
 }
 
 // ================================
-// Main Layout Configuration
+// Configuração do Layout Principal
 // ================================
 
-/** Props for the main layout wrapper component */
+/** Props para o componente wrapper de layout principal */
 export interface MainLayoutProps {
-  /** Child components to render in the main content area */
+  /** Componentes filhos para renderizar na área de conteúdo principal */
   children: React.ReactNode
-  /** Header configuration options */
+  /** Opções de configuração do cabeçalho */
   header?: {
-    /** Whether to show navigation in header */
+    /** Se deve mostrar navegação no cabeçalho */
     showNavigation?: boolean
-    /** Logo image source URL */
+    /** URL da fonte da imagem do logo */
     logoSrc?: string
-    /** Logo image alt text */
+    /** Texto alternativo da imagem do logo */
     logoAlt?: string
-    /** Instagram profile URL */
+    /** URL do perfil do Instagram */
     instagramUrl?: string
-    /** YouTube channel URL */
+    /** URL do canal do YouTube */
     youtubeUrl?: string
   }
-  /** Footer configuration options */
+  /** Opções de configuração do rodapé */
   footer?: {
-    /** Whether to display the footer */
+    /** Se deve exibir o rodapé */
     show?: boolean
   }
-  /** Additional CSS classes for the layout container */
+  /** Classes CSS adicionais para o contêiner do layout */
   className?: string
 }

@@ -1,17 +1,17 @@
 // ================================
-// Router Module Exports
+// Exportações do Módulo de Roteamento
 // ================================
 
 /**
- * Central export point for router-related functionality
- * Provides access to router components, routes configuration, and types
+ * Ponto central de exportação para funcionalidades relacionadas ao roteamento
+ * Fornece acesso aos componentes do roteador, configuração de rotas e tipos
  */
 
-// Main router component
+// Exportação do componente principal do roteador
 export { AppRouter } from './appRouter'
 
-// Routes configuration
+// Exportação da configuração de rotas
 export { appRoutes } from './routes'
 
-// Type definitions
+// Definições de tipos
 export type * from './types'

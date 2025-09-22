@@ -3,22 +3,22 @@ import { ImageCard } from './ui/ImageCard'
 import { MasonryGridProps, ImageItem } from '../types'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Extended props interface for MasonryGrid component
+ * Interface de props estendida para o componente MasonryGrid
  */
 interface MasonryGridPropsExtended extends MasonryGridProps {
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
 }
 
 // ================================
-// UTILITIES
+// UTILITÁRIOS
 // ================================
 
 /**
- * Debounce utility to optimize resize events
+ * Utilitário de debounce para otimizar eventos de redimensionamento
  */
 const debounce = (func: Function, wait: number) => {
   let timeout: NodeJS.Timeout
@@ -29,11 +29,11 @@ const debounce = (func: Function, wait: number) => {
 }
 
 // ================================
-// CUSTOM HOOKS
+// HOOKS CUSTOMIZADOS
 // ================================
 
 /**
- * Hook to manage responsive columns based on screen width
+ * Hook para gerenciar colunas responsivas baseado na largura da tela
  */
 const useResponsiveColumns = (columnCount: MasonryGridProps['columnCount']) => {
   const getInitialColumns = () => {
@@ -70,12 +70,12 @@ const useResponsiveColumns = (columnCount: MasonryGridProps['columnCount']) => {
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * MasonryGrid component for displaying images in a masonry layout
- * Supports responsive columns, hover effects, and various image fit modes
+ * Componente MasonryGrid para exibir imagens em layout de alvenaria
+ * Suporta colunas responsivas, efeitos de hover e vários modos de ajuste de imagem
  */
 export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   images = [],
@@ -92,7 +92,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   objectFit = 'cover'
 }) => {
   // ================================
-  // STATE & REFS
+  // ESTADO E REFS
   // ================================
 
   const [validImages, setValidImages] = useState<ImageItem[]>(images)
@@ -100,7 +100,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   const currentColumns = useResponsiveColumns(columnCount)
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   }, [images])
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const distributedColumns = useMemo(() => {
@@ -135,7 +135,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   )
 
   // ================================
-  // EVENT HANDLERS
+  // MANIPULADORES DE EVENTOS
   // ================================
 
   const handleImageLoad = (image: ImageItem) => onImageLoad?.(image)
@@ -146,7 +146,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   }
 
   // ================================
-  // EARLY RETURNS
+  // RETORNOS ANTECIPADOS
   // ================================
 
   if (error) {
@@ -179,7 +179,7 @@ export const MasonryGrid: React.FC<MasonryGridPropsExtended> = ({
   }
 
   // ================================
-  // MAIN RENDER
+  // RENDERIZAÇÃO PRINCIPAL
   // ================================
 
   return (

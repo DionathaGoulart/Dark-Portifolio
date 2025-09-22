@@ -4,7 +4,7 @@ import { NavItem } from '../layouts/types'
 import { useActiveRoute } from '../../hooks/useActiveRoute'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface NavigationProps {
@@ -13,7 +13,7 @@ interface NavigationProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const MOBILE_BREAKPOINT = 768
@@ -41,11 +41,11 @@ const linkBaseClasses = [
 ].join(' ')
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Gets appropriate classes for desktop navigation links
+ * Obtém classes apropriadas para links de navegação desktop
  */
 const getDesktopLinkClasses = (
   href: string,
@@ -59,7 +59,7 @@ const getDesktopLinkClasses = (
 }
 
 /**
- * Gets appropriate classes for mobile navigation links
+ * Obtém classes apropriadas para links de navegação mobile
  */
 const getMobileLinkClasses = (
   href: string,
@@ -76,7 +76,7 @@ const getMobileLinkClasses = (
 }
 
 /**
- * Gets classes for hamburger menu lines
+ * Obtém classes para as linhas do menu hambúrguer
  */
 const getHamburgerLineClasses = (
   isOpen: boolean,
@@ -95,11 +95,11 @@ const getHamburgerLineClasses = (
 }
 
 // ================================
-// SUB COMPONENTS
+// SUB-COMPONENTES
 // ================================
 
 /**
- * Desktop navigation component
+ * Componente de navegação desktop
  */
 const DesktopNavigation: React.FC<{
   items: NavItem[]
@@ -120,7 +120,7 @@ const DesktopNavigation: React.FC<{
 )
 
 /**
- * Mobile menu hamburger button
+ * Botão do menu hambúrguer mobile
  */
 const MobileMenuButton: React.FC<{ isOpen: boolean; onClick: () => void }> = ({
   isOpen,
@@ -129,7 +129,7 @@ const MobileMenuButton: React.FC<{ isOpen: boolean; onClick: () => void }> = ({
   <button
     onClick={onClick}
     className="md:hidden relative z-50 w-8 h-8 flex flex-col justify-center items-center space-y-1.5 focus:outline-none"
-    aria-label="Toggle menu"
+    aria-label="Alternar menu"
   >
     <span className={getHamburgerLineClasses(isOpen, 'top')} />
     <span className={getHamburgerLineClasses(isOpen, 'middle')} />
@@ -138,7 +138,7 @@ const MobileMenuButton: React.FC<{ isOpen: boolean; onClick: () => void }> = ({
 )
 
 /**
- * Mobile navigation overlay
+ * Sobreposição da navegação mobile
  */
 const MobileOverlay: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
@@ -155,7 +155,7 @@ const MobileOverlay: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 }
 
 /**
- * Mobile navigation menu
+ * Menu de navegação mobile
  */
 const MobileNavigation: React.FC<{
   items: NavItem[]
@@ -197,12 +197,12 @@ const MobileNavigation: React.FC<{
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Responsive navigation component with desktop and mobile layouts
- * Features hamburger menu for mobile and underline animations for desktop
+ * Componente de navegação responsiva com layouts desktop e mobile
+ * Apresenta menu hambúrguer para mobile e animações de sublinhado para desktop
  */
 export const Navigation: React.FC<NavigationProps> = ({
   items,
@@ -212,7 +212,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   const [isOpen, setIsOpen] = useState(false)
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
@@ -227,7 +227,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   }, [])
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const handleMenuToggle = () => {
@@ -243,7 +243,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   }
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

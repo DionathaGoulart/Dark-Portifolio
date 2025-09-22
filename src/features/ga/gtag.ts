@@ -1,15 +1,12 @@
-// ================================
-// IMPORTS
-// ================================
 import { ANALYTICS_CONFIG } from './config'
 import type { PageViewEvent, CustomEvent, UserPreferences } from './types'
 
 // ================================
-// GLOBAL DECLARATIONS
+// DECLARAÇÕES GLOBAIS
 // ================================
 
 /**
- * Global gtag declaration for Google Analytics
+ * Declaração global do gtag para Google Analytics
  */
 declare global {
   interface Window {
@@ -18,21 +15,21 @@ declare global {
 }
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Checks if Google Analytics is ready and available
- * @returns {boolean} True if gtag is available and analytics is enabled
+ * Verifica se o Google Analytics está pronto e disponível
+ * @returns {boolean} True se gtag estiver disponível e analytics estiver habilitado
  */
 const isAnalyticsReady = (): boolean => {
   return ANALYTICS_CONFIG.enabled && typeof window.gtag !== 'undefined'
 }
 
 /**
- * Creates and appends a script element to document head
- * @param {string} src - Script source URL (optional)
- * @param {string} content - Script inline content (optional)
+ * Cria e anexa um elemento script ao head do documento
+ * @param {string} src - URL de origem do script (opcional)
+ * @param {string} content - Conteúdo inline do script (opcional)
  */
 const createScript = (src?: string, content?: string): void => {
   const script = document.createElement('script')
@@ -50,22 +47,22 @@ const createScript = (src?: string, content?: string): void => {
 }
 
 // ================================
-// MAIN FUNCTIONS
+// FUNÇÕES PRINCIPAIS
 // ================================
 
 /**
- * Initializes Google Analytics with GA4 configuration
- * Sets up tracking scripts and basic configuration
+ * Inicializa o Google Analytics com configuração GA4
+ * Configura os scripts de rastreamento e configuração básica
  */
 export const initializeAnalytics = (): void => {
   if (!ANALYTICS_CONFIG.enabled) return
 
-  // Add GA4 tracking script
+  // Adiciona script de rastreamento GA4
   createScript(
     `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.measurementId}`
   )
 
-  // Add configuration script
+  // Adiciona script de configuração
   const configScript = `
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -80,8 +77,8 @@ export const initializeAnalytics = (): void => {
 }
 
 /**
- * Tracks page view events
- * @param {PageViewEvent} data - Page view event data
+ * Rastreia eventos de visualização de página
+ * @param {PageViewEvent} data - Dados do evento de visualização de página
  */
 export const trackPageView = (data: PageViewEvent): void => {
   if (!isAnalyticsReady()) return
@@ -93,8 +90,8 @@ export const trackPageView = (data: PageViewEvent): void => {
 }
 
 /**
- * Tracks custom events
- * @param {CustomEvent} data - Custom event data with name and parameters
+ * Rastreia eventos customizados
+ * @param {CustomEvent} data - Dados do evento customizado com nome e parâmetros
  */
 export const trackEvent = (data: CustomEvent): void => {
   if (!isAnalyticsReady()) return
@@ -103,8 +100,8 @@ export const trackEvent = (data: CustomEvent): void => {
 }
 
 /**
- * Tracks user preferences changes
- * @param {UserPreferences} preferences - User preference data
+ * Rastreia mudanças nas preferências do usuário
+ * @param {UserPreferences} preferences - Dados das preferências do usuário
  */
 export const trackUserPreferences = (preferences: UserPreferences): void => {
   if (!ANALYTICS_CONFIG.enabled) return
@@ -120,8 +117,8 @@ export const trackUserPreferences = (preferences: UserPreferences): void => {
 }
 
 /**
- * Tracks theme change events
- * @param {'light' | 'dark'} theme - Selected theme
+ * Rastreia eventos de mudança de tema
+ * @param {'light' | 'dark'} theme - Tema selecionado
  */
 export const trackThemeChange = (theme: 'light' | 'dark'): void => {
   trackEvent({
@@ -133,8 +130,8 @@ export const trackThemeChange = (theme: 'light' | 'dark'): void => {
 }
 
 /**
- * Tracks language change events
- * @param {'pt' | 'en'} language - Selected language
+ * Rastreia eventos de mudança de idioma
+ * @param {'pt' | 'en'} language - Idioma selecionado
  */
 export const trackLanguageChange = (language: 'pt' | 'en'): void => {
   trackEvent({

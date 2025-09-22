@@ -1,24 +1,21 @@
-// ================================
-// Internal Imports
-// ================================
 import { ImageItem } from '../types'
 
 // ================================
-// Constants
+// Constantes
 // ================================
 
-/** Default timeout for image preloading (in milliseconds) */
+/** Timeout padrão para pré-carregamento de imagens (em milissegundos) */
 const IMAGE_PRELOAD_TIMEOUT = 10000
 
 // ================================
-// ID Generation Utilities
+// Utilitários de Geração de ID
 // ================================
 
 /**
- * Generates a unique identifier for an image
- * @param url - The image URL
- * @param index - Optional index for sequential identification
- * @returns Unique image ID string
+ * Gera um identificador único para uma imagem
+ * @param url - A URL da imagem
+ * @param index - Índice opcional para identificação sequencial
+ * @returns String de ID único da imagem
  */
 export const generateImageId = (url: string, index?: number): string => {
   const timestamp = Date.now()
@@ -27,13 +24,13 @@ export const generateImageId = (url: string, index?: number): string => {
 }
 
 // ================================
-// URL Validation Utilities
+// Utilitários de Validação de URL
 // ================================
 
 /**
- * Validates if a string is a valid HTTP/HTTPS image URL
- * @param url - URL string to validate
- * @returns True if valid HTTP/HTTPS URL, false otherwise
+ * Valida se uma string é uma URL de imagem HTTP/HTTPS válida
+ * @param url - String da URL para validar
+ * @returns True se for uma URL HTTP/HTTPS válida, false caso contrário
  */
 export const isValidImageUrl = (url: string): boolean => {
   try {
@@ -45,14 +42,14 @@ export const isValidImageUrl = (url: string): boolean => {
 }
 
 // ================================
-// Image Creation Utilities
+// Utilitários de Criação de Imagem
 // ================================
 
 /**
- * Creates an ImageItem object from a URL
- * @param url - Image URL
- * @param index - Optional index for identification and alt text
- * @returns ImageItem with generated ID and basic properties
+ * Cria um objeto ImageItem a partir de uma URL
+ * @param url - URL da imagem
+ * @param index - Índice opcional para identificação e texto alternativo
+ * @returns ImageItem com ID gerado e propriedades básicas
  */
 export const createImageFromUrl = (url: string, index?: number): ImageItem => {
   const imageNumber = (index ?? 0) + 1
@@ -60,17 +57,17 @@ export const createImageFromUrl = (url: string, index?: number): ImageItem => {
   return {
     id: generateImageId(url, index),
     url,
-    alt: `Image ${imageNumber}`,
-    title: `Image ${imageNumber}`,
+    alt: `Imagem ${imageNumber}`,
+    title: `Imagem ${imageNumber}`,
     urls: undefined
   }
 }
 
 /**
- * Creates an array of ImageItem objects from URL strings
- * Filters out invalid URLs and creates proper ImageItem objects
- * @param urls - Array of image URL strings
- * @returns Array of valid ImageItem objects
+ * Cria um array de objetos ImageItem a partir de strings de URL
+ * Filtra URLs inválidas e cria objetos ImageItem apropriados
+ * @param urls - Array de strings de URL de imagem
+ * @returns Array de objetos ImageItem válidos
  */
 export const createImagesFromUrls = (urls: string[]): ImageItem[] => {
   return urls
@@ -79,13 +76,13 @@ export const createImagesFromUrls = (urls: string[]): ImageItem[] => {
 }
 
 // ================================
-// Image Dimension Utilities
+// Utilitários de Dimensão de Imagem
 // ================================
 
 /**
- * Gets the natural dimensions of an image
- * @param url - Image URL to measure
- * @returns Promise resolving to width and height in pixels
+ * Obtém as dimensões naturais de uma imagem
+ * @param url - URL da imagem para medir
+ * @returns Promise que resolve para largura e altura em pixels
  */
 export const getImageDimensions = (
   url: string
@@ -106,13 +103,13 @@ export const getImageDimensions = (
 }
 
 // ================================
-// Image Preloading Utilities
+// Utilitários de Pré-carregamento de Imagem
 // ================================
 
 /**
- * Preloads a single image and returns success status
- * @param url - Image URL to preload
- * @returns Promise resolving to true if loaded successfully, false otherwise
+ * Pré-carrega uma única imagem e retorna o status de sucesso
+ * @param url - URL da imagem para pré-carregar
+ * @returns Promise que resolve para true se carregada com sucesso, false caso contrário
  */
 export const preloadImage = (url: string): Promise<boolean> => {
   return new Promise((resolve) => {
@@ -122,15 +119,15 @@ export const preloadImage = (url: string): Promise<boolean> => {
     img.onerror = () => resolve(false)
     img.src = url
 
-    // Timeout fallback
+    // Fallback de timeout
     setTimeout(() => resolve(false), IMAGE_PRELOAD_TIMEOUT)
   })
 }
 
 /**
- * Preloads multiple images in parallel and returns successfully loaded ones
- * @param urls - Array of image URLs to preload
- * @returns Promise resolving to array of ImageItem objects for successfully loaded images
+ * Pré-carrega múltiplas imagens em paralelo e retorna as carregadas com sucesso
+ * @param urls - Array de URLs de imagem para pré-carregar
+ * @returns Promise que resolve para array de objetos ImageItem das imagens carregadas com sucesso
  */
 export const batchPreloadImages = async (
   urls: string[]
@@ -143,7 +140,7 @@ export const batchPreloadImages = async (
         return createImageFromUrl(url, index)
       }
 
-      throw new Error(`Failed to load: ${url}`)
+      throw new Error(`Falha ao carregar: ${url}`)
     })
   )
 

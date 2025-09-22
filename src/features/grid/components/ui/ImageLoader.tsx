@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Props interface for ImageLoader component
+ * Interface de props para o componente ImageLoader
  */
 interface ImageLoaderProps {
   src: string
@@ -17,11 +17,11 @@ interface ImageLoaderProps {
 }
 
 // ================================
-// UTILITIES
+// UTILITÁRIOS
 // ================================
 
 /**
- * Ensures URL uses HTTPS protocol for Cloudinary compatibility
+ * Garante que a URL use protocolo HTTPS para compatibilidade com Cloudinary
  */
 const ensureHttps = (url: string): string => {
   if (url.startsWith('http://')) {
@@ -31,7 +31,7 @@ const ensureHttps = (url: string): string => {
 }
 
 /**
- * Adds cache-busting parameter to prevent caching issues
+ * Adiciona parâmetro cache-busting para prevenir problemas de cache
  */
 const addCacheBuster = (url: string): string => {
   const separator = url.includes('?') ? '&' : '?'
@@ -39,12 +39,12 @@ const addCacheBuster = (url: string): string => {
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * ImageLoader component with automatic HTTPS conversion, error recovery, and loading states
- * Features lazy loading, async decoding, and cache-busting for failed loads
+ * Componente ImageLoader com conversão automática para HTTPS, recuperação de erros e estados de carregamento
+ * Possui lazy loading, decodificação assíncrona e cache-busting para carregamentos que falharam
  */
 export const ImageLoader: React.FC<ImageLoaderProps> = ({
   src,
@@ -55,7 +55,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   crossOrigin = 'anonymous'
 }) => {
   // ================================
-  // STATE & REFS
+  // ESTADO E REFS
   // ================================
 
   const [isLoading, setIsLoading] = useState(true)
@@ -64,11 +64,11 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   const imgRef = useRef<HTMLImageElement>(null)
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
-    // Ensure initial URL is HTTPS
+    // Garante que a URL inicial use HTTPS
     const httpsUrl = ensureHttps(src)
     if (httpsUrl !== imageSrc) {
       setImageSrc(httpsUrl)
@@ -76,7 +76,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   }, [src, imageSrc])
 
   // ================================
-  // EVENT HANDLERS
+  // MANIPULADORES DE EVENTOS
   // ================================
 
   const handleLoad = () => {
@@ -89,11 +89,11 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
     setIsLoading(false)
     setHasError(true)
 
-    // Recovery attempt: force HTTPS and add cache buster
+    // Tentativa de recuperação: força HTTPS e adiciona cache buster
     const httpsUrl = ensureHttps(src)
     const urlWithCacheBuster = addCacheBuster(httpsUrl)
 
-    // If we haven't tried with cache buster yet, attempt once more
+    // Se ainda não tentamos com cache buster, tenta mais uma vez
     if (!imageSrc.includes('cb=')) {
       setImageSrc(urlWithCacheBuster)
       setHasError(false)
@@ -105,7 +105,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   }
 
   // ================================
-  // RENDER HELPERS
+  // FUNÇÕES AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
   const renderErrorState = () => (
@@ -129,7 +129,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   )
 
   // ================================
-  // EARLY RETURNS
+  // RETORNOS ANTECIPADOS
   // ================================
 
   if (hasError) {
@@ -137,7 +137,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = ({
   }
 
   // ================================
-  // MAIN RENDER
+  // RENDERIZAÇÃO PRINCIPAL
   // ================================
 
   return (

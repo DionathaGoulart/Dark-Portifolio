@@ -3,11 +3,11 @@ import { ImageCard } from '@/features/grid'
 import { ImageItem } from '@/features/grid/types'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Adaptive rules for different image orientations
+ * Regras adaptáveis para diferentes orientações de imagem
  */
 interface AdaptiveRules {
   portrait: { aspectRatio: string; objectFit: string }
@@ -18,7 +18,7 @@ interface AdaptiveRules {
 }
 
 /**
- * Props for the AdaptiveImageGrid component
+ * Props para o componente AdaptiveImageGrid
  */
 export interface AdaptiveImageGridProps {
   images?: ImageItem[]
@@ -61,7 +61,7 @@ type ImageOrientation =
   | 'ultraTall'
 
 // ================================
-// CONSTANTS & HELPERS
+// CONSTANTES E AUXILIARES
 // ================================
 
 const defaultAdaptiveRules: AdaptiveRules = {
@@ -73,7 +73,7 @@ const defaultAdaptiveRules: AdaptiveRules = {
 }
 
 /**
- * Detects image orientation based on width/height ratio
+ * Detecta orientação da imagem baseada na proporção largura/altura
  */
 const detectImageOrientation = (
   width: number,
@@ -89,7 +89,7 @@ const detectImageOrientation = (
 }
 
 /**
- * Maps aspect ratio strings to Tailwind classes
+ * Mapeia strings de proporção para classes do Tailwind
  */
 const getAspectRatioClass = (aspectRatio: string): string => {
   const aspectRatioMap: Record<string, string> = {
@@ -113,7 +113,7 @@ const getAspectRatioClass = (aspectRatio: string): string => {
 }
 
 /**
- * Maps gap numbers to Tailwind classes
+ * Mapeia números de espaçamento para classes do Tailwind
  */
 const getGapClass = (gap: number): string => {
   const gapMap: Record<number, string> = {
@@ -129,12 +129,12 @@ const getGapClass = (gap: number): string => {
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Adaptive image grid that automatically adjusts layout based on image orientations
- * Supports various grid configurations and dominant side layouts
+ * Grade de imagens adaptável que ajusta automaticamente o layout baseado nas orientações das imagens
+ * Suporta várias configurações de grade e layouts de lado dominante
  */
 export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   images = [],
@@ -159,7 +159,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   >({})
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
@@ -198,7 +198,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }, [images, adaptiveMode])
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const handleImageLoad = (image: ImageItem) => {
@@ -211,7 +211,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const getAdaptiveAspectRatio = (imageId: string): string => {
@@ -285,7 +285,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }
 
   const getAdjustedAspectRatio = (imageId: string, index: number): string => {
-    // Remove fixed aspect ratio for dominant grid to allow height adjustment
+    // Remove proporção fixa para grade dominante para permitir ajuste de altura
     if (mode === 'grid' && gridColumns === 2 && dominantSide !== 'none') {
       return 'auto'
     }
@@ -307,7 +307,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }
 
   // ================================
-  // RENDER HELPERS
+  // AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
   const renderImageCard = (image: ImageItem, index: number) => {
@@ -356,7 +356,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   }
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   if (error) {
@@ -388,7 +388,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
 }
 
 // ================================
-// CONVENIENCE COMPONENTS
+// COMPONENTES DE CONVENIÊNCIA
 // ================================
 
 export const AdaptiveSoloGrid: React.FC<

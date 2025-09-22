@@ -3,7 +3,7 @@ import { Languages } from 'lucide-react'
 import { useI18n } from '@/shared/contexts/I18nContext'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface LanguageSwitchProps {
@@ -11,7 +11,7 @@ interface LanguageSwitchProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const languageLabels = {
@@ -25,12 +25,12 @@ const languageDisplayNames = {
 } as const
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Language switch component that toggles between Portuguese and English
- * Uses the I18n context to manage language state
+ * Componente de troca de idioma que alterna entre Português e Inglês
+ * Usa o contexto I18n para gerenciar o estado do idioma
  */
 export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
   className = ''
@@ -38,7 +38,7 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
   const { language, setLanguage, t } = useI18n()
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const toggleLanguage = () => {
@@ -46,7 +46,7 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
   }
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const currentLanguageLabel = languageLabels[language]
@@ -65,7 +65,7 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
     .join(' ')
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

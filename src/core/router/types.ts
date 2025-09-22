@@ -1,23 +1,23 @@
 // ================================
-// External Imports
+// Importações Externas
 // ================================
 import React from 'react'
 
 // ================================
-// Route Configuration Interface
+// Interface de Configuração de Rota
 // ================================
 
 /**
- * Configuration interface for application routes
+ * Interface de configuração para rotas da aplicação
  * @interface RouteConfig
  */
 export interface RouteConfig {
-  /** The URL path for the route */
+  /** O caminho da URL para a rota */
   path: string
 
-  /** React component to render for this route */
+  /** Componente React a ser renderizado para esta rota */
   element: React.ComponentType
 
-  /** Optional title for the route (e.g., for page title or navigation) */
+  /** Título opcional para a rota (ex: para título da página ou navegação) */
   title?: string
 }

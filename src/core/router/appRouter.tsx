@@ -3,35 +3,36 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { RouteConfig } from './types'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 /**
- * Props interface for AppRouter component
+ * Interface de props para o componente AppRouter
  */
 interface AppRouterProps {
   routes: RouteConfig[]
 }
 
 /**
- * Props interface for RouteRenderer component
+ * Interface de props para o componente RouteRenderer
  */
 interface RouteRendererProps {
   route: RouteConfig
 }
 
 // ================================
-// HELPER COMPONENTS
+// COMPONENTES AUXILIARES
 // ================================
 
 /**
- * RouteRenderer component that handles individual route rendering and document title setting
+ * Componente RouteRenderer que lida com a renderização individual de rotas
+ * e configuração do título do documento
  */
 const RouteRenderer: React.FC<RouteRendererProps> = ({ route }) => {
   const { element: Element, title } = route
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
@@ -41,19 +42,19 @@ const RouteRenderer: React.FC<RouteRendererProps> = ({ route }) => {
   }, [title])
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return <Element />
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * AppRouter component that manages application routing with automatic scroll-to-top
- * and dynamic document title setting based on route configuration
+ * Componente AppRouter que gerencia o roteamento da aplicação com rolagem automática
+ * para o topo e configuração dinâmica do título do documento baseada na configuração da rota
  */
 export const AppRouter: React.FC<AppRouterProps> = ({ routes }) => {
   // ================================
@@ -63,16 +64,16 @@ export const AppRouter: React.FC<AppRouterProps> = ({ routes }) => {
   const location = useLocation()
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
-    // Scroll to top when route changes
+    // Rola para o topo quando a rota muda
     window.scrollTo(0, 0)
   }, [location.pathname])
 
   // ================================
-  // RENDER HELPERS
+  // FUNÇÕES AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
   const renderRoutes = () =>
@@ -89,7 +90,7 @@ export const AppRouter: React.FC<AppRouterProps> = ({ routes }) => {
   )
 
   // ================================
-  // MAIN RENDER
+  // RENDERIZAÇÃO PRINCIPAL
   // ================================
 
   return (

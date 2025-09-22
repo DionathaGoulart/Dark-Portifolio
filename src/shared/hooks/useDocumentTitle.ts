@@ -1,31 +1,24 @@
-// ================================
-// External Imports
-// ================================
 import { useEffect } from 'react'
-
-// ================================
-// Internal Imports
-// ================================
 import { useI18n } from '../contexts/I18nContext'
 
 // ================================
-// Types and Constants
+// Tipos e Constantes
 // ================================
 
-/** Available page keys for localized titles */
+/** Chaves de página disponíveis para títulos localizados */
 type PageKey = 'home' | 'about' | 'projects' | 'contact' | 'prints'
 
-/** Base application name for title suffix */
+/** Nome base da aplicação para sufixo do título */
 const APP_NAME = 'Dark'
 
 // ================================
-// Document Title Hooks
+// Hooks de Título do Documento
 // ================================
 
 /**
- * Hook for setting document title using localized page titles
- * Automatically updates the browser tab title based on the current page
- * @param pageKey - Key corresponding to a page in the i18n translations
+ * Hook para definir título do documento usando títulos de página localizados
+ * Atualiza automaticamente o título da aba do navegador baseado na página atual
+ * @param pageKey - Chave correspondente a uma página nas traduções i18n
  */
 export const useDocumentTitle = (pageKey: PageKey) => {
   const { t } = useI18n()
@@ -37,9 +30,9 @@ export const useDocumentTitle = (pageKey: PageKey) => {
 }
 
 /**
- * Hook for setting document title with custom title string
- * Useful for dynamic pages or pages not covered by main page translations
- * @param title - Custom title string to display
+ * Hook para definir título do documento com string de título customizada
+ * Útil para páginas dinâmicas ou páginas não cobertas pelas traduções principais
+ * @param title - String de título customizada para exibir
  */
 export const useCustomDocumentTitle = (title: string) => {
   useEffect(() => {

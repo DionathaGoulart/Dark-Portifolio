@@ -2,7 +2,7 @@ import React from 'react'
 import logoOptimized from '@assets/logo.webp'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 interface LogoProps {
@@ -13,21 +13,21 @@ interface LogoProps {
 }
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Logo component with optional dark mode inversion
- * Displays optimized logo with responsive sizing
+ * Componente de logo com inversão opcional para modo escuro
+ * Exibe logo otimizado com dimensionamento responsivo
  */
 export const Logo: React.FC<LogoProps> = ({
   src,
-  alt = 'Dark Logo',
+  alt = 'Logo Escuro',
   invertOnDark = true,
   className = ''
 }) => {
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const logoSrc = src || logoOptimized
@@ -44,7 +44,7 @@ export const Logo: React.FC<LogoProps> = ({
     .join(' ')
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

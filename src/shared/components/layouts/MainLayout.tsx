@@ -5,7 +5,7 @@ import { MainLayoutProps } from './types'
 import { ScrollToTopButton } from '../ui/ScroolOnTop'
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const DEFAULT_SOCIAL_URLS = {
@@ -19,12 +19,12 @@ const DEFAULT_SCROLL_CONFIG = {
 } as const
 
 // ================================
-// MAIN COMPONENT
+// COMPONENTE PRINCIPAL
 // ================================
 
 /**
- * Main layout wrapper with header, footer, and scroll-to-top functionality
- * Provides the base structure for all application pages
+ * Wrapper de layout principal com cabeçalho, rodapé e funcionalidade de voltar ao topo
+ * Fornece a estrutura base para todas as páginas da aplicação
  */
 export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
@@ -33,7 +33,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   className = ''
 }) => {
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const containerClasses = [
@@ -44,7 +44,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     .join(' ')
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (

@@ -2,7 +2,7 @@ import { trackThemeChange } from '@/features/ga'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 // ================================
-// INTERFACES & TYPES
+// INTERFACES E TIPOS
 // ================================
 
 export type Theme = 'light' | 'dark'
@@ -18,7 +18,7 @@ interface ThemeProviderProps {
 }
 
 // ================================
-// CONSTANTS
+// CONSTANTES
 // ================================
 
 const STORAGE_KEY = 'theme'
@@ -27,18 +27,18 @@ const DARK_CLASS = 'dark'
 const SUPPORTED_THEMES: Theme[] = ['light', 'dark']
 
 // ================================
-// HELPER FUNCTIONS
+// FUNÇÕES AUXILIARES
 // ================================
 
 /**
- * Validates if theme value is supported
+ * Valida se o valor do tema é suportado
  */
 const isValidTheme = (theme: string): theme is Theme => {
   return SUPPORTED_THEMES.includes(theme as Theme)
 }
 
 /**
- * Safely gets theme from localStorage
+ * Obtém tema de forma segura do localStorage
  */
 const getStoredTheme = (): Theme | null => {
   try {
@@ -47,32 +47,32 @@ const getStoredTheme = (): Theme | null => {
       return savedTheme
     }
   } catch (error) {
-    console.warn('Could not access localStorage for theme:', error)
+    console.warn('Não foi possível acessar o localStorage para o tema:', error)
   }
 
   return null
 }
 
 /**
- * Gets initial theme from storage or returns default
+ * Obtém tema inicial do armazenamento ou retorna padrão
  */
 const getInitialTheme = (): Theme => {
   return getStoredTheme() || DEFAULT_THEME
 }
 
 /**
- * Safely saves theme to localStorage
+ * Salva tema de forma segura no localStorage
  */
 const saveThemeToStorage = (theme: Theme): void => {
   try {
     localStorage.setItem(STORAGE_KEY, theme)
   } catch (error) {
-    console.warn('Could not save theme to localStorage:', error)
+    console.warn('Não foi possível salvar tema no localStorage:', error)
   }
 }
 
 /**
- * Applies theme to document root element
+ * Aplica tema ao elemento raiz do documento
  */
 const applyThemeToDOM = (theme: Theme): void => {
   try {
@@ -84,29 +84,29 @@ const applyThemeToDOM = (theme: Theme): void => {
       root.classList.remove(DARK_CLASS)
     }
   } catch (error) {
-    console.warn('Could not apply theme to DOM:', error)
+    console.warn('Não foi possível aplicar tema ao DOM:', error)
   }
 }
 
 // ================================
-// CONTEXT
+// CONTEXTO
 // ================================
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 // ================================
-// PROVIDER COMPONENT
+// COMPONENTE PROVEDOR
 // ================================
 
 /**
- * Theme Provider that manages light/dark theme state
- * Automatically persists theme preference and applies to DOM
+ * Provedor de Tema que gerencia estado de tema claro/escuro
+ * Persiste automaticamente preferência de tema e aplica ao DOM
  */
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(getInitialTheme)
 
   // ================================
-  // EFFECTS
+  // EFEITOS
   // ================================
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }, [theme])
 
   // ================================
-  // HANDLERS
+  // MANIPULADORES
   // ================================
 
   const setTheme = (newTheme: Theme) => {
@@ -129,7 +129,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }
 
   // ================================
-  // COMPUTED VALUES
+  // VALORES COMPUTADOS
   // ================================
 
   const contextValue: ThemeContextType = {
@@ -139,7 +139,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }
 
   // ================================
-  // RENDER
+  // RENDERIZAÇÃO
   // ================================
 
   return (
@@ -154,8 +154,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 // ================================
 
 /**
- * Hook to access theme context
- * Must be used within ThemeProvider
+ * Hook para acessar contexto de tema
+ * Deve ser usado dentro do ThemeProvider
  */
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext)
