@@ -1,30 +1,30 @@
 // ================================
-// Internal Imports
+// Importações Internas
 // ================================
 import { Language } from '@/types'
 
 // ================================
-// Language Configuration
+// Configuração de Idioma
 // ================================
 
-/** Array of supported language codes */
+/** Array de códigos de idiomas suportados */
 export const SUPPORTED_LANGUAGES: Language[] = ['pt', 'en']
 
-/** Mapping of language codes to display names */
+/** Mapeamento de códigos de idioma para nomes de exibição */
 export const LANGUAGE_NAMES = {
   pt: 'Português',
   en: 'English'
 } as const
 
 // ================================
-// Language Detection Utilities
+// Utilitários de Detecção de Idioma
 // ================================
 
 /**
- * Detects language from URL pathname
- * Checks if the first path segment matches a supported language
- * @param pathname - The URL pathname to analyze
- * @returns Language code if found, null otherwise
+ * Detecta o idioma a partir do pathname da URL
+ * Verifica se o primeiro segmento do caminho corresponde a um idioma suportado
+ * @param pathname - O pathname da URL para analisar
+ * @returns Código do idioma se encontrado, null caso contrário
  */
 export const detectLanguageFromPath = (pathname: string): Language | null => {
   const segments = pathname.split('/').filter(Boolean)
@@ -38,34 +38,34 @@ export const detectLanguageFromPath = (pathname: string): Language | null => {
 }
 
 /**
- * Detects user's preferred language from browser settings
- * Falls back to English if browser language is not supported
- * @returns Supported language code based on browser preference
+ * Detecta o idioma preferido do usuário a partir das configurações do navegador
+ * Retorna ao inglês se o idioma do navegador não for suportado
+ * @returns Código de idioma suportado baseado na preferência do navegador
  */
 export const getBrowserLanguage = (): Language => {
-  // Handle server-side rendering
+  // Trata renderização do lado do servidor
   if (typeof navigator === 'undefined') return 'en'
 
   const browserLang = navigator.language.toLowerCase()
 
-  // Portuguese (Brazilian or general Portuguese)
+  // Português (brasileiro ou português geral)
   if (browserLang.startsWith('pt')) {
     return 'pt'
   }
 
-  // Default to English for unsupported languages
+  // Padrão para inglês para idiomas não suportados
   return 'en'
 }
 
 // ================================
-// Language Display Utilities
+// Utilitários de Exibição de Idioma
 // ================================
 
 /**
- * Formats language code for display in UI
- * Returns the localized language name or uppercase code as fallback
- * @param language - Language code to format
- * @returns Formatted display name for the language
+ * Formata o código de idioma para exibição na interface
+ * Retorna o nome localizado do idioma ou código em maiúsculas como fallback
+ * @param language - Código do idioma para formatar
+ * @returns Nome formatado para exibição do idioma
  */
 export const formatLanguageDisplay = (language: Language): string => {
   return LANGUAGE_NAMES[language] || language.toUpperCase()

@@ -4,12 +4,12 @@ export * from './components/layouts/Header'
 export * from './components/layouts/MainLayout'
 export * from './components/layouts/types'
 
-// Ui`s
+// Componentes de Interface
 export * from './components/ui/Logo'
 export * from './components/ui/Navigation'
 export * from './components/ui/ThemeToggle'
 
-// Contexts
+// Contextos
 export * from './contexts/ThemeContext'
 
 // Hooks
