@@ -37,7 +37,7 @@ const createNavItems = (t: any) => [
   { label: t.nav.about, href: '/about' },
   { label: t.nav.projects, href: '/projects' },
   { label: t.nav.contact, href: '/contact' },
-  { label: t.nav.prints, href: '/prints' }
+  { label: t.nav.prints, href: '/stores' }
 ]
 
 // ================================

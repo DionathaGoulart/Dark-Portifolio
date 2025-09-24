@@ -44,7 +44,7 @@ export const appRoutes: RouteConfig[] = [
     element: ContactPage
   },
   {
-    path: '/prints',
+    path: '/stores',
     element: PrintsPage
   },
 
