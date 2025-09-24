@@ -203,6 +203,7 @@ export interface Translation {
       }
     }
     prints: {
+      title: string
       links: {
         redbubble: string
         inprnt: string

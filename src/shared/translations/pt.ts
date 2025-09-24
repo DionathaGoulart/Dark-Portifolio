@@ -82,6 +82,7 @@ export const ptTranslations: Translation = {
 
     // Conteúdo da página de prints
     prints: {
+      title: 'Lojas',
       links: {
         redbubble: 'Roupas, adesivos e mais (Redbubble)',
         inprnt: 'Prints (INPRNT)',

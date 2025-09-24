@@ -81,6 +81,7 @@ export const enTranslations: Translation = {
 
     // Conteúdo da página de prints
     prints: {
+      title: 'Stores',
       links: {
         redbubble: 'Clothing, stickers and more (Redbubble)',
         inprnt: 'Prints (INPRNT)',
