@@ -138,7 +138,7 @@ export const LayoutHeader: React.FC<HeaderConfig> = ({
 
   return (
     <header className="relative w-full bg-primary-white dark:bg-primary-black transition-all duration-300 z-30">
-      <div className="px-6 sm:px-10 lg:px-12">
+      <div className="px-4 sm:px-10 lg:px-14">
         <div className="flex items-center justify-between h-20 sm:h-24">
           <div className="flex-shrink-0">
             <Logo src={logoSrc} alt={logoAlt} />
