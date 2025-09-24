@@ -44,6 +44,7 @@ export interface AdaptiveImageGridProps {
   fallbackObjectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
   dominantSide?: 'left' | 'right' | 'none'
   gap?: number
+  backgroundColor?: string
   className?: string
   onImageClick?: (image: ImageItem) => void
   onImageLoad?: (image: ImageItem) => void
@@ -145,6 +146,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   fallbackObjectFit = 'cover',
   dominantSide = 'none',
   gap = 4,
+  backgroundColor,
   className = '',
   onImageClick,
   onImageLoad,
@@ -242,7 +244,8 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     if (mode === 'solo') return 'grid grid-cols-1'
 
     if (gridColumns === 2 && dominantSide !== 'none') {
-      return 'grid grid-cols-6 auto-rows-fr'
+      // Para modo dominante, usamos flex column ao invés de grid
+      return 'flex flex-col'
     }
 
     const gridMap: Record<number, string> = {
@@ -255,7 +258,10 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     return gridMap[gridColumns] || 'grid grid-cols-3'
   }
 
-  const getDominanceClasses = (index: number): string => {
+  const getDominanceClasses = (
+    index: number,
+    isInPair: boolean = false
+  ): string => {
     if (mode !== 'grid' || gridColumns !== 2 || dominantSide === 'none') {
       return ''
     }
@@ -264,21 +270,22 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     const positionInPair = index % 2
     const isEvenPair = pairIndex % 2 === 0
 
-    const getDominantClasses = (
-      isFirst: boolean,
-      isDominant: boolean
-    ): string => {
-      return isDominant ? 'col-span-4 h-full' : 'col-span-2 h-full'
+    const getDominantClasses = (isDominant: boolean): string => {
+      if (isDominant) {
+        return 'flex-[4] flex items-center justify-center'
+      } else {
+        return 'flex-[2] flex items-center justify-center'
+      }
     }
 
     if (dominantSide === 'left') {
       const isDominant = positionInPair === 0 ? isEvenPair : !isEvenPair
-      return getDominantClasses(positionInPair === 0, isDominant)
+      return getDominantClasses(isDominant)
     }
 
     if (dominantSide === 'right') {
       const isDominant = positionInPair === 0 ? !isEvenPair : isEvenPair
-      return getDominantClasses(positionInPair === 0, isDominant)
+      return getDominantClasses(isDominant)
     }
 
     return ''
@@ -310,20 +317,38 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   // AUXILIARES DE RENDERIZAÇÃO
   // ================================
 
-  const renderImageCard = (image: ImageItem, index: number) => {
-    const dominanceClasses = getDominanceClasses(index)
+  const renderImageCard = (
+    image: ImageItem,
+    index: number,
+    isInPair: boolean = false
+  ) => {
+    const dominanceClasses = getDominanceClasses(index, isInPair)
     const adaptiveAspectRatio = getAdjustedAspectRatio(image.id, index)
     const adaptiveObjectFit = getAdaptiveObjectFit(image.id)
     const aspectClasses = getAspectRatioClass(adaptiveAspectRatio)
     const isDominantGrid =
       mode === 'grid' && gridColumns === 2 && dominantSide !== 'none'
+
+    // Verifica se é o item não dominante
+    const pairIndex = Math.floor(index / 2)
+    const positionInPair = index % 2
+    const isEvenPair = pairIndex % 2 === 0
+
+    let isNonDominant = false
+    if (dominantSide === 'left') {
+      isNonDominant = positionInPair === 0 ? !isEvenPair : isEvenPair
+    } else if (dominantSide === 'right') {
+      isNonDominant = positionInPair === 0 ? isEvenPair : !isEvenPair
+    }
+
     const centeringClasses = getCenteringClasses(
       adaptiveObjectFit,
       isDominantGrid
     )
 
+    // Container classes ajustadas para item não dominante
     const containerClasses = isDominantGrid
-      ? `h-full min-h-[300px] ${centeringClasses}`
+      ? 'w-full h-auto' // Deixa a altura se ajustar automaticamente
       : `${aspectClasses} ${centeringClasses}`
 
     const imageClasses =
@@ -332,27 +357,56 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
         ? 'max-w-full max-h-full'
         : 'w-full h-full'
 
+    // Aplicar background tanto no container quanto no ImageCard
+    const backgroundStyle = backgroundColor ? { backgroundColor } : {}
+
     return (
       <div key={image.id} className={dominanceClasses}>
         <div
-          className={`w-full ${containerClasses}`}
-          style={{ backfaceVisibility: 'hidden' }}
+          className={`${containerClasses} overflow-hidden`}
+          style={{
+            backfaceVisibility: 'hidden',
+            ...backgroundStyle
+          }}
         >
-          <ImageCard
-            image={image}
-            onClick={onImageClick}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            isSquare={false}
-            objectFit={adaptiveObjectFit as any}
-            showHoverEffect={false}
-            enableHoverScale={false}
-            showTitle={false}
-            className={imageClasses}
-          />
+          <div className="w-full h-full" style={backgroundStyle}>
+            <ImageCard
+              image={image}
+              onClick={onImageClick}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              isSquare={false}
+              objectFit={adaptiveObjectFit as any}
+              showHoverEffect={false}
+              enableHoverScale={false}
+              showTitle={false}
+              className={imageClasses}
+              disableShadow
+            />
+          </div>
         </div>
       </div>
     )
+  }
+
+  const renderDominantGrid = () => {
+    const pairs = []
+    for (let i = 0; i < validImages.length; i += 2) {
+      const image1 = validImages[i]
+      const image2 = validImages[i + 1]
+
+      const backgroundStyle = backgroundColor ? { backgroundColor } : {}
+
+      pairs.push(
+        <div key={`pair-${i}`} className="w-full" style={backgroundStyle}>
+          <div className={`flex items-stretch ${getGapClass(gap)}`}>
+            {renderImageCard(image1, i, true)}
+            {image2 && renderImageCard(image2, i + 1, true)}
+          </div>
+        </div>
+      )
+    }
+    return pairs
   }
 
   // ================================
@@ -378,11 +432,20 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
     return <></>
   }
 
+  const isDominantMode =
+    mode === 'grid' && gridColumns === 2 && dominantSide !== 'none'
+
   return (
     <div className={`w-full ${className}`}>
-      <div className={`${getGridClass()} ${getGapClass(gap)}`}>
-        {validImages.map((image, index) => renderImageCard(image, index))}
-      </div>
+      {isDominantMode ? (
+        <div className={`${getGridClass()} ${getGapClass(gap)}`}>
+          {renderDominantGrid()}
+        </div>
+      ) : (
+        <div className={`${getGridClass()} ${getGapClass(gap)}`}>
+          {validImages.map((image, index) => renderImageCard(image, index))}
+        </div>
+      )}
     </div>
   )
 }

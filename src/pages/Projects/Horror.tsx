@@ -282,8 +282,7 @@ const createGridSections = (
     ),
     imageIndices: [5],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />,
-    containerClass: 'sm:px-16'
+    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
   },
   {
     component: (
@@ -355,6 +354,7 @@ const createGridSections = (
         onImageClick={onImageClick}
         onImageError={onImageError}
         dominantSide="right"
+        backgroundColor="#fff"
         gap={1}
       />
     ),
@@ -411,10 +411,12 @@ const createGridSections = (
         images={images.grid.slice(14, 16)}
         adaptiveMode="manual"
         fallbackAspectRatio="wide"
+        backgroundColor="#fff"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
         dominantSide="left"
+        fallbackObjectFit="scale-down"
         gap={1}
       />
     ),

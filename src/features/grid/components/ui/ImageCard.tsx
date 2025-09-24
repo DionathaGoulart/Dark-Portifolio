@@ -13,6 +13,7 @@ export interface ImageCardPropsExtended extends ImageCardProps {
   enableHoverScale?: boolean
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
   showTitle?: boolean
+  disableShadow?: boolean
 }
 
 // ================================
@@ -48,7 +49,8 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
   showHoverEffect = false,
   enableHoverScale = true,
   objectFit = 'cover',
-  showTitle = true
+  showTitle = true,
+  disableShadow = false
 }) => {
   // ================================
   // ESTADO
@@ -66,9 +68,11 @@ export const ImageCard: React.FC<ImageCardPropsExtended> = ({
     ? 'group cursor-pointer transition-transform duration-300 hover:scale-105'
     : 'group cursor-pointer'
 
-  const shadowClasses = showHoverEffect
-    ? 'shadow-lg hover:shadow-xl transition-shadow duration-300'
-    : 'shadow-lg'
+  const shadowClasses = disableShadow
+    ? ''
+    : showHoverEffect
+      ? 'shadow-lg hover:shadow-xl transition-shadow duration-300'
+      : 'shadow-lg'
 
   const imageClasses = showHoverEffect
     ? `w-full h-full ${objectFitClass} group-hover:brightness-75 transition-all duration-300`

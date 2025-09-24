@@ -244,7 +244,7 @@ export const Arac: React.FC = () => {
                 <AdaptiveSoloGrid
                   images={images.solo.slice(index, index + 1)}
                   adaptiveMode="manual"
-                  fallbackAspectRatio="card"
+                  fallbackAspectRatio="auto"
                   adaptiveRules={horrorAdaptiveRules}
                   onImageClick={handleImageClick}
                   onImageError={handleImageError}

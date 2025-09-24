@@ -24,7 +24,6 @@ interface ContactPageProps {
 }
 
 interface ContactInfoProps {
-  title: string
   description: string
 }
 
@@ -155,22 +154,24 @@ const sendEmail = async (formData: FormData): Promise<void> => {
 /**
  * Contact information section
  */
-const ContactInfo: React.FC<ContactInfoProps> = ({ title, description }) => (
+const ContactInfo: React.FC<ContactInfoProps> = ({ description }) => (
   <div className="border-l-2 border-primary-black dark:border-primary-white pl-6">
-    <h2 className="text-2xl font-semibold text-primary-black dark:text-primary-white mb-6">
-      {title}
-    </h2>
     <p className="text-primary-black/60 dark:text-primary-white/60 leading-relaxed mb-8">
       {description}
     </p>
 
     <div className="space-y-4">
-      <div className="flex items-center space-x-3">
+      <a
+        href={`mailto:${CONTACT_EMAIL}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+      >
         <div className="w-2 h-2 bg-primary-black dark:bg-primary-white" />
         <span className="text-primary-black dark:text-primary-white font-medium">
           {CONTACT_EMAIL}
         </span>
-      </div>
+      </a>
     </div>
   </div>
 )
@@ -499,10 +500,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ className = '' }) => {
         </h1>
 
         <div className="grid gap-8 md:gap-12 lg:grid-cols-2">
-          <ContactInfo
-            title={t.pages.contact.info.title}
-            description={t.pages.contact.info.description}
-          />
+          <ContactInfo description={t.pages.contact.info.description} />
 
           <div className="border border-primary-black dark:border-primary-white p-8">
             <h3 className="text-xl font-medium text-primary-black dark:text-primary-white mb-6">

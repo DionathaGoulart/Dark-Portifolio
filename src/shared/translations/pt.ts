@@ -13,7 +13,7 @@ export const ptTranslations: Translation = {
     about: 'Sobre',
     projects: 'Projetos',
     contact: 'Contato',
-    prints: 'Prints'
+    prints: 'Lojas'
   },
 
   // ================================
@@ -49,9 +49,8 @@ export const ptTranslations: Translation = {
 
       // Seção de informações de contato
       info: {
-        title: 'Informações de Contato',
         description:
-          'Entre em contato conosco para qualquer dúvida, colaboração ou projetos personalizados. Adoraríamos ouvir de você!'
+          'Entre em contato pelo e-mail abaixo ou envie uma mensagem pelo formulário!'
       },
 
       // Rótulos e mensagens do formulário de contato
@@ -83,11 +82,8 @@ export const ptTranslations: Translation = {
 
     // Conteúdo da página de prints
     prints: {
-      title: 'Prints & Arte',
-      subtitle: 'Coleção de arte exclusiva e prints.',
       links: {
         redbubble: 'Roupas, adesivos e mais (Redbubble)',
-        colab55: 'Compre minha arte no Brasil (Colab55)',
         inprnt: 'Prints (INPRNT)',
         displate: 'Meus pôsteres exclusivos no Displate 🤍',
         portfolio: 'Portfólio',

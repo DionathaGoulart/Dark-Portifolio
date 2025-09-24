@@ -27,11 +27,6 @@ interface DecorativeDividerProps {
   className?: string
 }
 
-interface PageHeaderProps {
-  title: string
-  subtitle: string
-}
-
 // ================================
 // CONSTANTS
 // ================================
@@ -42,12 +37,6 @@ const LINKS_DATA: LinkData[] = [
     url: 'http://GoodDark.redbubble.com',
     icon: '',
     eventName: 'click_redbubble'
-  },
-  {
-    titleKey: 'colab55',
-    url: 'https://www.colab55.com/@darkning',
-    icon: '',
-    eventName: 'click_colab55'
   },
   {
     titleKey: 'inprnt',
@@ -76,21 +65,6 @@ const DecorativeDivider: React.FC<DecorativeDividerProps> = ({
   <div
     className={`mt-8 w-16 h-0.5 bg-black dark:bg-white mx-auto ${className}`}
   />
-)
-
-/**
- * Page header with title and subtitle
- */
-const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
-  <div className="text-center mb-12 animate-slide-up">
-    <h1 className="text-4xl md:text-5xl font-bold text-primary-black dark:text-primary-white mb-4 tracking-tight">
-      {title}
-    </h1>
-    <p className="text-lg text-primary-black/60 dark:text-primary-white/60 max-w-md mx-auto leading-relaxed">
-      {subtitle}
-    </p>
-    <DecorativeDivider />
-  </div>
 )
 
 /**
@@ -177,14 +151,6 @@ export const PrintsPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="animate-slide-up">
         <div className="max-w-md mx-auto">
-          <PageHeader
-            title={t.pages?.prints?.title || 'Prints & Artwork'}
-            subtitle={
-              t.pages?.prints?.subtitle ||
-              'Collection of exclusive art and prints.'
-            }
-          />
-
           <div className="space-y-4">
             {LINKS_DATA.map((link, index) => (
               <LinkItem

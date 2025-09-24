@@ -185,7 +185,6 @@ export interface Translation {
       title: string
       subtitle: string
       info: {
-        title: string
         description: string
       }
       form: {
@@ -204,11 +203,8 @@ export interface Translation {
       }
     }
     prints: {
-      title: string
-      subtitle: string
       links: {
         redbubble: string
-        colab55: string
         inprnt: string
         displate: string
         portfolio: string
