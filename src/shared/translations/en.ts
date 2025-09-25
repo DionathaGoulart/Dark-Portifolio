@@ -29,7 +29,7 @@ export const enTranslations: Translation = {
     about: {
       title: 'About',
       description:
-        'Dark is a self-taught Brazilian illustrator, specialized in horror with strong influences from manga. Her work is known for its mastery of black-and-white technique, creating impactful, dense, and visually unsettling imagery.',
+        'Dark is a self taught Brazilian illustrator, specialized in horror with strong influences from manga. Her work is known for its mastery of black and white technique, creating impactful, dense, and visually unsettling imagery.',
       content:
         'She offers exclusive, custom digital illustrations aimed at the alternative fashion market, creating striking designs for products such as t-shirts, collectible stickers, tote bags, and accessories.'
     },

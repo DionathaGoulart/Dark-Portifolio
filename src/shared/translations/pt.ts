@@ -29,7 +29,7 @@ export const ptTranslations: Translation = {
     about: {
       title: 'Sobre',
       description:
-        'Dark é uma ilustradora brasileira autodidata, especializada em horror com fortes influências do mangá. Seu trabalho é conhecido pela maestria da técnica preto-e-branco, criando imagens impactantes, densas e visualmente perturbadoras.',
+        'Dark é uma ilustradora brasileira autodidata, especializada em horror com fortes influências do mangá. Seu trabalho é conhecido pela maestria da técnica preto e branco, criando imagens impactantes, densas e visualmente perturbadoras.',
       content:
         'Ela oferece ilustrações digitais exclusivas e personalizadas voltadas para o mercado de moda alternativa, criando designs marcantes para produtos como camisetas, adesivos colecionáveis, ecobags e acessórios.'
     },

@@ -263,8 +263,7 @@ const createGridSections = (
     ),
     imageIndices: [4],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />,
-    containerClass: 'sm:px-36'
+    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
   },
   {
     component: (

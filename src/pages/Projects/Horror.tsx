@@ -411,16 +411,15 @@ const createGridSections = (
         images={images.grid.slice(14, 16)}
         adaptiveMode="manual"
         fallbackAspectRatio="wide"
-        backgroundColor="#fff"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
         dominantSide="left"
-        fallbackObjectFit="scale-down"
+        backgroundColor="#fff"
         gap={1}
       />
     ),
-    imageIndices: [14, 15],
+    imageIndices: [10, 11],
     context: 'grid' as const,
     loadingComponent: (
       <div className="grid grid-cols-2 gap-1">
