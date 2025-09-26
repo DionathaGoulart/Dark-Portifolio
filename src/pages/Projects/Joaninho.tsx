@@ -41,20 +41,19 @@ interface GridSection {
 // ================================
 
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_8.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_9.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_10.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_12.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_13.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj3_14.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048536/pj3_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048538/pj3_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048539/pj3_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048541/pj3_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048534/pj3_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048525/pj3_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048531/pj3_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048524/pj3_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048526/pj3_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048528/pj3_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048529/pj3_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048535/pj3_12.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048533/pj3_13.webp'
 ]
 
 const pageTexts: PageTextsConfig = {

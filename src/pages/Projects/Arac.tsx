@@ -29,13 +29,13 @@ interface PageTextsConfig {
 
 const originalUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/p8_8.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048728/p8_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048730/p8_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048732/p8_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048736/p8_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048734/p8_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048723/p8_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048726/p8_8.webp'
 ]
 
 const pageTexts: PageTextsConfig = {

@@ -60,22 +60,22 @@ const horrorAdaptiveRules = {
 } as const
 
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_8.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_9.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_10.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_12.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_13.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_14.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_15.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj1_16.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048462/pj1_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048458/pj1_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048448/pj1_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048448/pj1_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048459/pj1_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048460/pj1_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048449/pj1_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048461/pj1_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048450/pj1_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048456/pj1_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048449/pj1_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048450/pj1_12.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048451/pj1_13.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048452/pj1_14.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048453/pj1_15.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048454/pj1_16.webp'
 ]
 
 const PRIORITY_IMAGES_COUNT = 5

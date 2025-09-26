@@ -39,18 +39,18 @@ interface GridSection {
 // ================================
 
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_8.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_9.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_10.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj7_12.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048705/pj7_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048689/pj7_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048695/pj7_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048682/pj7_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048684/pj7_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048698/pj7_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048701/pj7_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048687/pj7_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048693/pj7_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048691/pj7_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048686/pj7_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048697/pj7_12.webp'
 ]
 
 const pageTexts: PageTextsConfig = {
