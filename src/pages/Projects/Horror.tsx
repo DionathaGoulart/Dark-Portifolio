@@ -51,7 +51,7 @@ const originalUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_9.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_10.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_12.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048620/pj5_12.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_13.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_14.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_15.webp',
