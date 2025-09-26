@@ -56,8 +56,7 @@ const originalUrls = [
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_14.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_15.webp',
   'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_16.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_17.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_18.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048739/pj5_17.webp'
 ]
 
 const pageTexts: PageTextsConfig = {
