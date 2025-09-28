@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { batchPreloadImages, ImageItem } from '@features/grid'
+import { ImageItem } from '../types'
+import { batchPreloadImages } from '../utils'
 
 // ================================
 // Tipos e Interfaces

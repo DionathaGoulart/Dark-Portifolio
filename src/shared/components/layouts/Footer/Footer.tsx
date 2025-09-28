@@ -1,13 +1,6 @@
 import React from 'react'
 import { useI18n } from '@/shared/contexts/I18nContext'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-interface LayoutFooterProps {
-  className?: string
-}
+import { BaseStyledProps } from '@/shared/types/Layout.types'
 
 // ================================
 // COMPONENTE PRINCIPAL
@@ -17,9 +10,7 @@ interface LayoutFooterProps {
  * Rodapé da aplicação com informações de copyright
  * Exibe texto de direitos traduzido com design responsivo
  */
-export const LayoutFooter: React.FC<LayoutFooterProps> = ({
-  className = ''
-}) => {
+export const LayoutFooter: React.FC<BaseStyledProps> = ({ className = '' }) => {
   const { t } = useI18n()
 
   // ================================

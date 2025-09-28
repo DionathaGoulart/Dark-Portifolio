@@ -1,8 +1,8 @@
 import React from 'react'
-import { LayoutHeader } from './Header'
-import { LayoutFooter } from './Footer'
-import { MainLayoutProps } from './types'
-import { ScrollToTopButton } from '../ui/ScroolOnTop'
+import { LayoutHeader } from '../Header'
+import { LayoutFooter } from '../Footer'
+import { ScrollToTopButton } from '../ScrollOnTop'
+import { MainLayoutProps } from '@/shared/types/Layout.types'
 
 // ================================
 // CONSTANTES

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { ImageItem } from '../types'
+import { ImageItem } from '../../../shared/types'
 
 // ================================
 // Interface do Hook
