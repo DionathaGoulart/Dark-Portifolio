@@ -1,9 +1,5 @@
-import {
-  ScrollInfo,
-  ScrollToTopHook,
-  ScrollToTopProps
-} from '@/shared/types/Layout.types'
 import React, { useState, useEffect } from 'react'
+import { ScrollInfo, ScrollToTopHook, ScrollToTopProps } from '@shared'
 
 // ================================
 // CONSTANTES

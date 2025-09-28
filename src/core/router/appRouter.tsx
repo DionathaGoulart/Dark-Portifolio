@@ -1,24 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { RouteConfig } from './types'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-/**
- * Interface de props para o componente AppRouter
- */
-interface AppRouterProps {
-  routes: RouteConfig[]
-}
-
-/**
- * Interface de props para o componente RouteRenderer
- */
-interface RouteRendererProps {
-  route: RouteConfig
-}
+import { AppRouterProps, RouteRendererProps } from '@types'
 
 // ================================
 // COMPONENTES AUXILIARES

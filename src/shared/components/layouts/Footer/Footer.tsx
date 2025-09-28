@@ -1,6 +1,5 @@
 import React from 'react'
-import { useI18n } from '@/shared/contexts/I18nContext'
-import { BaseStyledProps } from '@/shared/types/Layout.types'
+import { BaseStyledProps, useI18n } from '@/shared'
 
 // ================================
 // COMPONENTE PRINCIPAL

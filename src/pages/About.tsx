@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { useI18n } from '@/shared/contexts/I18nContext'
-import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackEvent } from '@/features/ga'
+import { useDocumentTitle, useI18n } from '@/shared'
 
 // ================================
 // MAIN COMPONENT

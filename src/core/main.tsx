@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import '@styles/global.css'
+import { initializeAnalytics } from '@features/ga'
+import { I18nProvider, validateEnvironment } from '@shared'
 import App from './App'
-import { I18nProvider } from '../shared/contexts/I18nContext'
-import { validateEnvironment } from '@/shared/utils/envValidation'
-import { initializeAnalytics } from '@/features/ga'
+import '@styles/global.css'
 
 validateEnvironment()
 

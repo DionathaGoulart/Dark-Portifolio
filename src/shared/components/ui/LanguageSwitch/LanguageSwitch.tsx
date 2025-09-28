@@ -1,6 +1,6 @@
 import React from 'react'
 import { Languages } from 'lucide-react'
-import { useI18n } from '@/shared/contexts/I18nContext'
+import { useI18n } from '@shared'
 
 // ================================
 // INTERFACES E TIPOS

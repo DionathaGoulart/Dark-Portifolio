@@ -1,4 +1,4 @@
-import { ImageItem } from '../types'
+import { ImageItem } from '../../types/Ui.types'
 
 // ================================
 // Constantes

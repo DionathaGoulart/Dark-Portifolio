@@ -1,10 +1,14 @@
 import React from 'react'
 import { Instagram, Youtube } from 'lucide-react'
-
-import { LanguageSwitch, Logo, ThemeToggle } from '../../ui'
-import { Navigation } from '../Navigation'
-import { useI18n } from '@/shared/contexts'
-import { HeaderConfig, SocialUrls } from '@/shared/types/Layout.types'
+import {
+  HeaderConfig,
+  LanguageSwitch,
+  Logo,
+  Navigation,
+  SocialUrls,
+  ThemeToggle,
+  useI18n
+} from '@/shared'
 
 // ================================
 // CONSTANTES

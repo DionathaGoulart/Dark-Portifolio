@@ -190,3 +190,121 @@ export interface GridLoadingSkeletonProps {
   /** Classes CSS adicionais */
   className?: string
 }
+
+// ================================
+// UI COMPONENT TYPES ADICIONAIS
+// ================================
+
+/**
+ * Common button variants
+ */
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'ghost'
+  | 'danger'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
+/**
+ * Button component props
+ */
+export interface ButtonProps {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  disabled?: boolean
+  loading?: boolean
+  icon?: React.ComponentType
+  iconPosition?: 'left' | 'right'
+  fullWidth?: boolean
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  children?: React.ReactNode
+  className?: string
+  type?: 'button' | 'submit' | 'reset'
+}
+
+/**
+ * Modal component props
+ */
+export interface ModalProps {
+  isOpen: boolean
+  onClose: () => void
+  title?: string
+  children: React.ReactNode
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
+  closeOnOverlayClick?: boolean
+  showCloseButton?: boolean
+  className?: string
+}
+
+/**
+ * Input field props
+ */
+export interface InputProps {
+  label?: string
+  placeholder?: string
+  value?: string
+  defaultValue?: string
+  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url'
+  disabled?: boolean
+  readOnly?: boolean
+  required?: boolean
+  error?: string | boolean
+  helperText?: string
+  icon?: React.ComponentType
+  iconPosition?: 'left' | 'right'
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
+  className?: string
+}
+
+/**
+ * Loading spinner props
+ */
+export interface LoadingSpinnerProps {
+  size?: 'sm' | 'md' | 'lg'
+  color?: string
+  className?: string
+}
+
+/**
+ * Theme configuration
+ */
+export interface ThemeConfig {
+  colors: {
+    primary: string
+    secondary: string
+    accent: string
+    background: string
+    surface: string
+    text: string
+    textSecondary: string
+    border: string
+    error: string
+    warning: string
+    success: string
+    info: string
+  }
+  spacing: {
+    xs: string
+    sm: string
+    md: string
+    lg: string
+    xl: string
+  }
+  borderRadius: {
+    none: string
+    sm: string
+    md: string
+    lg: string
+    full: string
+  }
+  shadows: {
+    none: string
+    sm: string
+    md: string
+    lg: string
+    xl: string
+  }
+}

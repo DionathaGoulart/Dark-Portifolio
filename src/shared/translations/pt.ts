@@ -1,4 +1,4 @@
-import { Translation } from '@/types'
+import { Translation } from '@/types/Pages.types'
 
 /**
  * Traduções em português para a aplicação
