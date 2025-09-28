@@ -1,6 +1,6 @@
+import { ImageItem } from '@/shared/types'
 import React, { useState, useEffect } from 'react'
-import { ImageCard } from '@/features/grid'
-import { ImageItem } from '@/features/grid/types'
+import { ImageCard } from '../ImageCard'
 
 // ================================
 // INTERFACES E TIPOS

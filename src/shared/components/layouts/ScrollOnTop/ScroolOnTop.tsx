@@ -1,24 +1,9 @@
+import {
+  ScrollInfo,
+  ScrollToTopHook,
+  ScrollToTopProps
+} from '@/shared/types/Layout.types'
 import React, { useState, useEffect } from 'react'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-interface ScrollToTopButtonProps {
-  showAfter?: number
-  smooth?: boolean
-  className?: string
-}
-
-interface ScrollInfo {
-  isVisible: boolean
-  scrollProgress: number
-}
-
-interface UseScrollToTopReturn {
-  isVisible: boolean
-  scrollToTop: (smooth?: boolean) => void
-}
 
 // ================================
 // CONSTANTES
@@ -144,7 +129,7 @@ const ProgressCircle: React.FC<{ progress: number }> = ({ progress }) => (
 /**
  * Botão simples de voltar ao topo que aparece após o scroll
  */
-export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
+export const ScrollToTopButton: React.FC<ScrollToTopProps> = ({
   showAfter = DEFAULT_SHOW_AFTER,
   smooth = true,
   className = ''
@@ -180,7 +165,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
 /**
  * Botão avançado de voltar ao topo com indicador de progresso
  */
-export const ScrollToTopWithProgress: React.FC<ScrollToTopButtonProps> = ({
+export const ScrollToTopWithProgress: React.FC<ScrollToTopProps> = ({
   showAfter = DEFAULT_SHOW_AFTER,
   smooth = true,
   className = ''
@@ -233,7 +218,7 @@ export const ScrollToTopWithProgress: React.FC<ScrollToTopButtonProps> = ({
  */
 export const useScrollToTop = (
   showAfter: number = DEFAULT_SHOW_AFTER
-): UseScrollToTopReturn => {
+): ScrollToTopHook => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

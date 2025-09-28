@@ -1,20 +1,10 @@
 import React from 'react'
 import { Instagram, Youtube } from 'lucide-react'
-import { Logo } from '../ui/Logo'
-import { Navigation } from '../ui/Navigation'
-import { ThemeToggle } from '../ui/ThemeToggle'
-import { LanguageSwitch } from '../ui/LanguageSwitch'
-import { HeaderConfig } from './types'
-import { useI18n } from '@/shared/contexts/I18nContext'
 
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-interface SocialLinksProps {
-  instagramUrl: string
-  youtubeUrl: string
-}
+import { LanguageSwitch, Logo, ThemeToggle } from '../../ui'
+import { Navigation } from '../Navigation'
+import { useI18n } from '@/shared/contexts'
+import { HeaderConfig, SocialUrls } from '@/shared/types/Layout.types'
 
 // ================================
 // CONSTANTES
@@ -47,10 +37,7 @@ const createNavItems = (t: any) => [
 /**
  * Componente de links das redes sociais
  */
-const SocialLinks: React.FC<SocialLinksProps> = ({
-  instagramUrl,
-  youtubeUrl
-}) => (
+const SocialLinks: React.FC<SocialUrls> = ({ instagramUrl, youtubeUrl }) => (
   <div className="flex justify-center items-center pb-4 space-x-3">
     <a
       href={instagramUrl}

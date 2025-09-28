@@ -4,9 +4,9 @@ import {
   AdaptiveThreeColumnGrid,
   AdaptiveSoloGrid,
   AdaptiveTwoColumnGrid
-} from '@/shared/components/ui/FlexibleImageGrid'
-import { useImageOptimization } from '@/features/grid/hooks/useImageOptimization'
-import { ModalZoom } from '@/features/grid/components/ui/ModalZoom'
+} from '@/shared/components/ui/FlexibleImageGrid/FlexibleImageGrid'
+import { ModalZoom } from '@/shared/components/ui/ModalZoom/ModalZoom'
+import { useImageOptimization } from '@/shared/hooks'
 
 // ================================
 // INTERFACES & TYPES
