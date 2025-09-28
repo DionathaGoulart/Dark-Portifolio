@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useI18n } from '@/shared/contexts/I18nContext'
-import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 import { trackEvent } from '@/features/ga'
-import { ImageItem } from '@/shared/types'
-import { batchPreloadImages } from '@/shared/utils'
-import { MasonryGrid } from '@/shared/components/ui'
+import {
+  batchPreloadImages,
+  ImageItem,
+  MasonryGrid,
+  useDocumentTitle,
+  useI18n
+} from '@/shared'
 
 // ================================
 // INTERFACES & TYPES

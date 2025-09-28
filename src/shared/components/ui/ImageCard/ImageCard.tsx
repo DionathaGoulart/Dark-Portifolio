@@ -1,6 +1,5 @@
-import { ImageCardProps } from '@/shared/types'
 import React, { useState } from 'react'
-import { ImageLoader } from '../ImageLoader'
+import { ImageCardProps, ImageLoader } from '@/shared'
 
 // ================================
 // INTERFACES E TIPOS

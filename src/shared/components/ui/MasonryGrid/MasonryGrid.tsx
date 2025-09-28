@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-
-import { MasonryGridProps, ImageItem } from '../../../types'
-import { ImageCard } from '../ImageCard'
+import { ImageCard, ImageItem, MasonryGridProps } from '@shared'
 
 // ================================
 // INTERFACES E TIPOS

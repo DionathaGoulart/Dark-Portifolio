@@ -1,6 +1,5 @@
 export * from './FlexibleImageGrid'
 export * from './ImageCard'
-export * from './ImageGrid'
 export * from './ImageLoader'
 export * from './LanguageSwitch'
 export * from './Logo'

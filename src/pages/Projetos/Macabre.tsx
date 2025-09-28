@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useI18n } from '@/shared/contexts/I18nContext'
 import {
-  AdaptiveThreeColumnGrid,
   AdaptiveSoloGrid,
-  AdaptiveTwoColumnGrid
-} from '@/shared/components/ui/FlexibleImageGrid/FlexibleImageGrid'
-import { ModalZoom } from '@/shared/components/ui/ModalZoom/ModalZoom'
-import { useImageOptimization } from '@/shared/hooks'
+  AdaptiveThreeColumnGrid,
+  ModalZoom,
+  useI18n,
+  useImageOptimization
+} from '@/shared'
 
 // ================================
 // INTERFACES & TYPES
@@ -40,29 +39,28 @@ interface GridSection {
 // ================================
 
 const originalUrls = [
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048579/pj4_1.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048580/pj4_2.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048565/pj4_3.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048567/pj4_4.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048566/pj4_5.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048570/pj4_6.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048574/pj4_7.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048573/pj4_8.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048569/pj4_9.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048576/pj4_10.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048581/pj4_11.webp',
-  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048571/pj4_12.webp'
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048491/pj2_1.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048490/pj2_2.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048491/pj2_3.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048495/pj2_4.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048496/pj2_5.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048500/pj2_6.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048498/pj2_7.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048492/pj2_8.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048497/pj2_9.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048496/pj2_10.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048493/pj2_11.webp',
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1758048501/pj2_12.webp'
 ]
 
 const pageTexts: PageTextsConfig = {
   pt: {
-    title: 'Creepy',
-    description:
-      'Designs de rostos perturbadores para uso em produtos impressos!'
+    title: 'Macabre',
+    description: 'Design de rostos macabros estampados em camisetas raglan.'
   },
   en: {
-    title: 'Creepy',
-    description: 'Disturbing face designs for use on printed products!'
+    title: 'Macabre',
+    description: 'Design of macabre faces printed on raglan t-shirts.'
   }
 }
 
@@ -74,7 +72,7 @@ const horrorAdaptiveRules = {
   ultraTall: { aspectRatio: 'tall', objectFit: 'contain' }
 } as const
 
-const PRIORITY_IMAGES_COUNT = 5
+const PRIORITY_IMAGES_COUNT = 4
 const ANIMATION_KEYFRAMES = `
   @keyframes shimmer {
     0% { transform: translateX(-100%) skewX(-12deg); }
@@ -199,7 +197,7 @@ const usePageTexts = (language: string) => {
 // ================================
 
 /**
- * Creates grid sections configuration for the Creepy page layout
+ * Creates grid sections configuration for the Macabre page layout
  */
 const createGridSections = (
   images: any,
@@ -227,14 +225,14 @@ const createGridSections = (
         ))}
       </div>
     ),
-    containerClass: 'mb-12 sm:px-16'
+    containerClass: 'sm:px-16'
   },
   {
     component: (
       <AdaptiveSoloGrid
         images={images.solo.slice(3, 4)}
         adaptiveMode="manual"
-        fallbackAspectRatio="portrait"
+        fallbackAspectRatio="card"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -251,7 +249,6 @@ const createGridSections = (
         images={images.solo.slice(4, 5)}
         adaptiveMode="manual"
         fallbackAspectRatio="auto"
-        fallbackObjectFit="contain"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -260,7 +257,12 @@ const createGridSections = (
     ),
     imageIndices: [4],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
+    loadingComponent: (
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-[3/4]"
+      />
+    )
   },
   {
     component: (
@@ -284,8 +286,7 @@ const createGridSections = (
       <AdaptiveSoloGrid
         images={images.solo.slice(6, 7)}
         adaptiveMode="manual"
-        fallbackAspectRatio="auto"
-        fallbackObjectFit="contain"
+        fallbackAspectRatio="card"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -301,8 +302,7 @@ const createGridSections = (
       <AdaptiveSoloGrid
         images={images.solo.slice(7, 8)}
         adaptiveMode="manual"
-        fallbackAspectRatio="auto"
-        fallbackObjectFit="contain"
+        fallbackAspectRatio="wide"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -311,15 +311,19 @@ const createGridSections = (
     ),
     imageIndices: [7],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
+    loadingComponent: (
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-video"
+      />
+    )
   },
   {
     component: (
       <AdaptiveSoloGrid
         images={images.solo.slice(8, 9)}
         adaptiveMode="manual"
-        fallbackAspectRatio="square"
-        fallbackObjectFit="contain"
+        fallbackAspectRatio="portrait"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -328,28 +332,53 @@ const createGridSections = (
     ),
     imageIndices: [8],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
+    loadingComponent: (
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-[3/4]"
+      />
+    )
   },
   {
     component: (
-      <AdaptiveTwoColumnGrid
-        images={images.grid.slice(9, 11)}
+      <AdaptiveSoloGrid
+        images={images.solo.slice(9, 10)}
         adaptiveMode="manual"
-        fallbackAspectRatio="photo"
+        fallbackAspectRatio="portrait"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
         gap={1}
       />
     ),
-    imageIndices: [9, 10],
-    context: 'grid' as const,
+    imageIndices: [9],
+    context: 'solo' as const,
     loadingComponent: (
-      <div className="grid grid-cols-2 gap-1">
-        {Array.from({ length: 2 }, (_, i) => (
-          <ImageSectionLoader key={i} aspectRatio="aspect-video" />
-        ))}
-      </div>
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-[3/4]"
+      />
+    )
+  },
+  {
+    component: (
+      <AdaptiveSoloGrid
+        images={images.solo.slice(10, 11)}
+        adaptiveMode="manual"
+        fallbackAspectRatio="portrait"
+        adaptiveRules={horrorAdaptiveRules}
+        onImageClick={onImageClick}
+        onImageError={onImageError}
+        gap={1}
+      />
+    ),
+    imageIndices: [10],
+    context: 'solo' as const,
+    loadingComponent: (
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-[3/4]"
+      />
     )
   },
   {
@@ -357,8 +386,7 @@ const createGridSections = (
       <AdaptiveSoloGrid
         images={images.solo.slice(11, 12)}
         adaptiveMode="manual"
-        fallbackAspectRatio="auto"
-        fallbackObjectFit="contain"
+        fallbackAspectRatio="wide"
         adaptiveRules={horrorAdaptiveRules}
         onImageClick={onImageClick}
         onImageError={onImageError}
@@ -367,7 +395,12 @@ const createGridSections = (
     ),
     imageIndices: [11],
     context: 'solo' as const,
-    loadingComponent: <ImageSectionLoader className="max-w-2xl mx-auto" />
+    loadingComponent: (
+      <ImageSectionLoader
+        className="max-w-2xl mx-auto"
+        aspectRatio="aspect-video"
+      />
+    )
   }
 ]
 
@@ -376,10 +409,10 @@ const createGridSections = (
 // ================================
 
 /**
- * Creepy page component displaying disturbing designs with dark and captivating aesthetic.
+ * Macabre page component displaying horror-themed designs with dark aesthetic.
  * Features adaptive image loading with priority rendering and modal zoom.
  */
-export const Creepy: React.FC = () => {
+export const Macabre: React.FC = () => {
   const { language } = useI18n()
   const texts = usePageTexts(language)
 
@@ -438,8 +471,8 @@ export const Creepy: React.FC = () => {
           </p>
         </div>
         <div className="space-y-8">
-          {/* Render priority sections (first 3 sections) */}
-          {gridSections.slice(0, 3).map((section, index) => (
+          {/* Render priority sections (first 2 sections) */}
+          {gridSections.slice(0, 2).map((section, index) => (
             <GridSectionWrapper
               key={`priority-${index}`}
               section={section}
@@ -453,7 +486,7 @@ export const Creepy: React.FC = () => {
           {!loading && lazyLoading && <LazyLoadingIndicator />}
 
           {/* Render remaining sections with lazy loading */}
-          {gridSections.slice(3).map((section, index) => (
+          {gridSections.slice(2).map((section, index) => (
             <GridSectionWrapper
               key={`lazy-${index}`}
               section={section}

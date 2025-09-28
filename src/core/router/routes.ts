@@ -1,21 +1,19 @@
-import { RouteConfig } from '@core/router'
 import {
   HomePage,
   AboutPage,
   ProjectsPage,
   PrintsPage,
-  ContactPage
+  ContactPage,
+  Arac,
+  Creepy,
+  FacesOfHorror,
+  Fantasy,
+  Halloween,
+  Horror,
+  Joaninho,
+  Macabre
 } from '@pages'
-
-// Importações de páginas específicas de projetos
-import { Arac } from '@/pages/Projects/Arac'
-import { Creepy } from '@/pages/Projects/Creepy'
-import { FacesOfHorror } from '@/pages/Projects/FacesOfHorror'
-import { Fantasy } from '@/pages/Projects/Fantasy'
-import { Halloween } from '@/pages/Projects/Halloween'
-import { Horror } from '@/pages/Projects/Horror'
-import { Joaninho } from '@/pages/Projects/Joaninho'
-import { Macabre } from '@/pages/Projects/Macabre'
+import { RouteConfig } from '@types'
 
 // ================================
 // Configuração de Rotas

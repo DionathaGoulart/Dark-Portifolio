@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 import { ptTranslations } from '../translations/pt'
 import { enTranslations } from '../translations/en'
-import { Language, Translation } from '@/types'
+import { Language, Translation } from '@/types/Pages.types'
 import { trackLanguageChange } from '@/features/ga'
 
 // ================================

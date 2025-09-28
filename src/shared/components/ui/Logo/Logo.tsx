@@ -49,13 +49,15 @@ export const Logo: React.FC<LogoProps> = ({
 
   return (
     <div className={containerClasses}>
-      <img
-        src={logoSrc}
-        alt={alt}
-        className={imageClasses}
-        decoding="async"
-        fetchPriority="high"
-      />
+      <h1>
+        <img
+          src={logoSrc}
+          alt={alt}
+          className={imageClasses}
+          decoding="async"
+          fetchPriority="high"
+        />
+      </h1>
     </div>
   )
 }

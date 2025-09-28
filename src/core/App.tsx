@@ -1,9 +1,7 @@
 import React from 'react'
-import { AppRouter, appRoutes } from '@core/router'
-
 import { useAnalytics } from '@/features/ga'
-import { ThemeProvider } from '@/shared/contexts'
-import { MainLayout } from '@/shared/components/layouts'
+import { AppRouter, appRoutes } from './router'
+import { MainLayout, ThemeProvider } from '@/shared'
 
 const App: React.FC = () => {
   useAnalytics()

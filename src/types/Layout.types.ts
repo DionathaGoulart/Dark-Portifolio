@@ -1,3 +1,5 @@
+import React from 'react'
+
 // ================================
 // TIPOS BASE COMPARTILHADOS
 // ================================
@@ -160,9 +162,6 @@ export interface ProgressCircleProps {
 // ================================
 // CONSTANTES DE TIPOS
 // ================================
-
-/** Tipos de tamanho para botões */
-export type ButtonSize = 'small' | 'large'
 
 /** Tipos de linha do menu hambúrguer */
 export type HamburgerLineType = 'top' | 'middle' | 'bottom'
