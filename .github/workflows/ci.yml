@@ -72,24 +72,6 @@ jobs:
           name: build-files
           path: dist/
 
-         deploy-preview:
-           name: Deploy Preview to Vercel
-           if: github.event_name == 'pull_request'
-           needs: [test, build]
-           runs-on: ubuntu-latest
-
-           steps:
-             - name: Checkout repository
-               uses: actions/checkout@v4
-
-             - name: Deploy to Vercel Preview
-               uses: amondnet/vercel-action@v25
-               with:
-                 vercel-token: ${{ secrets.VERCEL_TOKEN }}
-                 vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-                 vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-                 working-directory: ./
-                 scope: ${{ secrets.VERCEL_SCOPE }}
-
-         # Deploy de produção é feito automaticamente pelo Vercel via integração nativa
+         # Deploy é feito automaticamente pelo Vercel via integração nativa
          # quando você conecta o repositório no dashboard da Vercel
+         # Preview de PRs é gerado automaticamente pelo Vercel
