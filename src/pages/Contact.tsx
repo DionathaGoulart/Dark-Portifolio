@@ -8,7 +8,7 @@ import {
   ContactInfoProps,
   SuccessMessageProps,
   FormFieldProps,
-  ContactFormProps,
+  ContactFormComponentProps,
   SubmitStatus
 } from '@/types'
 
@@ -213,7 +213,7 @@ const FormField: React.FC<FormFieldProps> = ({
 /**
  * Contact form component
  */
-const ContactForm: React.FC<ContactFormProps> = ({
+const ContactForm: React.FC<ContactFormComponentProps> = ({
   formData,
   isSubmitting,
   submitStatus,
