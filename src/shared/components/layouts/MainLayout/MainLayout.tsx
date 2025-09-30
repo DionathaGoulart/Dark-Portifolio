@@ -1,10 +1,6 @@
 import React from 'react'
-import {
-  LayoutFooter,
-  LayoutHeader,
-  MainLayoutProps,
-  ScrollToTopButton
-} from '@/shared'
+import { LayoutFooter, LayoutHeader, ScrollToTopButton } from '@/shared'
+import { MainLayoutProps } from '@/types'
 
 // ================================
 // CONSTANTES

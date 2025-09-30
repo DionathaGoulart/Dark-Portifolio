@@ -1,16 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-import { ImageCard, ImageItem, MasonryGridProps } from '@shared'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-/**
- * Interface de props estendida para o componente MasonryGrid
- */
-interface MasonryGridPropsExtended extends MasonryGridProps {
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
-}
+import { ImageCard } from '@/shared'
+import { ImageItem, MasonryGridProps, MasonryGridPropsExtended } from '@/types'
 
 // ================================
 // UTILITÁRIOS

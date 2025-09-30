@@ -1,34 +1,7 @@
 import React from 'react'
 
 // ================================
-// TIPOS BASE COMPARTILHADOS
-// ================================
-
-/** Props base com children para componentes container */
-export interface BaseContainerProps {
-  children: React.ReactNode
-  className?: string
-}
-
-/** Props base para componentes com estilização customizável */
-export interface BaseStyledProps {
-  className?: string
-}
-
-/** Configuração de URLs para redes sociais */
-export interface SocialUrls {
-  instagramUrl?: string
-  youtubeUrl: string
-}
-
-/** Configuração de comportamento de scroll */
-export interface ScrollConfig {
-  showAfter?: number
-  smooth?: boolean
-}
-
-// ================================
-// NAVEGAÇÃO
+// NAVIGATION TYPES
 // ================================
 
 /** Item de navegação com ação customizável */
@@ -39,8 +12,9 @@ export interface NavItem {
 }
 
 /** Props para componente de navegação */
-export interface NavigationProps extends BaseStyledProps {
+export interface NavigationProps {
   items: NavItem[]
+  className?: string
 }
 
 /** Retorno do hook de rota ativa */
@@ -49,11 +23,19 @@ export interface ActiveRouteHook {
 }
 
 // ================================
-// SCROLL TO TOP
+// SCROLL TO TOP TYPES
 // ================================
 
+/** Configuração de comportamento de scroll */
+export interface ScrollConfig {
+  showAfter?: number
+  smooth?: boolean
+}
+
 /** Props para botões de scroll to top */
-export interface ScrollToTopProps extends BaseStyledProps, ScrollConfig {}
+export interface ScrollToTopProps extends ScrollConfig {
+  className?: string
+}
 
 /** Informações de estado do scroll */
 export interface ScrollInfo {
@@ -68,8 +50,14 @@ export interface ScrollToTopHook {
 }
 
 // ================================
-// HEADER/CABEÇALHO
+// HEADER TYPES
 // ================================
+
+/** Configuração de URLs para redes sociais */
+export interface SocialUrls {
+  instagramUrl?: string
+  youtubeUrl: string
+}
 
 /** Configuração completa do header */
 export interface HeaderConfig extends SocialUrls {
@@ -83,7 +71,7 @@ export interface HeaderConfig extends SocialUrls {
 export interface LayoutHeaderProps extends HeaderConfig {}
 
 // ================================
-// FOOTER/RODAPÉ
+// FOOTER TYPES
 // ================================
 
 /** Configuração do footer */
@@ -93,10 +81,12 @@ export interface FooterConfig {
 }
 
 /** Props do componente LayoutFooter */
-export interface LayoutFooterProps extends BaseStyledProps {}
+export interface LayoutFooterProps {
+  className?: string
+}
 
 // ================================
-// LAYOUT PRINCIPAL
+// MAIN LAYOUT TYPES
 // ================================
 
 /** Configuração simplificada do header no MainLayout */
@@ -114,13 +104,15 @@ export interface MainLayoutFooterConfig {
 }
 
 /** Props do componente MainLayout */
-export interface MainLayoutProps extends BaseContainerProps {
+export interface MainLayoutProps {
+  children: React.ReactNode
+  className?: string
   header?: MainLayoutHeaderConfig
   footer?: MainLayoutFooterConfig
 }
 
 // ================================
-// COMPONENTES DE NAVEGAÇÃO ESPECÍFICOS
+// SPECIFIC COMPONENT TYPES
 // ================================
 
 /** Props para navegação desktop */
@@ -147,12 +139,10 @@ export interface MobileNavigationProps extends DesktopNavigationProps {
   onLinkClick: () => void
 }
 
-// ================================
-// COMPONENTES DE SCROLL ESPECÍFICOS
-// ================================
-
 /** Props para ícone de seta */
-export interface ArrowUpIconProps extends BaseStyledProps {}
+export interface ArrowUpIconProps {
+  className?: string
+}
 
 /** Props para círculo de progresso */
 export interface ProgressCircleProps {
@@ -160,59 +150,40 @@ export interface ProgressCircleProps {
 }
 
 // ================================
-// CONSTANTES DE TIPOS
+// CONSTANTS
 // ================================
 
 /** Tipos de linha do menu hambúrguer */
 export type HamburgerLineType = 'top' | 'middle' | 'bottom'
 
 // ================================
-// TIPOS DE UTILITÁRIOS
-// ================================
-
-/** Função para obter classes CSS condicionalmente */
-export type ClassNameGetter = (...args: any[]) => string
-
-/** Configuração de breakpoints */
-export interface Breakpoints {
-  mobile: number
-  tablet: number
-  desktop: number
-}
-
-// ================================
-// EXTENSÕES PARA CASOS ESPECÍFICOS
+// EXTENSIONS
 // ================================
 
 /** Props estendidas para componentes que precisam de controle de tema */
-export interface ThemedComponentProps extends BaseStyledProps {
+export interface ThemedComponentProps {
+  className?: string
   darkMode?: boolean
 }
 
 /** Props para componentes com animações */
-export interface AnimatedComponentProps extends BaseStyledProps {
+export interface AnimatedComponentProps {
+  className?: string
   duration?: number
   easing?: string
 }
 
 // ================================
-// TIPOS DE EVENTOS
-// ================================
-
-/** Handlers de eventos comuns */
-export interface EventHandlers {
-  onClick?: () => void
-  onToggle?: (isOpen: boolean) => void
-  onClose?: () => void
-}
-
-// ================================
-// CONFIGURAÇÕES PADRÃO (TIPOS)
+// DEFAULT CONFIGURATIONS
 // ================================
 
 /** Configurações padrão do layout */
 export interface DefaultLayoutConfig {
   social: SocialUrls
   scroll: ScrollConfig
-  breakpoints: Breakpoints
+  breakpoints: {
+    mobile: number
+    tablet: number
+    desktop: number
+  }
 }

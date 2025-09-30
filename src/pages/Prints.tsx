@@ -1,30 +1,8 @@
 import React, { useEffect } from 'react'
-import { trackEvent } from '@/features/ga'
+import { trackEvent } from '@/features/analytics'
 import { useDocumentTitle, useI18n } from '@/shared'
 import { Translation } from '@/types'
-
-// ================================
-// INTERFACES & TYPES
-// ================================
-
-interface LinkItemProps {
-  title: string
-  url: string
-  icon?: string
-  onClick: () => void
-}
-
-interface LinkData {
-  titleKey?: keyof Translation['pages']['prints']['links']
-  title?: string
-  url: string
-  icon?: string
-  eventName: string
-}
-
-interface DecorativeDividerProps {
-  className?: string
-}
+import { LinkItemProps, LinkData, DecorativeDividerProps } from '@/types'
 
 // ================================
 // CONSTANTS

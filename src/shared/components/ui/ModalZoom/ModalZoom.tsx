@@ -1,20 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-/**
- * Interface de props para o componente ModalZoom
- */
-interface ModalZoomProps {
-  image: {
-    urls?: { large: string }
-    url?: string
-    alt?: string
-  }
-  onClose: () => void
-}
+import { ModalZoomProps } from '@/types'
 
 // ================================
 // CONSTANTES

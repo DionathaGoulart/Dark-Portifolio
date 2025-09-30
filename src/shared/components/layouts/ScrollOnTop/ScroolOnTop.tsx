@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollInfo, ScrollToTopHook, ScrollToTopProps } from '@shared'
+import { ScrollInfo, ScrollToTopHook, ScrollToTopProps } from '@types'
 
 // ================================
 // CONSTANTES

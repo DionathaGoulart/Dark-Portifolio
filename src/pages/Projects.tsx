@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { trackEvent } from '@/features/ga'
+import { trackEvent } from '@/features/analytics'
 import {
   batchPreloadImages,
   ImageItem,
@@ -8,53 +8,15 @@ import {
   useDocumentTitle,
   useI18n
 } from '@/shared'
-
-// ================================
-// INTERFACES & TYPES
-// ================================
-
-interface ProjectData {
-  id: string
-  title: string
-  titlePt: string
-  url: string
-  linkTo: string
-}
-
-interface CloudinaryOptions {
-  width?: number
-  height?: number
-  quality?: 'auto' | number
-  format?: 'auto' | 'webp' | 'jpg' | 'png'
-  crop?: 'fill' | 'fit' | 'scale' | 'pad'
-}
-
-interface ProjectUrls {
-  thumbnail: string
-  medium: string
-  large: string
-  original: string
-}
-
-interface LoadingState {
-  loading: boolean
-  lazyLoading: boolean
-  error: string | null
-}
-
-interface StableTranslations {
-  title: string
-  description: string
-  error: string
-}
-
-interface ProjectGridLoaderProps {
-  count?: number
-}
-
-interface ErrorStateProps {
-  error: string
-}
+import {
+  ProjectData,
+  CloudinaryOptions,
+  ProjectUrls,
+  LoadingState,
+  StableTranslations,
+  ProjectGridLoaderProps,
+  ErrorStateProps
+} from '@/types'
 
 // ================================
 // CONSTANTS

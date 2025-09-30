@@ -1,62 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { trackEvent } from '@/features/ga'
+import { trackEvent } from '@/features/analytics'
 import { useDocumentTitle, useI18n } from '@/shared'
-
-// ================================
-// INTERFACES & TYPES
-// ================================
-
-interface FormData {
-  name: string
-  email: string
-  message: string
-}
-
-interface EmailJSConfig {
-  serviceId: string
-  templateId: string
-  publicKey: string
-}
-
-interface ContactPageProps {
-  className?: string
-}
-
-interface ContactInfoProps {
-  description: string
-}
-
-interface SuccessMessageProps {
-  title: string
-  message: string
-  buttonText: string
-  onSendAnother: () => void
-}
-
-interface FormFieldProps {
-  label: string
-  name: keyof FormData
-  type: 'text' | 'email' | 'textarea'
-  value: string
-  placeholder: string
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
-}
-
-interface ContactFormProps {
-  formData: FormData
-  isSubmitting: boolean
-  submitStatus: SubmitStatus
-  onInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
-  onSubmit: (e: React.FormEvent) => void
-  onResetForm: () => void
-  translations: any
-}
-
-type SubmitStatus = 'idle' | 'success' | 'error'
+import {
+  FormData,
+  EmailJSConfig,
+  ContactPageProps,
+  ContactInfoProps,
+  SuccessMessageProps,
+  FormFieldProps,
+  ContactFormProps,
+  SubmitStatus
+} from '@/types'
 
 // ================================
 // CONSTANTS

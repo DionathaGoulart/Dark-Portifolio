@@ -1,19 +1,6 @@
 import React, { useState } from 'react'
-import { ImageCardProps, ImageLoader } from '@/shared'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-/**
- * Interface de props estendida para o componente ImageCard
- */
-export interface ImageCardPropsExtended extends ImageCardProps {
-  enableHoverScale?: boolean
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
-  showTitle?: boolean
-  disableShadow?: boolean
-}
+import { ImageLoader } from '@/shared'
+import { ImageCardPropsExtended } from '@/types'
 
 // ================================
 // CONSTANTES

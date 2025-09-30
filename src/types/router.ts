@@ -1,9 +1,129 @@
 import React from 'react'
 
 // ================================
-// ROUTER SPECIFIC TYPES
+// ROUTING TYPES
 // ================================
-// Note: RouteConfig e RouteMeta foram movidos para Pages.types.ts para evitar conflitos
+
+/**
+ * Route metadata configuration
+ */
+export interface RouteMeta {
+  title?: string
+  description?: string
+  keywords?: string[]
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: string
+  canonical?: string
+}
+
+/**
+ * Individual route configuration
+ */
+export interface RouteConfig {
+  /** Identificador único da rota */
+  id?: string
+  /** O caminho da URL para a rota */
+  path: string
+  /** Componente React a ser renderizado para esta rota */
+  element: React.ComponentType<any>
+  /** Título opcional para a rota (ex: para título da página ou navegação) */
+  title?: string
+  /** Se a rota requer autenticação */
+  requiresAuth?: boolean
+  /** Meta informações da rota */
+  meta?: RouteMeta
+  /** Rota pai (para rotas aninhadas) */
+  parent?: string
+  /** Se deve fazer preload do componente */
+  preload?: boolean
+  /** Se a rota é visível na navegação */
+  showInNavigation?: boolean
+  /** Ícone da rota (para navegação) */
+  icon?: React.ComponentType | string
+  /** Rotas filhas */
+  children?: RouteConfig[]
+  /** Se a rota deve ter match exato */
+  exact?: boolean
+}
+
+/**
+ * Route group with shared layout
+ */
+export interface RouteGroup {
+  layout: React.ComponentType<any>
+  routes: RouteConfig[]
+}
+
+// ================================
+// ROUTER COMPONENT TYPES
+// ================================
+
+/**
+ * Props for the AppRouter component
+ */
+export interface AppRouterProps {
+  routes: RouteConfig[]
+  fallback?: React.ComponentType
+  loading?: React.ComponentType
+  onRouteChange?: (route: RouteConfig) => void
+  basename?: string
+}
+
+/**
+ * Props for the RouteRenderer component
+ */
+export interface RouteRendererProps {
+  route: RouteConfig
+  isLoading?: boolean
+  error?: Error | null
+}
+
+/**
+ * Interface for navigation configuration
+ */
+export interface NavigationConfig {
+  /** Rotas visíveis na navegação */
+  visibleRoutes: RouteConfig[]
+  /** Configurações de menu mobile */
+  mobileMenu?: {
+    showOverlay: boolean
+    closeOnNavigate: boolean
+  }
+}
+
+/**
+ * Interface for router hook return
+ */
+export interface RouterHookReturn {
+  currentRoute: RouteConfig | null
+  navigate: (path: string) => void
+  goBack: () => void
+  isLoading: boolean
+}
+
+/**
+ * Navigation options for routes
+ */
+export interface RouteNavigateOptions {
+  replace?: boolean
+  state?: any
+  preventScrollReset?: boolean
+}
+
+/**
+ * Props for route-based navigation component
+ */
+export interface RouteNavigationProps {
+  routes: RouteConfig[]
+  currentPath: string
+  onNavigate?: (route: RouteConfig) => void
+  className?: string
+}
+
+// ================================
+// ROUTER STATE TYPES
+// ================================
 
 /**
  * Router state management
@@ -46,7 +166,7 @@ export interface RouterProviderProps {
 }
 
 /**
- * Navigation options for router methods (renomeado para evitar conflito)
+ * Navigation options for router methods
  */
 export interface RouterNavigateOptions {
   replace?: boolean
@@ -56,28 +176,9 @@ export interface RouterNavigateOptions {
   scroll?: boolean
 }
 
-/**
- * Route transition configuration
- */
-export interface RouteTransition {
-  duration: number
-  ease: string
-  type: 'fade' | 'slide' | 'scale' | 'none'
-  direction?: 'left' | 'right' | 'up' | 'down'
-}
-
-/**
- * Router configuration for the application
- */
-export interface RouterConfiguration {
-  basename?: string
-  mode?: 'history' | 'hash' | 'memory'
-  scrollBehavior?: 'auto' | 'smooth' | 'instant'
-  transitions?: RouteTransition
-  preloadDelay?: number
-  caseSensitive?: boolean
-  trailingSlash?: 'always' | 'never' | 'preserve'
-}
+// ================================
+// ROUTE GUARD TYPES
+// ================================
 
 /**
  * Route guard function type
@@ -163,6 +264,10 @@ export interface RouterHistory {
   canGoForward: boolean
 }
 
+// ================================
+// ROUTE LOADER TYPES
+// ================================
+
 /**
  * Route loader function type
  */
@@ -180,6 +285,10 @@ export type RouteAction<T = any> = (params: {
   request: Request
   context?: any
 }) => T | Promise<T>
+
+// ================================
+// COMPONENT TYPES
+// ================================
 
 /**
  * Route error boundary props
@@ -230,6 +339,10 @@ export interface RedirectProps {
   strict?: boolean
 }
 
+// ================================
+// HOOK RETURN TYPES
+// ================================
+
 /**
  * Router hook return types
  */
@@ -275,13 +388,3 @@ export interface RoutePreloader {
   retries?: number
   priority?: 'high' | 'normal' | 'low'
 }
-
-// ================================
-// COMPATIBILITY ALIASES
-// ================================
-
-/**
- * @deprecated Use RouterContextValue instead
- * Mantido apenas para compatibilidade durante migração
- */
-export type RouterHook = RouterContextValue

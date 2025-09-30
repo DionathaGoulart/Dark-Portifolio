@@ -12,8 +12,8 @@ import {
   Horror,
   Joaninho,
   Macabre
-} from '@pages'
-import { RouteConfig } from '@types'
+} from '@/pages'
+import { RouteConfig } from '@/types'
 
 // ================================
 // Configuração de Rotas

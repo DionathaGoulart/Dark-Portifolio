@@ -1,5 +1,6 @@
 import React from 'react'
-import { BaseStyledProps, useI18n } from '@/shared'
+import { useI18n } from '@/shared'
+import { BaseStyledProps } from '@/types'
 
 // ================================
 // COMPONENTE PRINCIPAL
