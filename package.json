@@ -1,8 +1,11 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "Dionatha Goulart <dionatha.work@gmail.com>",
+  "homepage": "https://dionatha.com.br",
+  "license": "All Rights Reserved",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
