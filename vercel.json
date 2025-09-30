@@ -4,6 +4,12 @@
   "installCommand": "npm ci",
   "framework": "vite",
   "nodeVersion": "20.x",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": false
+    }
+  },
   "regions": ["iad1", "sfo1"],
   "caching": {
     "npm": true,
