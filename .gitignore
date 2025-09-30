@@ -182,3 +182,4 @@ storybook-static
 # Test screenshots
 test-screenshots/
 test-results.json
+.vercel
