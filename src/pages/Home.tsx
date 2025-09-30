@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { trackEvent } from '@/features/analytics'
 import {
   batchPreloadImages,
@@ -166,7 +166,7 @@ const useImageLoader = (t: any) => {
     error: null
   })
 
-  const loadImages = async () => {
+  const loadImages = useCallback(async () => {
     setLoadingState({ loading: true, lazyLoading: true, error: null })
 
     try {
@@ -228,7 +228,7 @@ const useImageLoader = (t: any) => {
         error: t.common.error || 'Erro ao carregar imagens'
       })
     }
-  }
+  }, []) // Remove t dependency to prevent infinite loop
 
   return { images, setImages, loadingState, loadImages }
 }
@@ -265,7 +265,7 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     loadImages()
-  }, [t])
+  }, [loadImages])
 
   // ================================
   // HANDLERS

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { trackEvent } from '@/features/analytics'
 import {
   batchPreloadImages,
-  ImageItem,
   MasonryGrid,
   useDocumentTitle,
   useI18n
 } from '@/shared'
+import { ImageItem } from '@/types'
 import {
   ProjectData,
   CloudinaryOptions,
@@ -531,6 +531,15 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <div className="py-12 md:py-16 min-h-screen bg-primary-white dark:bg-primary-black transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-4xl font-bold text-primary-black dark:text-primary-white mb-8 tracking-tight">
+          {stableTranslations.title}
+        </h1>
+        <p className="text-lg text-primary-black/60 dark:text-primary-white/60 mb-12">
+          {stableTranslations.description}
+        </p>
+      </div>
+
       {!loadingState.loading && loadingState.lazyLoading && (
         <LazyLoadingIndicator />
       )}

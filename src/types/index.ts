@@ -18,6 +18,23 @@ export * from './ui'
 export * from './projects'
 export * from './contact'
 
-// Re-export feature types for convenience
-export * from '../features/analytics/types'
-export * from '../features/gallery/types'
+// Re-export feature types for convenience (avoiding conflicts)
+export type {
+  CloudinaryOptions as GalleryCloudinaryOptions,
+  ColumnCount as GalleryColumnCount,
+  ErrorStateProps as GalleryErrorStateProps,
+  FolderCardProps as GalleryFolderCardProps,
+  FolderGridProps as GalleryFolderGridProps,
+  FolderItem as GalleryFolderItem,
+  GridConfig as GalleryGridConfig,
+  GridLoadingSkeletonProps as GalleryGridLoadingSkeletonProps,
+  ImageCardProps as GalleryImageCardProps,
+  ImageCardPropsExtended as GalleryImageCardPropsExtended,
+  ImageItem as GalleryImageItem,
+  ImageLoaderProps as GalleryImageLoaderProps,
+  LoadingState as GalleryLoadingState,
+  MasonryGridLoaderProps as GalleryMasonryGridLoaderProps,
+  MasonryGridProps as GalleryMasonryGridProps,
+  MasonryGridPropsExtended as GalleryMasonryGridPropsExtended,
+  OptimizedUrls as GalleryOptimizedUrls
+} from '../features/gallery/types'

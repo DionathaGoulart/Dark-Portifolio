@@ -1,69 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { imagetools } from 'vite-imagetools'
-import viteImagemin from 'vite-plugin-imagemin'
 
 export default defineConfig({
   plugins: [
-    react(),
-
-    // Plugin para transformações dinâmicas de imagens
-    imagetools({
-      // Configurações padrão para diferentes formatos
-      defaultDirectives: (url) => {
-        if (url.searchParams.has('responsive')) {
-          return new URLSearchParams(
-            'w=320;640;1024;1280;1920&format=webp;jpg&as=srcset'
-          )
-        }
-        if (url.searchParams.has('thumbnail')) {
-          return new URLSearchParams('w=150&h=150&fit=cover&format=webp')
-        }
-        if (url.searchParams.has('hero')) {
-          return new URLSearchParams(
-            'w=1920&h=1080&fit=cover&format=webp;jpg&quality=80'
-          )
-        }
-        return new URLSearchParams()
-      }
-    }),
-
-    // Plugin para compressão automática de imagens
-    viteImagemin({
-      // Configurações para diferentes formatos
-      gifsicle: {
-        optimizationLevel: 7,
-        interlaced: false
-      },
-      optipng: {
-        optimizationLevel: 7
-      },
-      mozjpeg: {
-        quality: 80,
-        progressive: true
-      },
-      pngquant: {
-        quality: [0.65, 0.8],
-        speed: 4
-      },
-      svgo: {
-        plugins: [
-          {
-            name: 'removeViewBox',
-            active: false
-          },
-          {
-            name: 'removeEmptyAttrs',
-            active: false
-          }
-        ]
-      },
-      // Configuração para WebP
-      webp: {
-        quality: 80
-      }
-    })
+    react()
   ],
 
   resolve: {

@@ -363,3 +363,35 @@ export interface MasonryGridLoaderProps {
 export interface ErrorStateProps {
   error: string
 }
+
+// ================================
+// TIPOS PARA PRINTS PAGE
+// ================================
+
+/** Dados de link para página de prints */
+export interface LinkData {
+  titleKey?: string
+  title?: string
+  url: string
+  icon?: string
+  eventName: string
+}
+
+/** Props para item de link individual */
+export interface LinkItemProps {
+  title: string
+  url: string
+  icon?: string
+  onClick?: () => void
+}
+
+/** Props para divisor decorativo */
+export interface DecorativeDividerProps {
+  className?: string
+}
+
+/** Props para componente ModalZoom */
+export interface ModalZoomProps {
+  image: ImageItem
+  onClose: () => void
+}

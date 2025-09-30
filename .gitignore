@@ -178,3 +178,7 @@ storybook-static
 # Local development
 .local
 .cache/
+
+# Test screenshots
+test-screenshots/
+test-results.json
