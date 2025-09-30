@@ -1,0 +1,3 @@
+# Ignorar branch develop para deploy
+develop
+develop/*
