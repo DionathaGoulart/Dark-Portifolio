@@ -62,6 +62,13 @@ export interface ImageCardProps {
   showTitle?: boolean
 }
 
+export interface ImageCardPropsExtended extends ImageCardProps {
+  enableHoverScale?: boolean
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
+  showTitle?: boolean
+  disableShadow?: boolean
+}
+
 /** Props para componente carregador de imagem */
 export interface ImageLoaderProps {
   /** URL da fonte da imagem */
@@ -76,6 +83,7 @@ export interface ImageLoaderProps {
   onError?: () => void
   /** Conteúdo de fallback para carregamentos que falharam */
   fallback?: React.ReactNode
+  crossOrigin?: 'anonymous' | 'use-credentials' | ''
 }
 
 // ================================
@@ -111,6 +119,11 @@ export interface MasonryGridProps extends GridConfig {
   /** Habilitar efeitos de hover nos cartões */
   showHoverEffect?: boolean
   /** Propriedade CSS object-fit para imagens */
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
+}
+
+/** Extended props for MasonryGrid component */
+export interface MasonryGridPropsExtended extends MasonryGridProps {
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
 }
 
@@ -307,4 +320,46 @@ export interface ThemeConfig {
     lg: string
     xl: string
   }
+}
+
+export interface LanguageSwitchProps {
+  className?: string
+}
+
+// ================================
+// Tipos de Otimização de Imagem
+// ================================
+
+/** Opções de otimização do Cloudinary */
+export interface CloudinaryOptions {
+  width?: number
+  height?: number
+  quality?: 'auto' | number
+  format?: 'auto' | 'webp' | 'jpg' | 'png'
+  crop?: 'fit' | 'fill' | 'crop' | 'scale'
+}
+
+/** URLs otimizadas para diferentes tamanhos */
+export interface OptimizedUrls {
+  thumbnail: string
+  medium: string
+  large: string
+  original: string
+}
+
+/** Estado de carregamento de imagens */
+export interface LoadingState {
+  loading: boolean
+  lazyLoading: boolean
+  error: string | null
+}
+
+/** Props para loader da grade masonry */
+export interface MasonryGridLoaderProps {
+  count?: number
+}
+
+/** Props para estado de erro */
+export interface ErrorStateProps {
+  error: string
 }

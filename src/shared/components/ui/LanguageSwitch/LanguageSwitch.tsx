@@ -1,14 +1,7 @@
 import React from 'react'
 import { Languages } from 'lucide-react'
 import { useI18n } from '@shared'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-interface LanguageSwitchProps {
-  className?: string
-}
+import { LanguageSwitchProps } from '@/types'
 
 // ================================
 // CONSTANTES

@@ -1,20 +1,5 @@
+import { ImageLoaderProps } from '@/types'
 import React, { useState, useRef, useEffect } from 'react'
-
-// ================================
-// INTERFACES E TIPOS
-// ================================
-
-/**
- * Interface de props para o componente ImageLoader
- */
-interface ImageLoaderProps {
-  src: string
-  alt: string
-  onLoad?: () => void
-  onError?: () => void
-  className?: string
-  crossOrigin?: 'anonymous' | 'use-credentials' | ''
-}
 
 // ================================
 // UTILITÁRIOS

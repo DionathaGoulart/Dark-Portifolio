@@ -1,7 +1,7 @@
 // ================================
 // Importações Internas
 // ================================
-import { Language } from '@/types/Pages.types'
+import { Language } from '@/types'
 
 // ================================
 // Configuração de Idioma

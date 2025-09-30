@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ImageCard, ImageItem } from '@/shared'
+import { ImageCard } from '@/shared'
+import { ImageItem } from '@/types'
 
 // ================================
 // INTERFACES E TIPOS

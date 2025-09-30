@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { AppRouterProps, RouteRendererProps } from '@types'
+import { AppRouterProps, RouteRendererProps } from '@/types'
 
 // ================================
 // COMPONENTES AUXILIARES

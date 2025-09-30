@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAnalytics } from '@/features/ga'
-import { AppRouter, appRoutes } from './router'
+import { useAnalytics } from '@/features/analytics'
+import { AppRouter, appRoutes } from './routing'
 import { MainLayout, ThemeProvider } from '@/shared'
 
 const App: React.FC = () => {

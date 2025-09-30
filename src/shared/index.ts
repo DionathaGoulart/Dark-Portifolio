@@ -1,5 +1,18 @@
-export * from './components'
+// ================================
+// SHARED MODULE EXPORTS
+// ================================
+
+// Contexts
 export * from './contexts'
+
+// Components
+export * from './components'
+
+// Hooks
 export * from './hooks'
-export * from './translations'
+
+// Utils
 export * from './utils'
+
+// Translations
+export * from './translations'
