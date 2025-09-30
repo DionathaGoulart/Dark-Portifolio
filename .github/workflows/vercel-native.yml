@@ -72,6 +72,5 @@ jobs:
           name: build-files
           path: dist/
 
-  # Nota: O deploy para Vercel acontece automaticamente via integração nativa
-  # quando você conecta o repositório no dashboard da Vercel
-  # Este workflow apenas executa os testes e build
+           # Deploy é feito automaticamente pelo Vercel via integração nativa
+           # quando você conecta o repositório no dashboard da Vercel
