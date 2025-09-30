@@ -2,6 +2,20 @@ import '@testing-library/jest-dom'
 import { beforeAll, afterEach, afterAll, vi } from 'vitest'
 import { server } from './mocks/server'
 
+// Polyfill for webidl-conversions
+if (typeof globalThis.TextEncoder === 'undefined') {
+  const { TextEncoder, TextDecoder } = require('util')
+  globalThis.TextEncoder = TextEncoder
+  globalThis.TextDecoder = TextDecoder
+}
+
+// Polyfill for URL and URLSearchParams
+if (typeof globalThis.URL === 'undefined') {
+  const { URL, URLSearchParams } = require('url')
+  globalThis.URL = URL
+  globalThis.URLSearchParams = URLSearchParams
+}
+
 // Start server before all tests
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 

@@ -13,6 +13,11 @@ export default defineConfig({
     outputFile: {
       json: './test-results.json'
     },
+    server: {
+      deps: {
+        inline: ['whatwg-url', 'webidl-conversions']
+      }
+    },
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
