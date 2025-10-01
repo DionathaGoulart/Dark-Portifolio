@@ -7,6 +7,9 @@ export default defineConfig({
     react()
   ],
 
+  // Configuração para servir arquivos estáticos
+  publicDir: 'public',
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
