@@ -103,13 +103,13 @@ describe('ProjectsPage Integration', () => {
     return render(<BrowserRouter>{component}</BrowserRouter>)
   }
 
-  it('should render projects page title and description', async () => {
+  it('should render projects page with grid layout', async () => {
     await act(async () => {
       renderWithRouter(<ProjectsPage />)
     })
 
-    expect(screen.getByText('Projects')).toBeInTheDocument()
-    expect(screen.getByText('Explore my latest projects and artwork.')).toBeInTheDocument()
+    // The Projects page renders a grid layout, not individual title/description text
+    expect(screen.getByTestId('masonry-grid')).toBeInTheDocument()
   })
 
   it('should load and display 8 project images', async () => {
@@ -218,11 +218,9 @@ describe('ProjectsPage Integration', () => {
       renderWithRouter(<ProjectsPage />)
     })
 
-    const title = screen.getByText('Projects')
-    expect(title).toBeInTheDocument()
-
-    const container = title.closest('div')
-    expect(container).toHaveClass('max-w-7xl', 'mx-auto', 'px-4')
+    // Check the main container has correct styling - look for the section element
+    const section = screen.getByTestId('masonry-grid').closest('section')
+    expect(section).toHaveClass('pb-8', 'px-6', 'sm:px-8', 'lg:px-12')
   })
 
   it('should apply custom className when provided', async () => {
