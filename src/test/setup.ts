@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
 import { beforeAll, afterEach, afterAll, vi } from 'vitest'
+import { cleanup } from '@testing-library/react'
 import { server } from './mocks/server'
 
 // Polyfill for webidl-conversions
@@ -20,10 +21,23 @@ if (typeof globalThis.URL === 'undefined') {
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 
 // Reset any request handlers that we may add during the tests
-afterEach(() => server.resetHandlers())
+afterEach(() => {
+  server.resetHandlers()
+  cleanup()
+
+  // Clear DOM completely
+  document.body.innerHTML = ''
+  document.head.innerHTML = ''
+
+  // Clear localStorage and sessionStorage
+  localStorage.clear()
+  sessionStorage.clear()
+})
 
 // Clean up after the tests are finished
-afterAll(() => server.close())
+afterAll(async () => {
+  await server.close()
+})
 
 // Mock environment variables
 Object.defineProperty(import.meta, 'env', {

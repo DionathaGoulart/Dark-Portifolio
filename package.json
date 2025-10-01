@@ -15,7 +15,7 @@
     "test:watch": "vitest",
     "test:run": "vitest run && node test-summary.cjs",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "node --max-old-space-size=4096 ./node_modules/.bin/vitest run --coverage --reporter=verbose --run",
     "test:summary": "vitest run && node test-summary.cjs",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"

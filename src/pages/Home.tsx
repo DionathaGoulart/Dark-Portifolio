@@ -1,28 +1,34 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { trackEvent } from '@/features/analytics'
+
+import {
+  LoadingState,
+  MasonryGridLoaderProps,
+  ErrorStateProps,
+  ImageItem,
+  CloudinaryOptions,
+  OptimizedUrls
+} from '@/types'
 import {
   batchPreloadImages,
-  generateOptimizedUrls,
-  generateOriginalPrintUrls
-} from '@/features/gallery'
-import {
   MasonryGrid,
   ModalZoom,
   useDocumentTitle,
   useI18n
 } from '@/shared'
-import {
-  CloudinaryOptions,
-  OptimizedUrls,
-  LoadingState,
-  MasonryGridLoaderProps,
-  ErrorStateProps,
-  ImageItem
-} from '@/types'
+import { trackEvent } from '@/features'
 
 // ================================
 // CONSTANTS
 // ================================
+
+const CLOUDINARY_BASE_URL =
+  'https://res.cloudinary.com/dlaxva1qb/image/upload/v1751235158'
+
+const DEFAULT_CLOUDINARY_OPTIONS: CloudinaryOptions = {
+  quality: 'auto',
+  format: 'auto',
+  crop: 'fit'
+}
 
 const PRIORITY_IMAGES_COUNT = 12
 const MASONRY_HEIGHTS = [
@@ -52,17 +58,89 @@ const LOADER_KEYFRAMES = `
   }
 `
 
-const originalPrintUrls = generateOriginalPrintUrls(30)
+const originalPrintUrls = Array.from(
+  { length: 30 },
+  (_, index) => `${CLOUDINARY_BASE_URL}/${index + 1}.png`
+)
 
 // ================================
 // HELPER FUNCTIONS
 // ================================
 
 /**
+ * Optimizes Cloudinary URLs with transformation parameters
+ */
+const optimizeCloudinaryUrl = (
+  url: string,
+  options: CloudinaryOptions = {}
+): string => {
+  const mergedOptions = { ...DEFAULT_CLOUDINARY_OPTIONS, ...options }
+  const { width, height, quality, format, crop } = mergedOptions
+
+  const cloudinaryRegex =
+    /https:\/\/res\.cloudinary\.com\/([^\/]+)\/image\/upload\/(.+)/
+  const match = url.match(cloudinaryRegex)
+
+  if (!match) return url
+
+  const [, cloudName, imagePath] = match
+  const transformations: string[] = []
+
+  if (width || height) {
+    const dimensions: string[] = []
+    if (width) dimensions.push(`w_${width}`)
+    if (height) dimensions.push(`h_${height}`)
+    if (crop) dimensions.push(`c_${crop}`)
+    transformations.push(dimensions.join(','))
+  }
+
+  if (quality) transformations.push(`q_${quality}`)
+  if (format) transformations.push(`f_${format}`)
+
+  transformations.push('fl_progressive', 'fl_immutable_cache')
+
+  const transformationString = transformations.join('/')
+  return `https://res.cloudinary.com/${cloudName}/image/upload/${transformationString}/${imagePath}`
+}
+
+/**
+ * Generates optimized URLs for different image sizes
+ */
+const generateOptimizedUrls = (originalUrl: string): OptimizedUrls => ({
+  thumbnail: optimizeCloudinaryUrl(originalUrl, {
+    width: 400,
+    height: 400,
+    quality: 70,
+    format: 'webp'
+  }),
+  medium: optimizeCloudinaryUrl(originalUrl, {
+    width: 800,
+    height: 800,
+    quality: 80,
+    format: 'webp'
+  }),
+  large: optimizeCloudinaryUrl(originalUrl, {
+    width: 1200,
+    height: 1200,
+    quality: 85,
+    format: 'webp'
+  }),
+  original: originalUrl
+})
+
+/**
  * Processes batch of URLs and returns ImageItems with optimized URLs
  */
 const processBatchImages = async (urls: string[]): Promise<ImageItem[]> => {
-  const preloadedImages = await batchPreloadImages(urls)
+  const optimizedUrls = urls.map((url) =>
+    optimizeCloudinaryUrl(url, {
+      width: 600,
+      quality: 'auto',
+      format: 'auto'
+    })
+  )
+
+  const preloadedImages = await batchPreloadImages(optimizedUrls)
 
   return preloadedImages.map((image, index) => ({
     ...image,
@@ -166,7 +244,7 @@ const useImageLoader = (t: any) => {
     error: null
   })
 
-  const loadImages = useCallback(async () => {
+  const loadImages = async () => {
     setLoadingState({ loading: true, lazyLoading: true, error: null })
 
     try {
@@ -228,7 +306,7 @@ const useImageLoader = (t: any) => {
         error: t.common.error || 'Erro ao carregar imagens'
       })
     }
-  }, []) // Remove t dependency to prevent infinite loop
+  }
 
   return { images, setImages, loadingState, loadImages }
 }
@@ -265,7 +343,7 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     loadImages()
-  }, [loadImages])
+  }, [t])
 
   // ================================
   // HANDLERS
