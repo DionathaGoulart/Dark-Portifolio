@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
+
 import { trackEvent } from '@/features/analytics'
 import { useDocumentTitle, useI18n } from '@/shared'
-import { Translation } from '@/types'
-import { LinkItemProps, LinkData, DecorativeDividerProps } from '@/types'
+import { Translation, LinkItemProps, LinkData, DecorativeDividerProps } from '@/types'
 
 // ================================
 // CONSTANTS

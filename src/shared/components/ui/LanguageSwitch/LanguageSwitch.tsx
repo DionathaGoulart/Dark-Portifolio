@@ -1,5 +1,6 @@
 import React from 'react'
 import { Languages } from 'lucide-react'
+
 import { useI18n } from '@shared'
 import { LanguageSwitchProps } from '@/types'
 

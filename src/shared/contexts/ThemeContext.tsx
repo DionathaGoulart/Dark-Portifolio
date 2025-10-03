@@ -1,5 +1,6 @@
-import { trackThemeChange } from '@/features/analytics'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+
+import { trackThemeChange } from '@/features/analytics'
 
 // ================================
 // INTERFACES E TIPOS

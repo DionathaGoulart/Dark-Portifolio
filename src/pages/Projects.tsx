@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { trackEvent } from '@/features/analytics'
 import {
   batchPreloadImages,
@@ -7,8 +8,8 @@ import {
   useDocumentTitle,
   useI18n
 } from '@/shared'
-import { ImageItem } from '@/types'
 import {
+  ImageItem,
   ProjectData,
   CloudinaryOptions,
   ProjectUrls,
