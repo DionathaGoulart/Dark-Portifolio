@@ -64,6 +64,13 @@ jobs:
       - name: 🏗️ Build do projeto
         run: npm run build
 
+      - name: 📁 Verificar build
+        run: |
+          echo "Verificando se o build foi gerado..."
+          ls -la dist/ || echo "❌ Diretório dist não encontrado"
+          echo "Conteúdo do index.html:"
+          head -10 dist/index.html || echo "❌ index.html não encontrado"
+
       - name: 📊 Executar Lighthouse CI
         uses: treosh/lighthouse-ci-action@v10
         with:
