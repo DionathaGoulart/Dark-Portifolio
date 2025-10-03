@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import { trackEvent } from '@/features/analytics'
 import { useDocumentTitle, useI18n } from '@/shared'
 import {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import { ImageCard } from '@/shared'
 import { ImageItem } from '@/types'
 
@@ -130,7 +131,7 @@ const getGapClass = (gap: number): string => {
 }
 
 // ================================
-// COMPONENTE PRINCIPAL
+// MAIN COMPONENT
 // ================================
 
 /**
@@ -161,7 +162,7 @@ export const AdaptiveImageGrid: React.FC<AdaptiveImageGridProps> = ({
   >({})
 
   // ================================
-  // EFEITOS
+  // EFFECTS
   // ================================
 
   useEffect(() => {

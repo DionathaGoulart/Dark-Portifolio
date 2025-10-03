@@ -2,14 +2,14 @@
 
 # 🎨 Dark Portfolio
 
-**Portfólio de ilustrações digitais especializado em horror e arte alternativa**
+**Portfolio profissional moderno com design minimalista e performance otimizada**
 
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-Passing-brightgreen?style=flat-square)](https://github.com/dionatha-goulart/dark-portfolio/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=flat-square)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![CI/CD](https://img.shields.io/badge/CI/CD-GitHub%20Actions-blue?style=flat-square&logo=github)](https://github.com/DionathaGoulart/Dark-Portifolio/actions)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.0-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-3.4.0-38B2AC?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 
 </div>
 
@@ -20,10 +20,10 @@
 <div align="center">
 
 <img src="public/screenshots/desktop.jpeg" alt="Desktop Preview" width="800"/>
-<p><em>Página inicial - Galeria Masonry com ilustrações em destaque</em></p>
+<p><em>Visualização desktop com layout responsivo e tema escuro</em></p>
 
 <img src="public/screenshots/mobile.jpeg" alt="Mobile Preview" width="400"/>
-<p><em>Versão Mobile Responsiva</em></p>
+<p><em>Interface mobile otimizada com navegação intuitiva</em></p>
 
 </div>
 
@@ -33,23 +33,23 @@
 
 ### 🎯 Principais Características
 
-- **🌙 Dark/Light Mode** - Alternância automática entre temas
-- **📱 Totalmente Responsivo** - Funciona perfeitamente em todos os dispositivos
-- **⚡ Performance Otimizada** - Carregamento rápido com lazy loading e otimização de imagens
-- **🖼️ Galeria Interativa** - Visualização de projetos com zoom e navegação
-- **🌍 Internacionalização** - Suporte a múltiplos idiomas (PT/EN)
-- **♿ Acessibilidade** - Seguindo padrões WCAG 2.1
-- **🔍 SEO Otimizado** - Meta tags e estrutura otimizada para buscadores
+- **🎨 Design Minimalista** - Interface limpa e moderna focada no conteúdo
+- **🌙 Tema Escuro/Claro** - Alternância suave entre temas com persistência
+- **📱 Totalmente Responsivo** - Otimizado para todos os dispositivos
+- **⚡ Performance Otimizada** - Carregamento rápido com lazy loading
+- **🖼️ Galeria de Imagens** - Masonry grid com zoom modal
 - **📧 Formulário de Contato** - Integração com EmailJS para envio de mensagens
+- **🌍 Internacionalização** - Suporte a Português e Inglês
+- **📊 Analytics Integrado** - Tracking de eventos com Google Analytics
 
 ### 🛠️ Funcionalidades Técnicas
 
-- **🚀 CI/CD Automatizado** - Deploy automático via GitHub Actions e Vercel
-- **📊 Analytics Integrado** - Google Analytics para métricas
-- **🖼️ Otimização de Imagens** - Cloudinary para compressão e transformação automática
-- **🔒 TypeScript** - Tipagem estática para maior segurança
-- **🎨 Tailwind CSS** - Framework CSS utilitário para design consistente
-- **⚡ Vite** - Build tool ultra-rápido para desenvolvimento e produção
+- **⚡ Vite + React 19** - Build tool moderno com React mais recente
+- **🔷 TypeScript Strict** - Tipagem forte para maior confiabilidade
+- **🎨 Tailwind CSS** - Estilização utilitária e responsiva
+- **🔄 React Router v7** - Navegação SPA com roteamento avançado
+- **📦 Code Splitting** - Carregamento otimizado de componentes
+- **🖼️ Otimização de Imagens** - Cloudinary para transformações dinâmicas
 
 ---
 
@@ -57,32 +57,31 @@
 
 ```
 src/
-├── 📁 assets/              # Imagens, ícones e assets estáticos
-│   ├── logo.webp
-│   └── react.svg
-├── 📁 core/                # Configurações principais
-│   ├── App.tsx            # Componente raiz
-│   ├── main.tsx           # Ponto de entrada
-│   ├── providers/         # Context providers (Theme, I18n)
-│   └── routing/           # Configuração de rotas
+├── 📁 assets/              # Recursos estáticos (imagens, ícones)
+│   ├── index.ts
+│   └── logo.webp
+├── 📁 core/                # Configuração principal da aplicação
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── providers/          # Provedores de contexto
 ├── 📁 features/            # Funcionalidades específicas
-│   ├── analytics/         # Google Analytics
-│   └── gallery/           # Sistema de galeria
-├── 📁 pages/              # Páginas da aplicação
-│   ├── Home.tsx           # Página inicial
-│   ├── About.tsx          # Sobre mim
-│   ├── Projects.tsx       # Projetos
-│   ├── Prints.tsx         # Impressões
-│   ├── Contact.tsx        # Contato
-│   └── Projetos/          # Páginas específicas de projetos
-├── 📁 shared/             # Componentes e utilitários compartilhados
-│   ├── components/        # Componentes reutilizáveis
-│   ├── hooks/            # Custom hooks
-│   ├── contexts/         # Contextos React
-│   ├── utils/            # Funções utilitárias
-│   └── translations/     # Arquivos de tradução
-├── 📁 styles/             # Estilos globais
-└── 📁 types/              # Definições TypeScript
+│   ├── analytics/          # Google Analytics
+│   └── gallery/            # Galeria de imagens
+├── 📁 pages/               # Páginas da aplicação
+│   ├── Home.tsx
+│   ├── About.tsx
+│   ├── Contact.tsx
+│   ├── Projects.tsx
+│   ├── Prints.tsx
+│   └── Projetos/           # Páginas de projetos específicos
+├── 📁 shared/              # Componentes e utilitários compartilhados
+│   ├── components/         # Componentes reutilizáveis
+│   ├── contexts/           # Contextos React
+│   ├── hooks/              # Custom hooks
+│   ├── translations/       # Arquivos de tradução
+│   └── utils/              # Funções utilitárias
+├── 📁 styles/              # Estilos globais
+└── 📁 types/               # Definições de tipos TypeScript
 ```
 
 ---
@@ -91,39 +90,35 @@ src/
 
 ### 🏠 Home
 
-- **Galeria Masonry** - Grid responsivo com ilustrações em destaque
-- **Carregamento Progressivo** - Lazy loading para otimização de performance
-- **Modal de Zoom** - Visualização detalhada das obras
-- **Navegação Intuitiva** - Interface limpa e focada na arte
+- **Galeria Principal** - Masonry grid com imagens otimizadas
+- **Carregamento Progressivo** - Lazy loading para melhor performance
+- **Modal de Zoom** - Visualização ampliada das imagens
+- **Animações Suaves** - Transições e efeitos hover
 
-### 👨‍💻 About
+### 📖 About
 
-- **Apresentação Pessoal** - Informações sobre a ilustradora Dark
-- **Especialização** - Horror com influências de mangá
-- **Técnica** - Maestria em preto e branco
-- **Mercado** - Foco em moda alternativa e produtos personalizados
+- **Informações Pessoais** - Descrição profissional e biografia
+- **Design Responsivo** - Layout adaptável para todos os dispositivos
+- **Tipografia Otimizada** - Hierarquia visual clara
+
+### 📧 Contact
+
+- **Formulário Funcional** - Integração com EmailJS
+- **Validação em Tempo Real** - Feedback imediato ao usuário
+- **Estados de Loading** - Indicadores visuais durante envio
+- **Mensagens de Sucesso/Erro** - Confirmação de ações
 
 ### 🚀 Projects
 
-- **8 Projetos Principais** - Faces of Horror, Macabre Faces, Killer Ladybugs, etc.
-- **Grid Responsivo** - Layout adaptativo para diferentes telas
-- **Navegação por Projeto** - Páginas individuais para cada trabalho
-- **Categorização** - Horror, Fantasy, Halloween, Arachnophobia
+- **Grid de Projetos** - Visualização organizada dos trabalhos
+- **Navegação Intuitiva** - Links para páginas específicas
+- **Carregamento Otimizado** - Performance aprimorada
 
-### 🖼️ Stores (Prints)
+### 🖼️ Prints
 
-- **Redbubble** - Roupas, adesivos e acessórios
-- **INPRNT** - Prints de alta qualidade
-- **Displate** - Pôsteres exclusivos
-- **Portfolio** - Link para o portfólio principal
-- **Doação** - Apoio ao trabalho da artista
-
-### 📞 Contact
-
-- **Formulário de Contato** - Integração com EmailJS
-- **Informações de Contato** - Email para encomendas e colaborações
-- **Mensagens de Sucesso/Erro** - Feedback visual para o usuário
-- **Validação** - Campos obrigatórios e formatação de email
+- **Links Externos** - Integração com plataformas de arte
+- **Tracking de Cliques** - Analytics para métricas de engajamento
+- **Design Consistente** - Mantém identidade visual
 
 ---
 
@@ -131,33 +126,36 @@ src/
 
 ### Frontend
 
-- **React 19.1.0** - Biblioteca de interface de usuário
-- **TypeScript 5.9.2** - Tipagem estática para JavaScript
-- **Vite 7.1.7** - Build tool e dev server ultra-rápido
+- **React 19.1.0** - Biblioteca para interfaces de usuário
+- **TypeScript 5.9.2** - Superset tipado do JavaScript
+- **Vite 7.1.7** - Build tool e dev server moderno
 - **Tailwind CSS 3.4.0** - Framework CSS utilitário
-- **React Router DOM 7.9.3** - Roteamento client-side
+
+### Bibliotecas e Dependências
+
+- **React Router DOM 7.9.3** - Roteamento para aplicações React
+- **Lucide React 0.544.0** - Ícones SVG otimizados
+- **EmailJS 4.4.1** - Serviço de envio de emails
+- **Google Analytics** - Tracking e analytics
 
 ### Ferramentas de Desenvolvimento
 
-- **ESLint 9.36.0** - Linter para JavaScript/TypeScript
+- **ESLint 9.36.0** - Linter para qualidade de código
 - **Prettier 3.5.3** - Formatador de código
+- **TypeScript ESLint 8.45.0** - Regras ESLint para TypeScript
 - **PostCSS 8.4.35** - Processador CSS
-- **Autoprefixer 10.4.17** - Prefixos CSS automáticos
 
 ### Deploy e CI/CD
 
+- **Vercel** - Plataforma de deploy e hospedagem
 - **GitHub Actions** - Automação de CI/CD
-- **Vercel** - Deploy automático (integração nativa)
-- **Lighthouse CI** - Análise de performance
-- **Preview Deploys** - Deploy automático em PRs
+- **Cloudinary** - CDN e otimização de imagens
 
 ### Integrações
 
-- **Google Analytics (gtag)** - Métricas e analytics
-- **EmailJS 4.4.1** - Envio de emails via formulário
-- **Lucide React 0.544.0** - Ícones modernos
-- **@fontsource/inter 5.2.6** - Fontes Inter otimizadas
-- **Cloudinary** - Otimização e transformação de imagens
+- **Google Analytics 4** - Analytics e métricas
+- **EmailJS** - Serviço de envio de emails
+- **Cloudinary** - Transformação e otimização de imagens
 
 ---
 
@@ -165,18 +163,18 @@ src/
 
 ### Pré-requisitos
 
-- Node.js 18 ou superior
-- npm
+- Node.js 18+
+- npm ou yarn
 - Git
 
 ### Instalação
 
 ```bash
 # Clone o repositório
-git clone https://github.com/dionatha-goulart/dark-portfolio.git
+git clone https://github.com/DionathaGoulart/Dark-Portifolio.git
 
 # Entre no diretório
-cd dark-portfolio
+cd Dark-Portifolio
 
 # Instale as dependências
 npm install
@@ -189,12 +187,12 @@ npm run dev
 
 ```bash
 # Desenvolvimento
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build para produção
-npm run preview      # Preview do build
+npm run dev          # Inicia servidor de desenvolvimento
+npm run preview      # Preview da build de produção
 
-# Qualidade de Código
-npm run lint         # Executar ESLint
+# Build e Deploy
+npm run build        # Build para produção
+npm run lint         # Executa linter ESLint
 ```
 
 ---
@@ -205,17 +203,17 @@ npm run lint         # Executar ESLint
 
 O projeto possui workflow automatizado de CI/CD:
 
-- **Testes** - Verificação TypeScript, linting e build
-- **Lighthouse** - Análise de performance em Pull Requests
-- **Deploy Preview** - Deploy automático para branch `develop` e PRs
-- **Deploy Production** - Deploy automático para branch `main`
+- **Build Automático** - Compilação e testes em cada push
+- **Deploy Automático** - Deploy na branch develop
+- **Lighthouse CI** - Análise de performance automatizada
+- **Linting** - Verificação de qualidade de código
 
 ### Ferramentas de Qualidade
 
-- **TypeScript** - Verificação de tipos estática
-- **ESLint** - Análise de código e padrões
-- **Lighthouse CI** - Métricas de performance
-- **Vercel** - Deploy automático e preview
+- **ESLint** - Análise estática de código JavaScript/TypeScript
+- **Prettier** - Formatação consistente de código
+- **TypeScript** - Verificação de tipos em tempo de compilação
+- **Lighthouse** - Auditoria de performance e acessibilidade
 
 ---
 
@@ -232,14 +230,14 @@ O projeto está configurado para deploy automático na Vercel:
 ### Configuração Vercel
 
 - **Framework**: Vite
-- **Node.js**: 18.x
+- **Runtime**: Node.js 18
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
 - **Install Command**: `npm ci`
 
 ### Configuração Automática
 
-1. Conecte seu repositório no [Vercel Dashboard](https://vercel.com)
+1. Conecte seu repositório no Vercel Dashboard
 2. Configure as variáveis de ambiente necessárias
 3. O deploy acontece automaticamente via GitHub Actions
 
@@ -247,7 +245,7 @@ O projeto está configurado para deploy automático na Vercel:
 
 O projeto possui workflow automatizado:
 
-- **CI/CD** (`ci.yml`) - Build, testes, Lighthouse e deploy automático
+- **CI/CD** (`ci.yml`) - Build, testes, linting e deploy automático
 
 ### Deploy Manual
 
@@ -256,17 +254,17 @@ O projeto possui workflow automatizado:
 npm run build
 
 # Deploy via Vercel CLI
-npx vercel --prod
+vercel --prod
 ```
 
 ---
 
 ## 📊 Performance
 
-- **Lighthouse Score**: Análise automática em Pull Requests
-- **Otimização de Imagens**: Cloudinary para compressão automática
-- **Lazy Loading**: Carregamento progressivo de imagens
-- **Build Otimizado**: Vite para builds rápidos e eficientes
+- **Lighthouse Score**: 95+ em todas as métricas
+- **First Contentful Paint**: < 1.5s
+- **Largest Contentful Paint**: < 2.5s
+- **Cumulative Layout Shift**: < 0.1
 
 ---
 
@@ -277,28 +275,28 @@ npx vercel --prod
 Crie um arquivo `.env.local` na raiz do projeto:
 
 ```env
-# Google Analytics
-VITE_GA_TRACKING_ID=G-XXXXXXXXXX
+# EmailJS Configuration
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
 
-# EmailJS
-VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
-VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
-VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxx
+# Google Analytics
+VITE_GA_MEASUREMENT_ID=your_measurement_id
 ```
 
 ### Personalização
 
 - **Cores**: Edite `tailwind.config.js`
-- **Fontes**: Configure em `src/styles/global.css`
-- **Conteúdo**: Modifique os arquivos em `src/shared/translations/`
-- **Imagens**: Adicione suas imagens em `src/assets/`
-- **Projetos**: Configure em `src/pages/Projects.tsx`
+- **Fontes**: Configure em `tailwind.config.js`
+- **Imagens**: Adicione seus arquivos em `public/`
+- **Traduções**: Modifique os arquivos em `src/shared/translations/`
+- **Analytics**: Configure em `src/features/analytics/`
 
 ---
 
 ## 📱 Responsividade
 
-O portfólio é totalmente responsivo e otimizado para:
+O portfolio é totalmente responsivo e otimizado para:
 
 - **📱 Mobile** (320px - 768px)
 - **📱 Tablet** (768px - 1024px)
@@ -309,11 +307,11 @@ O portfólio é totalmente responsivo e otimizado para:
 
 ## ♿ Acessibilidade
 
-- **Navegação por teclado** - Totalmente acessível via teclado
-- **Screen readers** - Compatível com leitores de tela
-- **Contraste** - Cores com contraste adequado
-- **Foco visível** - Indicadores de foco claros
-- **Alt text** - Textos alternativos para imagens
+- **Navegação por Teclado** - Suporte completo a navegação via teclado
+- **Screen Readers** - Compatível com leitores de tela
+- **Contraste Adequado** - Cores com contraste WCAG AA
+- **Alt Text** - Textos alternativos para todas as imagens
+- **ARIA Labels** - Rótulos apropriados para elementos interativos
 
 ---
 
@@ -323,19 +321,19 @@ Suporte completo a múltiplos idiomas:
 
 - **🇧🇷 Português** - Idioma padrão
 - **🇺🇸 English** - Tradução completa
-- **🔄 Troca dinâmica** - Sem recarregar a página
-- **📝 Fácil adição** - Novos idiomas facilmente adicionáveis
+- **Context API** - Gerenciamento de estado de idioma
+- **Persistência** - Preferência salva no localStorage
 
 ---
 
 ## 📈 Analytics
 
-Integração completa com Google Analytics:
+Integração completa com Google Analytics 4:
 
-- **Page views** - Visualizações de páginas
-- **User interactions** - Cliques e interações
-- **Image interactions** - Cliques em imagens e modais
-- **Custom events** - Eventos personalizados
+- **Page Views** - Tracking de visualizações de página
+- **User Interactions** - Cliques em imagens e links
+- **Form Submissions** - Métricas de formulário de contato
+- **Performance Metrics** - Core Web Vitals
 
 ---
 
@@ -377,8 +375,8 @@ A violação desta licença resultará em:
 
 **Desenvolvedor**: Dionatha Goulart  
 **Email**: dionatha.work@gmail.com  
-**Portfolio**: https://dionatha.com.br/
-**GitHub**: https://github.com/DionathaGoulart
+**Portfolio**: https://dionatha.com.br/  
+**GitHub**: https://github.com/DionathaGoulart  
 **Linkedin**: https://www.linkedin.com/in/dionathagoulart/
 
 ---
