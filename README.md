@@ -377,15 +377,14 @@ A violação desta licença resultará em:
 
 **Desenvolvedor**: Dionatha Goulart  
 **Email**: dionatha.work@gmail.com  
-**Portfolio**: https://dionatha.com.br  
-**GitHub**: https://github.com/dionatha-goulart
+**Portfolio**: https://dionatha.com.br/
+**GitHub**: https://github.com/DionathaGoulart
+**Linkedin**: https://www.linkedin.com/in/dionathagoulart/
 
 ---
 
 <div align="center">
 
-**Feito com ❤️ e muito ☕ por Dionatha Goulart**
-
-⭐ Se este projeto te inspirou, considere dar uma estrela!
+**Feito by Dionatha Goulart**
 
 </div>
