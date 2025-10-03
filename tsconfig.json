@@ -66,12 +66,6 @@
       "@styles/*": [
         "src/styles/*"
       ],
-      "@test": [
-        "src/test"
-      ],
-      "@test/*": [
-        "src/test/*"
-      ],
       "@types": [
         "src/types"
       ],
